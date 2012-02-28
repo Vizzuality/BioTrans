@@ -5,7 +5,7 @@
 @import "compass/css3";
 
 @import "buttons";
-
+@import "plugins";
 
 
 	// LAYOUT
@@ -57,11 +57,46 @@
 
 		div#transcriber {
 			position:absolute;
+			display:none;
+			opacity:0;
 			top:0;
 			left:0;
-			width:100%;
+			display:block;
 			height:205px;
-			background:rgba(0,0,0,0.1);
+			margin:35px 0 0 0;
+			@include border-radius(6px);
+			border:1px solid black;
+
+			div.top {
+				position:absolute;
+				top:4px;
+				left:3px;
+				right:4px;
+				bottom:57px;
+				display:block;
+				@include box-shadow(rgba(0,0,0,0.5) 0 0px 0 3px);
+				@include border-radius(3px);
+				border:1px solid black;
+			}
+
+			div.bottom {
+				position:absolute;
+				bottom:0;
+				left:0;
+				right:0;
+				height:58px;
+				display:block;
+				@include background-image(linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6) 20%, rgba(0,0,0,0.9) 70%, rgba(0,0,0,1)));
+			}
+
+			.ui-resizable-handle {
+				position:absolute;
+				bottom:0;
+				right:0;
+				width:10px;
+				height:10px;
+				background:red;
+			}
 		}	
 
 		div.loader {

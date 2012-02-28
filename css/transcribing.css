@@ -260,11 +260,61 @@ div.transcribing {
 }
 div.transcribing div#transcriber {
   position: absolute;
+  display: none;
+  opacity: 0;
   top: 0;
   left: 0;
-  width: 100%;
+  display: block;
   height: 205px;
-  background: rgba(0, 0, 0, 0.1);
+  margin: 35px 0 0 0;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -o-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -khtml-border-radius: 6px;
+  border-radius: 6px;
+  border: 1px solid black;
+}
+div.transcribing div#transcriber div.top {
+  position: absolute;
+  top: 4px;
+  left: 3px;
+  right: 4px;
+  bottom: 57px;
+  display: block;
+  -moz-box-shadow: rgba(0, 0, 0, 0.5) 0 0px 0 3px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.5) 0 0px 0 3px;
+  -o-box-shadow: rgba(0, 0, 0, 0.5) 0 0px 0 3px;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0px 0 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid black;
+}
+div.transcribing div#transcriber div.bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 58px;
+  display: block;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(0, 0, 0, 0.4)), color-stop(20%, rgba(0, 0, 0, 0.6)), color-stop(70%, rgba(0, 0, 0, 0.9)), color-stop(100%, #000000));
+  background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0.9) 70%, #000000);
+  background-image: -moz-linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0.9) 70%, #000000);
+  background-image: -o-linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0.9) 70%, #000000);
+  background-image: -ms-linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0.9) 70%, #000000);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0.9) 70%, #000000);
+}
+div.transcribing div#transcriber .ui-resizable-handle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background: red;
 }
 div.transcribing div.loader {
   position: absolute;

@@ -118,8 +118,14 @@
 			// Get image width and set its parent to margin auto
 			$el.width($(ev.target).width());
 
-			// Enable transcription
+			// Set transcriptor width
+			$el.find('div#transcriber').width($(ev.target).width() - 2);
 
+			// Enable transcription
+			$el.find('div#transcriber').show().animate({
+				opacity:1,
+				marginTop: '-=35px'
+			},500);
 		},
 
 
@@ -131,23 +137,46 @@
 
 		// Create the transcriber
 		_createTranscriber: function($el) {
-			var transcriber = $('<div>').attr('id','transcriber').text('test');
+			var transcriber = $('<div>').attr('id','transcriber').append('<div class="top"></div><div class="bottom"><a href="#next">NEXT</a></div>');
 
 			// Add to the stage
 			$el.append(transcriber);
 
+			$el.find('a').click(Core._nextSpecie);
+
 			// Give it resize and move funcionalities
+			var _width = transcriber.parent().width();
+
 			transcriber
-				.resizable({ animate: true, handles: 'n,s' })
+				.resizable({ containment: 'parent', minHeight: 180, handles: 'se', minWidth: _width })
 				.draggable({ containment: "parent", axis: "y" });
+		},
+
+
+
+
+
+
+
+
+		_nextSpecie: function(ev) {
+			Core._stopPropagation(ev);
+
+			var $el = $(ev.target).closest('div.transcribing')
+				, trans_h = $el.find('div#transcriber').position().top
+				, trans_y = $el.find('div#transcriber > div.top').height();
+
+
+
+			// Reset values and enable drag and resize again
+
+
+			// Move image
+				// Where the transcripter is and height of it
+			$el.find('img').animate({
+				marginTop: '-=' + (trans_h + trans_y - 10) + 'px'
+			},500);
 		}
-
-
-
-
-
-
-
 
 
 
