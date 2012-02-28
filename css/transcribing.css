@@ -1,0 +1,286 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+a.green,
+button.green,
+input.green {
+  display: inline-block;
+  vertical-align: top;
+  padding: 7px 13px 8px;
+  background: #669933;
+  border: 1px solid black;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+  font: bold 13px "Open Sans";
+  color: white;
+  line-height: normal;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+a.green:hover, a.green:active,
+button.green:hover,
+button.green:active,
+input.green:hover,
+input.green:active {
+  outline: none;
+  background: #6EB422;
+}
+a.green:active,
+button.green:active,
+input.green:active {
+  padding: 8px 13px 7px;
+  background: #6EB422;
+}
+
+a.orange,
+button.orange,
+input.orange {
+  padding: 7px 13px 8px;
+  background: #FF6600;
+  border: 1px solid black;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+  font: bold 13px "Open Sans";
+  color: white;
+  line-height: normal;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+a.orange:hover, a.orange:active,
+button.orange:hover,
+button.orange:active,
+input.orange:hover,
+input.orange:active {
+  outline: none;
+  background: #FF7C09;
+}
+a.orange:active,
+button.orange:active,
+input.orange:active {
+  padding: 8px 13px 7px;
+  background: #FF7C09;
+}
+
+a.white,
+button.white,
+input.white {
+  padding: 7px 13px 8px;
+  background: #EEEEEE;
+  border: 1px solid #CCCCCC;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+  font: bold 13px "Open Sans";
+  color: #666666;
+  line-height: normal;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+a.white:hover, a.white:active,
+button.white:hover,
+button.white:active,
+input.white:hover,
+input.white:active {
+  outline: none;
+  background: white;
+  color: #333;
+}
+a.white:active,
+button.white:active,
+input.white:active {
+  padding: 8px 13px 7px;
+  background: #FF7C09;
+}
+
+body {
+  background: url("../img/bg.jpg") repeat-x #333333;
+  overflow: hidden;
+}
+body header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-width: 1024px;
+  height: 80px;
+  z-index: 10;
+  -moz-box-shadow: rgba(0, 0, 0, 0.6) 0 0 20px 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 0 20px 5px;
+  -o-box-shadow: rgba(0, 0, 0, 0.6) 0 0 20px 5px;
+  box-shadow: rgba(0, 0, 0, 0.6) 0 0 20px 5px;
+  background: url("../img/bg.jpg") repeat-x #333333;
+}
+body header div.wrapper {
+  width: 100%;
+  height: 80px;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(100%, #000000));
+  background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0), #000000);
+  background-image: -moz-linear-gradient(rgba(0, 0, 0, 0), #000000);
+  background-image: -o-linear-gradient(rgba(0, 0, 0, 0), #000000);
+  background-image: -ms-linear-gradient(rgba(0, 0, 0, 0), #000000);
+  background-image: linear-gradient(rgba(0, 0, 0, 0), #000000);
+}
+body header div.left {
+  float: left;
+  height: 60px;
+  margin: 0;
+  padding: 20px 0 0 24px;
+}
+body header div.right {
+  float: right;
+  padding: 20px 24px 0 24px;
+  border-left: 1px solid rgba(255, 255, 255, 0.08), 1px solid black;
+}
+body header h1 {
+  font: bold 17px "Open Sans";
+  color: white;
+  font-weight: 800;
+}
+body header h2 {
+  font: normal 13px "Open Sans";
+  color: #999999;
+}
+body header h5 {
+  display: inline-block;
+  vertical-align: top;
+  font: bold 37px "Open Sans";
+  color: white;
+  font-weight: 800;
+  line-height: 28px;
+}
+body header label {
+  display: inline-block;
+  vertical-align: top;
+  width: 74px;
+  padding: 2px 0 0 5px;
+  font: bold 13px "Open Sans";
+  color: white;
+  line-height: 14px;
+}
+body header span {
+  display: inline-block;
+  width: auto;
+}
+body footer {
+  display: none;
+  width: 600px;
+  margin: 150px auto 150px;
+  text-align: center;
+}
+body footer h3 {
+  display: block;
+  font: bold 23px "Open Sans";
+  font-weight: 800;
+  color: #212121;
+  text-shadow: 0 1px #414141;
+}
+body footer p {
+  margin: 10px 0 0 0;
+  font: normal 15px "Helvetica Neue","Helvetica",Arial;
+  color: white;
+}
+body footer p a {
+  color: #0099CC;
+}
+body footer p a:hover {
+  color: #0066CC;
+}
+
+div.transcribing {
+  position: relative;
+  display: block;
+  width: auto;
+  padding: 0;
+  margin: 90px auto;
+}
+div.transcribing div#transcriber {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 205px;
+  background: rgba(0, 0, 0, 0.1);
+}
+div.transcribing div.loader {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  margin: 0 0 0 -25px;
+  background: rgba(0, 0, 0, 0.5);
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+}
+div.transcribing div.loader > div {
+  margin: 30px;
+}

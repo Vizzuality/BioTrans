@@ -1,0 +1,79 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+@import "compass";
+@import "compass/reset";
+@import "compass/css3";
+
+@import "buttons";
+
+
+
+	// LAYOUT
+	body {
+		background:url('../img/bg.jpg') repeat-x #333333;
+		overflow:hidden;
+
+		header {
+			position:absolute;
+			top:0;
+			left:0;
+			width:100%;
+			min-width:1024px;
+			height:80px;
+			z-index:10;
+			@include box-shadow(rgba(0,0,0,0.6) 0 0 20px 5px);
+			background:url('../img/bg.jpg') repeat-x #333333;
+		
+			div.wrapper {width:100%; height:80px; @include background-image(linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1)));}
+			div.left {float:left; height:60px; margin:0; padding:20px 0 0 24px;}
+			div.right {float:right; padding:20px 24px 0 24px; border-left:1px solid rgba(255,255,255,0.08), 1px solid black}
+			h1 {font:bold 17px "Open Sans"; color:white; font-weight:800;}
+			h2 {font:normal 13px "Open Sans"; color:#999999;}
+			h5 {display:inline-block; vertical-align:top; font:bold 37px "Open Sans"; color:white; font-weight:800; line-height:28px;}
+			label {display:inline-block; vertical-align:top; width:74px; padding:2px 0 0 5px; font:bold 13px "Open Sans"; color:white; line-height:14px}
+			span {display:inline-block; width:auto;}
+		}
+
+		footer {
+			display:none;
+			width:600px;
+			margin:150px auto 150px;
+			text-align:center;
+
+			h3 {display:block; font:bold 23px "Open Sans"; font-weight:800; color:#212121; text-shadow:0 1px #414141;}
+			p {margin:10px 0 0 0; font:normal 15px "Helvetica Neue","Helvetica",Arial; color:white;
+				a {color:#0099CC; &:hover {color:#0066CC}}
+			}
+		}
+	}
+
+	// TRANSCRIBER
+	div.transcribing {
+		position:relative;
+		display:block;
+		width:auto;
+		padding:0;
+		margin:90px auto;
+
+		div#transcriber {
+			position:absolute;
+			top:0;
+			left:0;
+			width:100%;
+			height:205px;
+			background:rgba(0,0,0,0.1);
+		}	
+
+		div.loader {
+			position:absolute;
+			top:150px;
+			left:50%;
+			width:60px;
+			height:60px;
+			margin:0 0 0 -25px;
+			background:rgba(0,0,0,0.5);
+			@include border-radius(5px);
+			& > div {margin:30px;}
+		}
+	}
+	
