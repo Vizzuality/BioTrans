@@ -316,6 +316,82 @@ div.transcribing div#transcriber .ui-resizable-handle {
   height: 10px;
   background: red;
 }
+div.transcribing div#transcriber ul form {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 11px 0 0;
+}
+div.transcribing div#transcriber ul form input[type="text"] {
+  margin: 0;
+  padding: 9px 8px 10px;
+  font: bold 11px "Helvetica",Arial;
+  line-height: normal;
+  color: #999999;
+  border: 1px solid black;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+}
+div.transcribing div#transcriber ul form input[type="text"]:focus {
+  outline: none;
+  color: #666666;
+}
+div.transcribing div#transcriber ul form.in input[type="text"] {
+  padding-right: 36px;
+}
+div.transcribing div#transcriber ul form input[type="submit"]:hover {
+  cursor: pointer;
+}
+div.transcribing div#transcriber ul form.in input[type="submit"] {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  padding: 4px 4px 5px;
+  border: none;
+}
+div.transcribing div#transcriber ul form.out input[type="submit"] {
+  position: relative;
+  padding: 6px;
+}
+div.transcribing div#transcriber ul p {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0;
+  padding: 9px 14px;
+  font: normal 13px "Helvetica",Arial;
+  color: white;
+  background: black;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+}
+div.transcribing div#transcriber ul p a {
+  text-decoration: none;
+  border-bottom: 1px solid white;
+  color: white;
+}
+div.transcribing div#transcriber ul p a:hover {
+  text-decoration: none;
+  border-bottom: 1px dashed white;
+}
+div.transcribing div#transcriber ul p span.tail {
+  position: absolute;
+  left: -5px;
+  top: 12px;
+  width: 0px;
+  height: 0px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid black;
+}
 div.transcribing div.loader {
   position: absolute;
   top: 150px;
