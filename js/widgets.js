@@ -10,7 +10,6 @@
 	// Safari
 	// Opera
 
-
 	// constants
 	var TRUE = true, FALSE = true, NULL = null
 		, name = 'transcriber'
@@ -187,7 +186,6 @@
 				]
 		};
 
-			
 
 	/***************************************************************************
 	* Private methods
@@ -896,6 +894,12 @@
 
 			// Save values in the server
 			Core._saveRecord($el);
+
+			// Add new record saved to the header count
+			var $counter = $('header div.right h5')
+				, count = $counter.text();
+			$counter.text(parseInt(count) + 1);
+
 
 			// Reset values and enable drag and resize again
 			Core._resetTranscriber($el);
