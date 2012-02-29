@@ -95,8 +95,6 @@
             //added by Justin Beasley
             $(this).data('ssOpts',options);
 
-            // Get parent width to set to the elements :)
-            defaults.width = $(this).parent().width();
 
             //build new list
             $containerDiv.insertAfter($input);
@@ -108,9 +106,9 @@
             $input.hide();
 
             // Set width dimensions
-            $containerDiv.find('.selectedTxt').width(defaults.width);
-            $containerDiv.find('.selectedTxt span').width(defaults.width - 56);
-            $containerDiv.find('.SSContainerDivWrapper').width(defaults.width + 1);
+            //$containerDiv.find('.selectedTxt').width(defaults.width);
+            //$containerDiv.find('.selectedTxt span').width(defaults.width - 56);
+            //$containerDiv.find('.SSContainerDivWrapper').width(defaults.width + 1);
 
             //added by Justin Beasley (used for lists initialized while hidden)
             $containerDivText.data('ssReRender',!$containerDivText.is(':visible'));
@@ -166,6 +164,7 @@
             containerHeight = $containerDiv.height(),
             newLiLength     = $newLi.length;
 
+
             $newUl.lionbars();
 
             //check if a value is selected
@@ -173,7 +172,7 @@
                 navigateList(currentIndex);
             } else {
                 //set placeholder text
-                $containerDivText.find('span').text(opts.defaultText);
+                $containerDivText.html(opts.defaultText + '<span></span>');
             }
 
             //decide if to place the new list above or below the drop-down
@@ -303,7 +302,7 @@
 
             function navigateList(currentIndex, fireChange){
                 if(currentIndex == -1){
-                    $containerDivText.find('span').text(opts.defaultText);
+                    $containerDivText.html(opts.defaultText + '<span></span>');
                     $newLi.removeClass('hiLite');
                 } else {
                     $newLi.removeClass('hiLite')
@@ -320,7 +319,7 @@
                         $input[0].selectedIndex = currentIndex;
                     }
 
-                    $containerDivText.find('span').text(text);
+                    $containerDivText.html(text + '<span></span>');
 
                     //only fire change event if specified
                     if(fireChange == true){

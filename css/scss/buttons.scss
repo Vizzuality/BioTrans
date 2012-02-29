@@ -6,7 +6,7 @@
 	input.green {
 		display:inline-block;
 		vertical-align:top;
-		padding:7px 13px 8px;
+		padding:6px 13px 7px;
 		background:#669933;
 		border:1px solid black;
 		@include border-radius(3px);
@@ -31,7 +31,7 @@
 	a.orange,
 	button.orange,
 	input.orange {
-		padding:7px 13px 8px;
+		padding:6px 13px 7px;
 		background:#FF6600;
 		border:1px solid black;
 		@include border-radius(3px);
@@ -56,7 +56,7 @@
 	a.white,
 	button.white,
 	input.white {
-		padding:7px 13px 8px;
+		padding:6px 13px 7px;
 		background:#EEEEEE;
 		border:1px solid #CCCCCC;
 		@include border-radius(3px);

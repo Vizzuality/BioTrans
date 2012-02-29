@@ -3,7 +3,7 @@ button.green,
 input.green {
   display: inline-block;
   vertical-align: top;
-  padding: 7px 13px 8px;
+  padding: 6px 13px 7px;
   background: #669933;
   border: 1px solid black;
   -moz-border-radius: 3px;
@@ -36,7 +36,7 @@ input.green:active {
 a.orange,
 button.orange,
 input.orange {
-  padding: 7px 13px 8px;
+  padding: 6px 13px 7px;
   background: #FF6600;
   border: 1px solid black;
   -moz-border-radius: 3px;
@@ -69,7 +69,7 @@ input.orange:active {
 a.white,
 button.white,
 input.white {
-  padding: 7px 13px 8px;
+  padding: 6px 13px 7px;
   background: #EEEEEE;
   border: 1px solid #CCCCCC;
   -moz-border-radius: 3px;
