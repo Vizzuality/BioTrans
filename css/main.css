@@ -348,6 +348,7 @@ a.badge{
 .box-general{
 	background: #FFF;
 	margin-bottom: 1px;
+	padding: 12px 19px;
 }
 
 .laptop, .test {
@@ -475,7 +476,7 @@ hr.absolute{
 }
 .box-general.green .box-right h3,
 .box-general .box-right.green h3{
-	color:rgba(0,0,0,.35);
+	color:rgba(0,0,0,.45);
 	text-shadow:1px 1px rgba(255,255,255,.1);
 }
 
@@ -496,10 +497,11 @@ hr.absolute{
 }
 
 .status-list li.logos span.text { margin-bottom: 13px; }
+.status-list li.progress span.text { margin-bottom: 5px; }
 .status-list li.logos .logos { margin-bottom: 5px; }
 
-.status-list li:last-child{
-	margin-bottom:50px;
+.status-list li:last-child {
+	margin-bottom:30px;
 }
 .status-list span.text,
 span.text{
@@ -601,12 +603,13 @@ footer hr{
 	background-color:rgba(0,0,0,.71);
 	float:left
 }
-.translucent-box>div{
+/* .translucent-box>div{
 	padding: 15px 40px;
 }
 .translucent-box>div>div{
 	padding-top: 10px;
 }
+*/
 .translucent-box img{
 	float:left;
 }
@@ -718,6 +721,7 @@ footer hr{
 .list-contributors img{
 	float: left;
 	margin-right: 10px;
+	border-radius:3px;
 }
 
 .list-contributors {
@@ -1129,3 +1133,35 @@ span.switch{
 	margin: 0px!important;
 }
 
+
+.progress-bar {
+    position:relative;
+    width:204px;
+    height:3px;
+    background:rgba(0,0,0,.2);
+}
+
+.translucent-box .progress-bar { background:#83C046;}
+.translucent-box .progress-bar { margin:35px 0 30px 40px;}
+
+.progress-bar .bar {
+    background:#fff;
+    position:absolute;
+    top:0; left:0;
+    height:3px;
+}
+
+.progress-bar.completed .bar {
+    background:#0099CC;
+}
+
+.progress-bar.completed span.progress {
+    color:#0099CC;
+}
+
+.progress-bar span.progress {
+    display:block;
+    left:215px;
+    position:absolute;
+    top:-9px;
+}
