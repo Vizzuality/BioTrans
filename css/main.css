@@ -1,5 +1,5 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
 @import url(normalize.css);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,800);
 
 /* Better than clearfix */
 aside:after,
@@ -25,7 +25,7 @@ footer:after{
 /* Layout*/
 .wrapper{
     max-width: 960px;
-    margin: auto;
+    margin: 0 auto 90px auto;
 }
 .col1{
     display: inline;
@@ -356,6 +356,7 @@ a.badge{
 
 .box-general.divided{
 	background: #FFF url(../img/bg-divided.png) repeat-y;
+	padding: 20px 17px;
 }
 .box-general.divided-bg{
 	background: #F5F8F8 url(../img/bg-divided.png) repeat-y;
@@ -367,6 +368,7 @@ a.badge{
 .box-general.about{
 	background: #FFF url(../img/bg-about.jpg) no-repeat bottom left;
 	height: 366px;
+	padding: 21px 20px 17px 20px;
 }
 .box-general.museum{
 	background: #FFF url(../img/bg-museum.jpg) no-repeat bottom left;
@@ -586,6 +588,7 @@ footer hr{
 	margin-top: 50px;
 	padding-top: 40px;
 	border-top: 1px solid #CCC;	
+	border-top: 1px solid rgba(204, 204, 204, .4);
 }
 
 .box-logos span.text{
@@ -674,6 +677,7 @@ footer hr{
 .box-user{
 	margin-top: 20px;
 }/* List */
+
 .list-links{
 	list-style: none;
 	margin-top: 20px;
@@ -694,6 +698,9 @@ footer hr{
 	color: #0099CC;
 	font-size:17px;
 	font-weight: 600;
+}
+.list-links li a:hover {
+    color: #006688;
 }
 
 .list-links li a.selected{
@@ -1050,6 +1057,7 @@ a.button.next{
 	box-shadow: 0 0;
 	padding: 17px 10px;
 }
+
 a.button.next span{
 	background: url(../img/icons.png) no-repeat -210px -80px;
 	padding: 15px 70px 15px 40px;
