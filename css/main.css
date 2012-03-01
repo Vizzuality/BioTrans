@@ -227,6 +227,7 @@ h2 span.subtitle{
 h3 span.subtitle{
 	font-size: 13px;
 }
+
 figcaption{
 	color: #999;
 	font-family: helvetica;
@@ -325,7 +326,6 @@ a.badge{
 	font-family: helvetica;
 }
 .link-footer{
-	margin-top: 25px;
 	margin-left:40px;
 }
 .link-footer a{
@@ -347,7 +347,6 @@ a.badge{
 
 .box-general{
 	background: #FFF;
-	margin-bottom: 1px;
 	padding: 12px 19px;
 }
 
@@ -384,6 +383,7 @@ a.badge{
 	height: 500px;
 	margin-bottom: 41px;
 	border: 5px solid rgba(0, 0, 0, .83);
+	padding: 0;
 }
 .box-general.collection{
 	background: #FFF url(../img/bg-collection.jpg) no-repeat bottom left;
@@ -543,8 +543,11 @@ span.text{
 .box-black{
 	background: #191919;
 	color: #3F3F3F;
-	padding: 20px;
+	padding: 37px 19px;
 }
+
+.box-black h3 { margin-top:0px; }
+
 .box-center{
 	text-align:center;
 	padding-top:30px;
@@ -599,17 +602,12 @@ footer hr{
 .box-logos p{
 	margin-top: 20px;
 }
+
 .translucent-box{
 	background-color:rgba(0,0,0,.71);
 	float:left
 }
-/* .translucent-box>div{
-	padding: 15px 40px;
-}
-.translucent-box>div>div{
-	padding-top: 10px;
-}
-*/
+
 .translucent-box img{
 	float:left;
 }
@@ -936,6 +934,10 @@ span.ico-comments{
 	width:320px;
 	overflow: hidden;
 }
+
+.collection-list h3 span.subtitle{
+	font-size: 15px;
+}
 .collection-list li.empty{
 	height:319px;
 	width:319px;
@@ -1081,7 +1083,6 @@ a.button.next span.active{
 	background: url(../img/icons.png) no-repeat -210px -320px;
 }
 div.switch{
-	background: #E5E5E5;
 	border: 1px solid #E5E5E5;
 	border-radius: 5px;
 	margin-top: 20px;
@@ -1090,6 +1091,8 @@ div.switch{
 	right:30px;
 	float:right;
 	width:240px;
+	position:relative;
+	background:#E5E5E5;
 }
 div.switch a{
 	color: #999;
@@ -1101,14 +1104,27 @@ div.switch a{
 	line-height: 30px;
 	text-align: center;
 	width: 120px;
+	z-index:100;
+	position:relative;
 }
 
 div.switch a.selected{
-	background: #FFF;
 	color: #0099CC;
-	border-radius: 5px;
+	z-index:100;
+	background:none;
 }
 
+div.switch .bkg {
+	border-radius: 5px;
+	background:#fff; 
+    position:absolute;
+    right:0;
+    top:0;
+    height:30px;
+    width:120px;
+    z-index:0;
+
+}
 span.switch{
 	background: url(../img/icons.png) no-repeat 32px -523px;
 	color: #7F7F7F;
