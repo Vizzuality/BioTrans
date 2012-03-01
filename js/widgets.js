@@ -496,7 +496,7 @@
 			$list.find('input[name="location"]').addresspicker();
 
 			// Add species autocomplete
-			$list.find('input[name="species"]').autocomplete({source:Core.options.speciesURL});
+			//$list.find('input[name="species"]').autocomplete({source:Core.options.speciesURL});
 
 			// Return top
 			return $list;

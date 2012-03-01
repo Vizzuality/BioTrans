@@ -126,6 +126,7 @@
                         opts.defaultText = option;
                         currentIndex = prevIndex = i;
                     }
+
                     $newUl.append($('<li><a href="JavaScript:void(0);">'+option+'</a></li>').data('key', key));
 
                 });
@@ -141,7 +142,7 @@
                     $optGroup.appendTo($newUl);
                     $optGroupList.appendTo($optGroup);
 
-                    $(this).children().each(function(){
+                    $(this).children().each(function(i,ele){
                         ++itemIndex;
                         var option = $(this).text();
                         var key = $(this).val();
@@ -152,6 +153,7 @@
                             opts.defaultText = option;
                             currentIndex = prevIndex = itemIndex;
                         }
+
                         $optGroupList.append($('<li><a href="JavaScript:void(0);">'+option+'</a></li>').data('key',key));
                     })
                 });
@@ -201,7 +203,7 @@
                         height: newUlHeight
                     });
                     $containerDivWrapper.css({
-                        top:     containerHeight+'px',
+                        top:     (containerHeight - 2 )+'px',
                         height: newUlHeight
                     });
                     $input.onTop = false;
