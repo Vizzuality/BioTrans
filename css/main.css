@@ -1106,6 +1106,7 @@ div.switch a{
 	width: 120px;
 	z-index:100;
 	position:relative;
+	outline:none;
 }
 
 div.switch a.selected{
@@ -1133,6 +1134,10 @@ span.switch{
 	margin-top: 10px;
 	padding-left: 65px;
 	margin-right: 30px;
+	cursor:pointer;
+}
+span.switch.selected {
+	background-position: 32px -553px;
 }
 
 /* Globals */
