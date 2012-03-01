@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
+@import "http://fonts.googleapis.com/css?family=Open+Sans:400,600,800";
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -122,6 +122,18 @@ input.orange:active {
   padding: 7px 13px 6px;
   background: #FF7C09;
 }
+a.orange.small,
+button.orange.small,
+input.orange.small {
+  width: 80px;
+  padding: 3px 0 4px;
+  text-align: center;
+}
+a.orange.small:active,
+button.orange.small:active,
+input.orange.small:active {
+  padding: 4px 0 3px;
+}
 
 a.white,
 button.white,
@@ -154,7 +166,20 @@ a.white:active,
 button.white:active,
 input.white:active {
   padding: 7px 13px 6px;
-  background: #FF7C09;
+  background: white;
+  color: #333;
+}
+a.white.small,
+button.white.small,
+input.white.small {
+  width: 80px;
+  padding: 3px 0 4px;
+  text-align: center;
+}
+a.white.small:active,
+button.white.small:active,
+input.white.small:active {
+  padding: 4px 0 3px;
 }
 
 body {
@@ -281,18 +306,19 @@ div.transcribing {
 div.transcribing div#transcriber {
   position: absolute;
   display: none;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
   top: 0;
   left: 0;
   display: block;
   height: 205px;
   margin: 35px 0 0 0;
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  -o-border-radius: 6px;
-  -ms-border-radius: 6px;
-  -khtml-border-radius: 6px;
-  border-radius: 6px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -o-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -khtml-border-radius: 8px;
+  border-radius: 8px;
   border: 1px solid black;
   -moz-box-shadow: rgba(0, 0, 0, 0.4) 0 0 5px 3px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0 0 5px 3px;
@@ -306,27 +332,53 @@ div.transcribing div#transcriber div.top {
   right: 3px;
   bottom: 57px;
   display: block;
-  -moz-box-shadow: #333333 0 -1px 0 3px;
-  -webkit-box-shadow: #333333 0 -1px 0 3px;
-  -o-box-shadow: #333333 0 -1px 0 3px;
-  box-shadow: #333333 0 -1px 0 3px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  -o-border-radius: 2px;
-  -ms-border-radius: 2px;
-  -khtml-border-radius: 2px;
-  border-radius: 2px;
+  -moz-box-shadow: #444444 0 -1px 0 3px;
+  -webkit-box-shadow: #444444 0 -1px 0 3px;
+  -o-box-shadow: #444444 0 -1px 0 3px;
+  box-shadow: #444444 0 -1px 0 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
   border: 1px solid black;
+  z-index: 0;
+}
+div.transcribing div#transcriber div.top span.tail {
+  position: absolute;
+  bottom: -1px;
+  height: 5px;
+  width: 3px;
+  background: #444444;
+}
+div.transcribing div#transcriber div.top span.tail.left {
+  left: -4px;
+}
+div.transcribing div#transcriber div.top span.tail.right {
+  right: -4px;
 }
 div.transcribing div#transcriber div.bottom {
   position: absolute;
-  padding: 13px;
+  padding: 12px 13px 12px;
   bottom: 0;
   left: 0;
   right: 0;
   height: 33px;
   display: block;
-  background: #333333;
+  background: #444444;
+  -moz-border-radius-bottomleft: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  -o-border-bottom-left-radius: 6px;
+  -ms-border-bottom-left-radius: 6px;
+  -khtml-border-bottom-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  -webkit-border-bottom-right-radius: 6px;
+  -o-border-bottom-right-radius: 6px;
+  -ms-border-bottom-right-radius: 6px;
+  -khtml-border-bottom-right-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 div.transcribing div#transcriber div.bottom div.right {
   position: relative;
@@ -367,11 +419,13 @@ div.transcribing div#transcriber div.bottom div.right div.step_viewer ul {
 }
 div.transcribing div#transcriber .ui-resizable-handle {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 10px;
-  height: 10px;
-  background: red;
+  bottom: 2px;
+  right: 2px;
+  width: 14px;
+  height: 14px;
+  background: url("../img/resize.png");
+  cursor: s-resize;
+  display: none;
 }
 div.transcribing div#transcriber ul {
   position: relative;
@@ -505,9 +559,10 @@ div.transcribing div#transcriber ul.titles li {
   padding: 5px 8px;
   font: bold 11px "Helvetica",Arial;
   color: white;
+  border: none;
   border-right: 1px solid black;
   border-bottom: 1px solid black;
-  background: #333333;
+  background: #444444;
   -moz-border-radius-bottomright: 4px;
   -webkit-border-bottom-right-radius: 4px;
   -o-border-bottom-right-radius: 4px;
@@ -527,7 +582,7 @@ div.transcribing div#transcriber ul.steps {
   -ms-border-radius: 2px;
   -khtml-border-radius: 2px;
   border-radius: 2px;
-  z-index: 100;
+  z-index: 1000;
   -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px 2px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px 2px;
   -o-box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px 2px;
@@ -631,6 +686,79 @@ div.transcribing div.loader {
 }
 div.transcribing div.loader > div {
   margin: 30px;
+}
+div.transcribing div#transcriber.free .ui-resizable-handle {
+  display: block;
+}
+div.transcribing div#transcriber.free div.bottom:hover, div.transcribing div#transcriber.free div.top:hover {
+  cursor: move;
+}
+div.transcribing div#transcriber.free div.bottom:hover ul, div.transcribing div#transcriber.free div.top:hover ul {
+  cursor: default;
+}
+div.transcribing div#transcriber.free div.bottom:hover div, div.transcribing div#transcriber.free div.top:hover div {
+  cursor: default;
+}
+
+div.tooltip {
+  position: absolute!important;
+  display: none;
+  bottom: 43px;
+  right: 0;
+  width: 175px!important;
+  padding: 12px;
+  background: white;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -o-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -khtml-border-radius: 2px;
+  border-radius: 2px;
+  z-index: 100;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px 2px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px 2px;
+  -o-box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px 2px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px 2px;
+  letter-spacing: -4px;
+}
+div.tooltip h5 {
+  font: bold 11px "Open Sans";
+  color: #191919;
+  letter-spacing: 0;
+}
+div.tooltip p {
+  padding: 4px 0 0;
+  font: normal 13px "Helvetica",Arial;
+  color: #666666;
+  letter-spacing: 0;
+}
+div.tooltip a.button {
+  margin: 10px 10px 0 0;
+  float: none;
+  display: inline-block;
+  vertical-align: top;
+  letter-spacing: 0;
+}
+div.tooltip a.button.white {
+  margin-right: 0;
+}
+div.tooltip span.tail {
+  position: absolute;
+  bottom: -12px;
+  right: 11px;
+  height: 0;
+  width: 0;
+  border-top: 8px solid white;
+  border-left: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid transparent;
+}
+div.tooltip.center {
+  right: -80px;
+}
+div.tooltip.center span.tail {
+  right: 50%;
+  margin: 0 -4px 0 0;
 }
 
 .stylish-select .SSContainerDivWrapper {

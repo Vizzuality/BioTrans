@@ -50,6 +50,13 @@
 			padding:7px 13px 6px;
 			background:#FF7C09;
 		}
+
+		&.small {
+			width: 80px;
+			padding:3px 0 4px;
+			text-align:center;
+			&:active {padding:4px 0 3px;}
+		}
 	}
 
 
@@ -74,6 +81,14 @@
 
 		&:active {
 			padding:7px 13px 6px;
-			background:#FF7C09;
+			background:white;
+			color:#333;
+		}
+
+		&.small {
+			width: 80px;
+			padding:3px 0 4px;
+			text-align:center;
+			&:active {padding:4px 0 3px;}
 		}
 	}

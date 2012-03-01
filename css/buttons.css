@@ -65,6 +65,18 @@ input.orange:active {
   padding: 7px 13px 6px;
   background: #FF7C09;
 }
+a.orange.small,
+button.orange.small,
+input.orange.small {
+  width: 80px;
+  padding: 3px 0 4px;
+  text-align: center;
+}
+a.orange.small:active,
+button.orange.small:active,
+input.orange.small:active {
+  padding: 4px 0 3px;
+}
 
 a.white,
 button.white,
@@ -97,5 +109,18 @@ a.white:active,
 button.white:active,
 input.white:active {
   padding: 7px 13px 6px;
-  background: #FF7C09;
+  background: white;
+  color: #333;
+}
+a.white.small,
+button.white.small,
+input.white.small {
+  width: 80px;
+  padding: 3px 0 4px;
+  text-align: center;
+}
+a.white.small:active,
+button.white.small:active,
+input.white.small:active {
+  padding: 4px 0 3px;
 }
