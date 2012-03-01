@@ -449,8 +449,8 @@ div.tooltip {
 
 // STYLISH-SELECT
 .stylish-select .SSContainerDivWrapper {
-  left:-9999px;
-  display:block;
+    left:-9999px;
+    display:block;
 }
 
 .stylish-select div.selectedTxt {
@@ -481,13 +481,13 @@ div.tooltip {
 }
 
 .stylish-select .SSContainerDivWrapper {
-  margin:0;
-  padding:0;
-  display:block;
-  position:absolute;
-  top:22px;
-  left:0;
-  z-index:2;
+    margin:0;
+    padding:0;
+    display:block;
+    position:absolute;
+    top:22px;
+    left:0;
+    z-index:2;
 }
 
 .stylish-select ul.newList {
@@ -508,8 +508,8 @@ div.tooltip {
 }
 
 .stylish-select ul.newList * {
-  margin:0;
-  padding:0;
+    margin:0;
+    padding:0;
 }
 
 
@@ -528,61 +528,61 @@ div.tooltip {
 }
 
 .stylish-select .newListSelected {
-  float:left;
-  width:100%;
-  margin:0;
+    float:left;
+    width:100%;
+    margin:0;
 }
 
 .stylish-select ul.newList li {
-	display:block;
-  border:none;
-  margin:0!important;
+    display:block;
+    border:none;
+    margin:0!important;
 }
 
 .stylish-select ul.newList li a:focus {
-  -moz-outline-style: none;
+    -moz-outline-style: none;
 }
 
 
 .stylish-select .hiLite {
-  color:black!important;
+    color:black!important;
 }
 
 .stylish-select .newListHover {
-  color:#000!important;
-  cursor:pointer;
+    color:#000!important;
+    cursor:pointer;
 }
 
 .stylish-select .newListOptionTitle {
-  font-weight:bold;
+    font-weight:bold;
 }
 
 .stylish-select .newListOptionTitle ul {
-  margin:3px 0 0;
+    margin:3px 0 0;
 }
 
 
-  /*hover focus opened...*/
+/*hover focus opened...*/
 .stylish-select .newListSelHover,
 .stylish-select .newListSelFocus {
-  outline:none;
-  cursor:default;
+    outline:none;
+    cursor:default;
 
-  div.selectedTxt {
-    //@include layout-sprite(dropdown_left,$offset-y:-34px);
-    span {
-      //@include layout-sprite(dropdown_right,$offset-y:-34px,$offset-x:100%);  
+    div.selectedTxt {
+        //@include layout-sprite(dropdown_left,$offset-y:-34px);
+        span {
+            //@include layout-sprite(dropdown_right,$offset-y:-34px,$offset-x:100%);  
+        }
     }
-  }
 }
 
 .stylish-select .newListOpened {
-  div.selectedTxt {
-    //@include layout-sprite(dropdown_left,$offset-y:-102px);
-    span {
-      //@include layout-sprite(dropdown_right,$offset-y:-102px,$offset-x:100%);  
+    div.selectedTxt {
+        //@include layout-sprite(dropdown_left,$offset-y:-102px);
+        span {
+            //@include layout-sprite(dropdown_right,$offset-y:-102px,$offset-x:100%);  
+        }
     }
-  }
 }
 
 
@@ -599,4 +599,4 @@ div.tooltip {
 .lb-v-scrollbar-slider:hover {background-position: -11px 0; cursor:pointer}
 .lb-h-scrollbar-slider { position: absolute; height: 7px; width: 50px; left: 0; top: 0; background: #000; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";}
 
-	
+

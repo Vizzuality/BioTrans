@@ -1,5 +1,5 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
 @import url(normalize.css);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,600,800);
 
 /* Better than clearfix */
 aside:after,
@@ -25,7 +25,7 @@ footer:after{
 /* Layout*/
 .wrapper{
     max-width: 960px;
-    margin: auto;
+    margin: 0 auto 90px auto;
 }
 .col1{
     display: inline;
@@ -68,7 +68,7 @@ button,
 input,
 select,
 textarea {
-    font-family: Open Sans;
+    font-family: 'Open Sans', sans-serif;
     font-size: 15px;
     line-height:20px;
     color:#333;
@@ -118,13 +118,13 @@ h3.title.black{
 h1 span.green{
 	background: url(../img/icons.png) no-repeat 90px 21px;
 	color: #669933;
-	font-weight: bold;
+	font-weight: 600;
 	padding-right: 15px;
 }
 
 h3 span.black{
 	background: url(../img/icons.png) no-repeat 96px -396px;
-	font-weight: bold;
+	font-weight: 600;
 	padding-right: 15px;
 }
 .detail h2{
@@ -137,29 +137,36 @@ h3 span.black{
 	color:#FFF;
 	font-size:91px;
 	line-height:80px;
-	font-weight:bold;
+	font-weight:600;
 	text-shadow: 1px 1px 6px #000;
 }
 
-.home h2{
+.home hgroup {
+    margin: 60px 0 82px 0;
+}
+
+.home h3{
 	color:#FFF;
 	font-size:25px;
 	line-height: 30px;
-	margin-bottom: 60px;
 	margin-top: 40px;
 	text-shadow: 1px 1px 6px #000;
+	font-weight:600;
+	margin:0 0 5px 0;
 }
-.home h2 span{
+
+.home h2 {
 	color:#FFF;
-	font-size:91px;
-	line-height:80px;
-	font-weight:bold;
+	font-size:81px;
+	line-height:73px;
 	text-shadow: 1px 1px 6px #000;
+	font-weight:800;
 	letter-spacing: -2px;
+	margin:0;
 }
 h2.title{
 	font-size: 39px;
-	font-weight: bold;
+	font-weight: 600;
 }
 
 h2.title span{
@@ -181,19 +188,19 @@ h2 .logo{
 h3.title{
 	color: #333;
 	font-size: 27px;
-	font-weight: bold;
+	font-weight: 600;
 }
 
 h3.badge{
 	color: #333;
 	font-size: 19px;
-	font-weight: bold;
+	font-weight: 600;
 }
 
 span.numbers{
 	color: #FFF;
 	font-size: 41px;
-	font-weight: bold;
+	font-weight: 600;
 }
 
 span.subtitle{
@@ -220,6 +227,7 @@ h2 span.subtitle{
 h3 span.subtitle{
 	font-size: 13px;
 }
+
 figcaption{
 	color: #999;
 	font-family: helvetica;
@@ -266,7 +274,7 @@ span.user a{
 .link-navigation a{
 	color: #FFF;
 	font-size: 11px;
-	font-weight: bold;
+	font-weight: 600;
 	margin-left: 30px;
 	padding:5px;
 	border-radius:2px;
@@ -283,7 +291,7 @@ span.user a{
 a.name{
 	color: #0099CC;
 	font-size: 17px;
-	font-weight: bold;
+	font-weight: 600;
 }
 a.name:hover{
 	color: #006687;
@@ -314,11 +322,10 @@ a.legal:hover{
 a.badge{
 	color: #669933;
 	font-size: 13px;
-	font-weight: bold;	
+	font-weight: 600;	
 	font-family: helvetica;
 }
 .link-footer{
-	margin-top: 25px;
 	margin-left:40px;
 }
 .link-footer a{
@@ -329,7 +336,7 @@ a.badge{
 }
 .link-footer span{
 	font-size: 11px;
-	font-weight: bold;
+	font-weight: 600;
 }
 
 /* Boxes */
@@ -340,12 +347,16 @@ a.badge{
 
 .box-general{
 	background: #FFF;
-	margin-bottom: 1px;
-	padding: 20px;
+	padding: 12px 19px;
+}
+
+.laptop, .test {
+	padding: 12px 19px;
 }
 
 .box-general.divided{
 	background: #FFF url(../img/bg-divided.png) repeat-y;
+	padding: 20px 17px;
 }
 .box-general.divided-bg{
 	background: #F5F8F8 url(../img/bg-divided.png) repeat-y;
@@ -357,6 +368,7 @@ a.badge{
 .box-general.about{
 	background: #FFF url(../img/bg-about.jpg) no-repeat bottom left;
 	height: 366px;
+	padding: 21px 20px 17px 20px;
 }
 .box-general.museum{
 	background: #FFF url(../img/bg-museum.jpg) no-repeat bottom left;
@@ -367,9 +379,11 @@ a.badge{
 	height: 460px;
 }
 .box-general.home{
-	background: #FFF url(../img/bg-home.jpg) no-repeat bottom left;
-	height: 460px;
-	margin-bottom: 50px;
+	background: #FFF url(../img/bg-home.jpg) no-repeat top left;
+	height: 500px;
+	margin-bottom: 41px;
+	border: 5px solid rgba(0, 0, 0, .83);
+	padding: 0;
 }
 .box-general.collection{
 	background: #FFF url(../img/bg-collection.jpg) no-repeat bottom left;
@@ -405,9 +419,23 @@ a.badge{
 	margin-top: 20px;
 }
 
+.box-general.laptop {
+	background: #F2F7F7 url(../img/bg-laptop.jpg) no-repeat right 45px;
+}
 
-.box-general.laptop{
-	background: #FFF url(../img/bg-laptop.jpg) no-repeat right 45px;
+.species-selector  {
+    margin:auto;
+    overflow:hidden;
+    width:363px;
+}
+.species-selector a {
+    display:block;
+    float:left;
+    margin: 0 5px 0 5px; 
+}
+
+.species-selector a img {
+    padding:0; margin:0;
 }
 footer.relative{
 	top:-40px;
@@ -432,6 +460,7 @@ hr.absolute{
 	margin-top:-5px;
 	margin-bottom:20px;
 }
+
 .box-general div.graphics{
 	color: #666;
 	text-align: center;
@@ -439,7 +468,7 @@ hr.absolute{
 
 .box-general div.graphics{
 	font-size: 19px;
-	font-weight: bold;
+	font-weight: 600;
 }
 
 .box-general .box-right{
@@ -447,7 +476,7 @@ hr.absolute{
 }
 .box-general.green .box-right h3,
 .box-general .box-right.green h3{
-	color:rgba(0,0,0,.35);
+	color:rgba(0,0,0,.45);
 	text-shadow:1px 1px rgba(255,255,255,.1);
 }
 
@@ -460,21 +489,27 @@ hr.absolute{
 	margin-bottom: -1px;
 	margin-top: 15px;
 }
+
 .status-list li{
 	color:#FFF;
 	font-family: helvetica;
 	margin-bottom:20px;
 }
-.status-list li:last-child{
-	margin-bottom:50px;
+
+.status-list li.logos span.text { margin-bottom: 13px; }
+.status-list li.progress span.text { margin-bottom: 5px; }
+.status-list li.logos .logos { margin-bottom: 5px; }
+
+.status-list li:last-child {
+	margin-bottom:30px;
 }
 .status-list span.text,
 span.text{
 	color: rgba(00,00,00,.3);
 	display:block;
-	font-family: Open Sans;
+    font-family: 'Open Sans', sans-serif;
 	font-size:11px;
-	font-weight:bold;
+	font-weight:600;
 }
 .status-list.inline{
 	margin-top: 0px;
@@ -487,7 +522,7 @@ span.text{
 	margin-right:40px;
 }
 .status-list.inline li span{
-	font-family: Open sans;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .status-list.inline li.mar-button{
@@ -508,8 +543,11 @@ span.text{
 .box-black{
 	background: #191919;
 	color: #3F3F3F;
-	padding: 20px;
+	padding: 37px 19px;
 }
+
+.box-black h3 { margin-top:0px; }
+
 .box-center{
 	text-align:center;
 	padding-top:30px;
@@ -521,24 +559,41 @@ hr{
 	padding:0;
 	width: 100%;
 }
+
 footer hr{
 	border-top: 1px solid #343434;
 }
 
-.box-black-numbers{
-	background: #000;
-	border-right: 1px solid #2A2A2A;
+.counters {
+    width:960px;
+	margin-bottom: 45px;
+}
+
+.counters .box-black-numbers{
 	float: left;
-	margin-bottom: 50px;
-	padding: 40px;
+	padding: 35px 0 25px 0;
+	width: 239px;
+	background: #000;
+	border-right: 1px solid rgba(42,42,42,.7); 
 	text-align: center;
-	width: 159px;
+}
+.counters .box-black-numbers:last-child {
+    border-right: none;
+}
+
+.counters .box-black-numbers span {
+    display:block;
+}
+
+.counters .box-black-numbers span.numbers {
+    margin-bottom: 3px;
 }
 
 .box-logos{
 	margin-top: 50px;
 	padding-top: 40px;
 	border-top: 1px solid #CCC;	
+	border-top: 1px solid rgba(204, 204, 204, .4);
 }
 
 .box-logos span.text{
@@ -547,16 +602,12 @@ footer hr{
 .box-logos p{
 	margin-top: 20px;
 }
+
 .translucent-box{
 	background-color:rgba(0,0,0,.71);
 	float:left
 }
-.translucent-box>div{
-	padding: 15px 40px;
-}
-.translucent-box>div>div{
-	padding-top: 10px;
-}
+
 .translucent-box img{
 	float:left;
 }
@@ -566,7 +617,7 @@ footer hr{
 .translucent-box span.title{
 	font-family: open sans;
 	font-size:21px;
-	font-weight: bold;
+	font-weight: 600;
 }
 .translucent-box span.subtitle{
 	font-family: helvetica;
@@ -627,6 +678,7 @@ footer hr{
 .box-user{
 	margin-top: 20px;
 }/* List */
+
 .list-links{
 	list-style: none;
 	margin-top: 20px;
@@ -646,7 +698,10 @@ footer hr{
 .list-links li a{
 	color: #0099CC;
 	font-size:17px;
-	font-weight: bold;
+	font-weight: 600;
+}
+.list-links li a:hover {
+    color: #006688;
 }
 
 .list-links li a.selected{
@@ -664,6 +719,7 @@ footer hr{
 .list-contributors img{
 	float: left;
 	margin-right: 10px;
+	border-radius:3px;
 }
 
 .list-contributors {
@@ -711,7 +767,7 @@ footer hr{
 .list-contributors.advanced div.right span:first-child{
 	color: #666;
 	font-size: 19px;
-	font-weight: bold;
+	font-weight: 600;
 }
 .bullet{
 	background: url(../img/icons.png) no-repeat 0px -444px;
@@ -722,7 +778,7 @@ footer hr{
 .list-graphics li{
 	color: #333;
 	font-size: 45px;
-	font-weight: bold;
+	font-weight: 600;
 	float: left;
 	text-align: center;
 }
@@ -825,7 +881,7 @@ li.img-graphic2{
 }
 .time-life span.text{
 	font-size:11px;
-	font-weight:bold;
+	font-weight:600;
 	display:block;
 	color:rgba(51,51,51,.5)
 }
@@ -877,6 +933,10 @@ span.ico-comments{
 	height:320px;
 	width:320px;
 	overflow: hidden;
+}
+
+.collection-list h3 span.subtitle{
+	font-size: 15px;
 }
 .collection-list li.empty{
 	height:319px;
@@ -940,7 +1000,7 @@ a.button{
 	box-shadow: 0px 1px #000;
 	color: #FFF;
 	font-size: 13px;
-	font-weight: bold;
+	font-weight: 600;
 	padding: 15px 20px;
 	text-shadow: 0px 1px #416122;
 	white-space:nowrap;
@@ -1003,6 +1063,7 @@ a.button.next{
 	box-shadow: 0 0;
 	padding: 17px 10px;
 }
+
 a.button.next span{
 	background: url(../img/icons.png) no-repeat -210px -80px;
 	padding: 15px 70px 15px 40px;
@@ -1022,7 +1083,6 @@ a.button.next span.active{
 	background: url(../img/icons.png) no-repeat -210px -320px;
 }
 div.switch{
-	background: #E5E5E5;
 	border: 1px solid #E5E5E5;
 	border-radius: 5px;
 	margin-top: 20px;
@@ -1031,25 +1091,40 @@ div.switch{
 	right:30px;
 	float:right;
 	width:240px;
+	position:relative;
+	background:#E5E5E5;
 }
 div.switch a{
 	color: #999;
 	display: block;
 	font-size: 12px;
-	font-weight: bold;	
+	font-weight: 600;	
 	float: left;
 	height: 30px;
 	line-height: 30px;
 	text-align: center;
 	width: 120px;
+	z-index:100;
+	position:relative;
 }
 
 div.switch a.selected{
-	background: #FFF;
 	color: #0099CC;
-	border-radius: 5px;
+	z-index:100;
+	background:none;
 }
 
+div.switch .bkg {
+	border-radius: 5px;
+	background:#fff; 
+    position:absolute;
+    right:0;
+    top:0;
+    height:30px;
+    width:120px;
+    z-index:0;
+
+}
 span.switch{
 	background: url(../img/icons.png) no-repeat 32px -523px;
 	color: #7F7F7F;
@@ -1074,3 +1149,35 @@ span.switch{
 	margin: 0px!important;
 }
 
+
+.progress-bar {
+    position:relative;
+    width:204px;
+    height:3px;
+    background:rgba(0,0,0,.2);
+}
+
+.translucent-box .progress-bar { background:#83C046;}
+.translucent-box .progress-bar { margin:35px 0 30px 40px;}
+
+.progress-bar .bar {
+    background:#fff;
+    position:absolute;
+    top:0; left:0;
+    height:3px;
+}
+
+.progress-bar.completed .bar {
+    background:#0099CC;
+}
+
+.progress-bar.completed span.progress {
+    color:#0099CC;
+}
+
+.progress-bar span.progress {
+    display:block;
+    left:215px;
+    position:absolute;
+    top:-9px;
+}
