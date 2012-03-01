@@ -29,7 +29,7 @@ input.green:active {
 a.green:active,
 button.green:active,
 input.green:active {
-  padding: 8px 13px 7px;
+  padding: 7px 13px 6px;
   background: #6EB422;
 }
 
@@ -62,7 +62,7 @@ input.orange:active {
 a.orange:active,
 button.orange:active,
 input.orange:active {
-  padding: 8px 13px 7px;
+  padding: 7px 13px 6px;
   background: #FF7C09;
 }
 
@@ -96,6 +96,6 @@ input.white:active {
 a.white:active,
 button.white:active,
 input.white:active {
-  padding: 8px 13px 7px;
+  padding: 7px 13px 6px;
   background: #FF7C09;
 }

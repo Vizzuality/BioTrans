@@ -18,7 +18,6 @@
 		// default options
 		, days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
 		, months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
-		, years = [1950,1951,2011,2012]
 		, defaultOptions = {
 				globalEvents : [],
 
@@ -177,7 +176,7 @@
 								placeholder: 'REGISTER',
 								size: 'short',
 								name: 'register',
-								source: ['male','female']
+								source: ['skin','...','....']
 							}
 						],
 						step: 'Other',
@@ -393,9 +392,9 @@
 
 			if (step == previous) return false;
 
-			$list.find('> li:eq(' + previous + ')').fadeOut(
+			$list.find('> li:eq(' + previous + ')').fadeOut(300,
 				function(ev) {
-					$list.find('> li:eq(' + step + ')').fadeIn();
+					$list.find('> li:eq(' + step + ')').fadeIn(300);
 				}
 			);
 		},
@@ -493,9 +492,9 @@
 
 			if (step == previous) return false;
 
-			$list.find('> li:eq(' + previous + ')').fadeOut(
+			$list.find('> li:eq(' + previous + ')').fadeOut(300,
 				function(ev) {
-					$list.find('> li:eq(' + (step) + ')').addClass('selected').fadeIn();
+					$list.find('> li:eq(' + (step) + ')').addClass('selected').fadeIn(300);
 				}
 			);
 		},
@@ -574,7 +573,7 @@
 
 
 				// Show step viewer
-				$el.find('div.step_viewer').fadeIn();
+				$el.find('div.step_viewer').fadeIn(300);
 
 				// If step is 0, is starting
 				Core._nextRegister($el);
