@@ -1,4 +1,4 @@
-@import "http://fonts.googleapis.com/css?family=Open+Sans:400,600,800";
+@import "http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800";
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -70,10 +70,11 @@ input.green {
   -khtml-border-radius: 3px;
   border-radius: 3px;
   font: bold 13px "Open Sans";
+  line-height: 18px;
   color: white;
-  line-height: normal;
   text-decoration: none;
   text-transform: uppercase;
+  font-weight: 700;
 }
 a.green:hover, a.green:active,
 button.green:hover,
@@ -107,6 +108,7 @@ input.orange {
   line-height: normal;
   text-decoration: none;
   text-transform: uppercase;
+  font-weight: 700;
 }
 a.orange:hover, a.orange:active,
 button.orange:hover,
@@ -152,6 +154,7 @@ input.white {
   line-height: normal;
   text-decoration: none;
   text-transform: uppercase;
+  font-weight: 700;
 }
 a.white:hover, a.white:active,
 button.white:hover,
@@ -199,7 +202,7 @@ body header {
   -o-box-shadow: rgba(0, 0, 0, 0.6) 0 0 20px 5px;
   box-shadow: rgba(0, 0, 0, 0.6) 0 0 20px 5px;
   background: url("../img/bg.jpg") repeat-x #333333;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
 }
 body header div.wrapper {
   width: 100%;
@@ -393,11 +396,14 @@ div.transcribing div#transcriber div.bottom div.right a.choose_step {
   display: inline-block;
   vertical-align: top;
   background: black;
+  height: 13px;
   margin: 0 5px 0 0;
   padding: 10px;
   font: bold 11px "Helvetica",Arial;
+  line-height: 13px;
   color: white;
   text-decoration: none;
+  text-transform: uppercase;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   -o-border-radius: 3px;
@@ -438,11 +444,12 @@ div.transcribing div#transcriber ul form {
   margin: 0 5px 0 0;
 }
 div.transcribing div#transcriber ul form input[type="text"] {
+  height: 13px;
   margin: 0 5px 0 0;
   padding: 9px 8px 9px;
   vertical-align: top;
   font: bold 11px "Helvetica",Arial;
-  line-height: normal;
+  line-height: 13px!important;
   color: #999999;
   border: 1px solid black;
   text-transform: uppercase;
@@ -488,12 +495,16 @@ div.transcribing div#transcriber ul form.in input[type="submit"] {
   position: absolute;
   top: 3px;
   right: 8px;
-  padding: 4px 4px 5px;
+  height: 27px;
+  width: 27px;
+  padding: 4px 4px 5px!important;
   border: none;
 }
 div.transcribing div#transcriber ul form.out input[type="submit"] {
   position: relative;
-  padding: 7px 7px 6px;
+  height: 33px;
+  padding: 6px 7px 7px;
+  line-height: normal;
   margin: 0 5px 0 0;
 }
 div.transcribing div#transcriber ul form span.wrapper {
@@ -511,9 +522,11 @@ div.transcribing div#transcriber ul p {
   position: relative;
   display: inline-block;
   vertical-align: top;
+  height: 15px;
   margin: 0;
   padding: 9px 14px;
   font: normal 13px "Helvetica",Arial;
+  line-height: 15px;
   color: white;
   background: black;
   -moz-border-radius: 3px;
@@ -732,6 +745,12 @@ div.tooltip p {
   color: #666666;
   letter-spacing: 0;
 }
+div.tooltip p a {
+  color: #666666;
+}
+div.tooltip p a:hover {
+  color: #333333;
+}
 div.tooltip a.button {
   margin: 10px 10px 0 0;
   float: none;
@@ -754,11 +773,62 @@ div.tooltip span.tail {
   border-right: 8px solid transparent;
 }
 div.tooltip.center {
-  right: -80px;
+  bottom: 56px;
+  margin: 0 0 0 -89px;
 }
 div.tooltip.center span.tail {
   right: 50%;
   margin: 0 -4px 0 0;
+}
+
+.ui-autocomplete {
+  width: 226px;
+  background: white;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -o-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -khtml-border-radius: 2px;
+  border-radius: 2px;
+  z-index: 1000;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px 2px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px 2px;
+  -o-box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px 2px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px 2px;
+}
+.ui-autocomplete li {
+  display: block;
+  margin: 0;
+  border-bottom: 1px solid #CCCCCC;
+}
+.ui-autocomplete li:last-child {
+  border: none;
+}
+.ui-autocomplete li a {
+  display: block;
+  padding: 9px;
+  font: normal 13px "Helvetica",Arial;
+  color: #666666;
+  text-decoration: none;
+}
+.ui-autocomplete li a:hover, .ui-autocomplete li a.ui-state-hover, .ui-autocomplete li a:active {
+  color: #333333;
+  cursor: pointer;
+  outline: none;
+}
+.ui-autocomplete li a:active {
+  text-decoration: underline;
+}
+.ui-autocomplete span.tail {
+  position: absolute;
+  top: -12px;
+  right: 11px;
+  height: 0;
+  width: 0;
+  border-bottom: 8px solid white;
+  border-left: 8px solid transparent;
+  border-top: 8px solid transparent;
+  border-right: 8px solid transparent;
 }
 
 .stylish-select .SSContainerDivWrapper {

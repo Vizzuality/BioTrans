@@ -13,10 +13,11 @@ input.green {
   -khtml-border-radius: 3px;
   border-radius: 3px;
   font: bold 13px "Open Sans";
+  line-height: 18px;
   color: white;
-  line-height: normal;
   text-decoration: none;
   text-transform: uppercase;
+  font-weight: 700;
 }
 a.green:hover, a.green:active,
 button.green:hover,
@@ -50,6 +51,7 @@ input.orange {
   line-height: normal;
   text-decoration: none;
   text-transform: uppercase;
+  font-weight: 700;
 }
 a.orange:hover, a.orange:active,
 button.orange:hover,
@@ -95,6 +97,7 @@ input.white {
   line-height: normal;
   text-decoration: none;
   text-transform: uppercase;
+  font-weight: 700;
 }
 a.white:hover, a.white:active,
 button.white:hover,

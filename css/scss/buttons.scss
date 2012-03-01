@@ -11,10 +11,11 @@
 		border:1px solid black;
 		@include border-radius(3px);
 		font:bold 13px "Open Sans";
+		line-height:18px;
 		color:white;
-		line-height:normal;
 		text-decoration:none;
 		text-transform:uppercase;
+		font-weight:700;
 
 		&:hover,&:active {
 			outline:none;
@@ -40,6 +41,7 @@
 		line-height:normal;
 		text-decoration:none;
 		text-transform:uppercase;
+		font-weight:700;
 
 		&:hover,&:active {
 			outline:none;
@@ -72,6 +74,7 @@
 		line-height:normal;
 		text-decoration:none;
 		text-transform:uppercase;
+		font-weight:700;
 
 		&:hover,&:active {
 			outline:none;

@@ -210,6 +210,8 @@ $.widget( "ui.autocomplete", {
 						// which causes forms to submit
 						suppressKeyPress = true;
 						event.preventDefault();
+					} else {
+						self.close( event );
 					}
 					//passthrough - ENTER and TAB both select the current element
 				case keyCode.TAB:

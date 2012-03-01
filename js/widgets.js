@@ -10,6 +10,22 @@
 	// Safari
 	// Opera
 
+
+	/*
+		TODO
+			- Link example in the skip tooltip
+			- Some examples tooltip (add ESC)
+			- Style select
+			- Problem with sSelect that adds a 0 even when you dont use the style
+			- Check tabs navigation | flow
+			--------------------------------------------------------------------------------
+			- Decide what to do when finish a record, leave some inputs as they were or what
+			- Species autocomplete url
+			- Examples images controller
+			- Save controller
+	*/
+
+
 	// constants
 	var TRUE = true, FALSE = true, NULL = null
 		, name = 'transcriber'
@@ -18,6 +34,7 @@
 		// default options
 		, days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
 		, months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+		, speciesURL = ''
 		, defaultOptions = {
 				globalEvents : [],
 				tooltips : {
@@ -241,16 +258,7 @@
 			// See the example
 
 			// Skip the field
-
-			// Cancel
-
-			// Save record
-
-			// Location autocomplete
-			//$('input[name="location"]').
-
-			// Species autocomplete
-			//$('input[name="species"]').autocomplete({source:...})
+			$el.find('ul.explanations li a.skip').bind({'click': Core._showSkipTooltip })
 		},
 
 
@@ -333,14 +341,17 @@
 			// - title top list
 			$top.append(Core._createTitles());
 
+			// - add hack for transcripter
+			$top.append('<span class="tail left"></span><span class="tail right"></span>');
+
 			// - explanations bottom list
 			$bottom.append(Core._createExplanations());
 
 			// - record steps bottom
 			$bottom.append(Core._createRecord());
 
-			// - add hack for transcripter
-			$top.append('<span class="tail left"></span><span class="tail right"></span>');
+			// - append skip tooltip
+			$bottom.append(Core._createSkipTooltip());
 
 			// Add all elements to the transcriber
 			$transcriber.append($bottom)
@@ -481,6 +492,12 @@
 			// Customize added selects
 			$list.find('select').sSelect();
 
+			// Add location autocomplete
+			$list.find('input[name="location"]').addresspicker();
+
+			// Add species autocomplete
+			$list.find('input[name="species"]').autocomplete({source:Core.options.speciesURL});
+
 			// Return top
 			return $list;
 		},
@@ -508,6 +525,94 @@
 
 			// Reset values???
 		},
+
+
+		/**
+		 * Check record, if starts or finish, and check values
+		 */
+		_createSkipTooltip: function() {
+			// Tooltip
+			var $tooltip = $('<div>').addClass('tooltip skip ' + Core.options.tooltips.skip.tail);
+
+			// Title
+			$tooltip.append('<h5>' + Core.options.tooltips.skip.title + '</h5>');
+
+			// Content
+			$tooltip.append('<p>' + Core.options.tooltips.skip.content + '</p>');
+
+			// Buttons
+			$tooltip.append('<a class="continue orange button small" href="#' + Core.options.tooltips.skip.orange.toLowerCase().replace(/ /g,'_') + '">' + Core.options.tooltips.skip.orange + '</a>');
+			$tooltip.append('<a class="cancel white button small" href="#' + Core.options.tooltips.skip.white.toLowerCase().replace(/ /g,'_') + '">' + Core.options.tooltips.skip.white + '</a>');
+
+			// Tail
+			$tooltip.append('<span class="tail"></span>');
+
+
+			// LOCAL BINDINGS
+
+			// Cancel
+			$tooltip.find('a.cancel').click(
+				function(ev) {
+					Core._preventDefault(ev);
+					Core._hideSkipTooltip($tooltip);
+				}
+			);
+
+			// Continue
+			$tooltip.find('a.continue').click(
+				function(ev) {
+					Core._preventDefault(ev);
+					Core._nextRegister($tooltip.closest('div.transcribing'));
+					Core._hideSkipTooltip($tooltip);
+				}
+			);
+
+			return $tooltip;
+		},
+
+
+		/**
+		 * Show the record tooltip
+		 */
+		_showSkipTooltip: function(ev) {
+
+			Core._preventDefault(ev);
+
+			var $tooltip = $(ev.target).closest('div.transcribing').find('div.bottom > div.tooltip.skip');
+
+			// Offset
+			$tooltip.css({left: $(ev.target).offset().left + 'px'})
+
+
+			// Local binding for clicking out
+			// of the tooltip
+			$tooltip.show(1,function(){
+				$('body').click(function(ev){
+					if ($(ev.target).closest('div.bottom > div.tooltip.skip').length==0) {
+						Core._hideRecordTooltip($tooltip);
+					}
+				});
+				$('body').keydown(function(ev){
+					var keycode = ev.which;
+					if (keycode == 27) {
+						Core._hideRecordTooltip($tooltip);
+					}
+				});
+			});
+		},
+
+
+		/**
+		 * Hide the record tooltip
+		 */
+		_hideSkipTooltip: function($tooltip) {
+			$('body').unbind('click');
+			$('body').unbind('keydown');
+			$tooltip.hide();
+		},
+
+
+
 
 
 
@@ -609,7 +714,7 @@
 
 
 		/**
-		 * Check record, if starts or finish, and check values
+		 * Create record tooltip
 		 */
 		_createRecordTooltip: function() {
 			// Tooltip
@@ -663,11 +768,15 @@
 			// Local binding for clicking out
 			// of the tooltip
 
-
-
 			$tooltip.show(1,function(){
 				$('body').click(function(ev){
-					if ($(ev.target).closest('div.bottom div.tooltip').length==0) {
+					if ($(ev.target).closest('div.bottom div.record div.tooltip').length==0) {
+						Core._hideRecordTooltip($tooltip);
+					}
+				});
+				$('body').keydown(function(ev){
+					var keycode = ev.which;
+					if (keycode == 27) {
 						Core._hideRecordTooltip($tooltip);
 					}
 				});
@@ -680,6 +789,7 @@
 		 */
 		_hideRecordTooltip: function($tooltip) {
 			$('body').unbind('click');
+			$('body').unbind('keydown');
 			$tooltip.hide();
 		},
 
@@ -722,6 +832,15 @@
 							$('body').click(function(ev){
 								$steps.hide();
 								$('body').unbind('click');
+								$('body').unbind('keydown');
+							});
+							$('body').keydown(function(ev){
+								var keycode = ev.which;
+								if (keycode == 27) {
+									$steps.hide();
+									$('body').unbind('click');
+									$('body').unbind('keydown');
+								}
 							});
 						});
 					} else {
@@ -783,28 +902,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		/**
 		 * Reset values of the transcriber
 		 */
@@ -821,8 +918,6 @@
 
 			return values;
 		},
-
-
 
 
 		/**
