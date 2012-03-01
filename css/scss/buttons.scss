@@ -11,10 +11,11 @@
 		border:1px solid black;
 		@include border-radius(3px);
 		font:bold 13px "Open Sans";
+		line-height:18px;
 		color:white;
-		line-height:normal;
 		text-decoration:none;
 		text-transform:uppercase;
+		font-weight:700;
 
 		&:hover,&:active {
 			outline:none;
@@ -40,6 +41,7 @@
 		line-height:normal;
 		text-decoration:none;
 		text-transform:uppercase;
+		font-weight:700;
 
 		&:hover,&:active {
 			outline:none;
@@ -49,6 +51,13 @@
 		&:active {
 			padding:7px 13px 6px;
 			background:#FF7C09;
+		}
+
+		&.small {
+			width: 80px;
+			padding:3px 0 4px;
+			text-align:center;
+			&:active {padding:4px 0 3px;}
 		}
 	}
 
@@ -65,6 +74,7 @@
 		line-height:normal;
 		text-decoration:none;
 		text-transform:uppercase;
+		font-weight:700;
 
 		&:hover,&:active {
 			outline:none;
@@ -74,6 +84,14 @@
 
 		&:active {
 			padding:7px 13px 6px;
-			background:#FF7C09;
+			background:white;
+			color:#333;
+		}
+
+		&.small {
+			width: 80px;
+			padding:3px 0 4px;
+			text-align:center;
+			&:active {padding:4px 0 3px;}
 		}
 	}
