@@ -448,8 +448,11 @@ a {
 
     }
     &.laptop {
-        background: #f2f7f7 url(../img/bg-laptop.jpg) no-repeat right 45px;
+        background: #f2f7f7 url(../img/bg-laptop.png) no-repeat right 45px;
         padding: 12px 19px;
+        &.white {
+            background: #FFF url(../img/bg-laptop.png) no-repeat right 45px;
+        }
     }
 
     &.test {

@@ -399,8 +399,11 @@ a.badge {
   margin-top: 20px;
 }
 .box-general.laptop {
-  background: #f2f7f7 url(../img/bg-laptop.jpg) no-repeat right 45px;
+  background: #f2f7f7 url(../img/bg-laptop.png) no-repeat right 45px;
   padding: 12px 19px;
+}
+.box-general.laptop.white {
+  background: white url(../img/bg-laptop.png) no-repeat right 45px;
 }
 .box-general.test {
   padding: 12px 19px;
