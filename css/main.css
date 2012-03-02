@@ -348,6 +348,7 @@ a.badge{
 .box-general{
 	background: #FFF;
 	padding: 12px 19px;
+	margin-top: 1px;
 }
 
 .laptop, .test {
