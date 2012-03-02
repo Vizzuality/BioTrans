@@ -100,10 +100,6 @@ h1.title {
   font-weight: normal;
 }
 
-.box-right .green h3.title {
-  color: red!important;
-}
-
 h1 span.green {
   background: url(../img/icons.png) no-repeat 90px 21px;
   color: #669933;
@@ -378,7 +374,6 @@ a.badge {
   background: transparent url(../img/bg-contributors.png) no-repeat top left;
   position: relative;
   top: -23px;
-  min-height: 850px;
   z-index: 100;
   margin-right: -10px;
 }
@@ -492,7 +487,7 @@ hr.absolute {
   display: block;
   font-family: 'Open Sans', sans-serif;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 span.text {
@@ -545,6 +540,9 @@ span.text {
   text-align: center;
   padding-top: 30px;
 }
+.box-center.results {
+  padding: 30px 0 20px 0;
+}
 
 hr {
   border: 0 none;
@@ -596,6 +594,23 @@ footer hr {
 .translucent-box {
   background-color: rgba(0, 0, 0, 0.71);
   float: left;
+}
+.translucent-box.me > div {
+  padding: 20px;
+  width: 900px;
+}
+.translucent-box.me > div img {
+  border-radius: 3px;
+  margin-right: 10px;
+}
+.translucent-box.me > div .title {
+  margin: 8px 0 2px 0;
+  display: block;
+}
+.translucent-box.me > div .subtitle {
+  font-weight: 100;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.7);
 }
 .translucent-box img {
   float: left;
@@ -747,23 +762,30 @@ footer hr {
 .list-contributors.advanced {
   margin-top: 20px;
 }
+.list-contributors.advanced img {
+  border-radius: 3px;
+}
 .list-contributors.advanced li {
   border-bottom: 1px solid #E6E8E8;
-  padding: 16px 0;
+  padding: 20px 0 20px 0;
   width: 100%;
 }
 .list-contributors.advanced li span.numbers {
-  font-family: open sans;
+  font-family: 'Open Sans';
 }
 .list-contributors.advanced li:last-child {
   border-bottom: 0px none;
 }
 .list-contributors.advanced div.right {
   text-align: right;
-  span: first-child;
-  span-color: #666;
-  span-font-size: 19px;
-  span-font-weight: 600;
+}
+.list-contributors.advanced div.right span:first-child {
+  color: #666;
+  font-size: 19px;
+  font-weight: 600;
+}
+.list-contributors.advanced div.right span:last-child {
+  color: #CCCCCC;
 }
 
 .bullet {
@@ -773,17 +795,44 @@ footer hr {
 }
 
 .list-graphics li {
+  float: left;
+  position: relative;
+  width: 150px;
+  height: 135px;
+  margin-right: 50px;
+}
+.list-graphics li:last-child {
+  margin-right: 0;
+}
+.list-graphics li .count {
+  text-align: center;
+  bottom: 50px;
   color: #333;
   font-size: 45px;
   font-weight: 600;
-  float: left;
   text-align: center;
+  position: absolute;
+  z-index: 100;
 }
-.list-graphics li span {
+.list-graphics li .count strong {
+  font-family: 'Open Sans';
+  font-weight: 600;
+  display: block;
+  clear: both;
+  margin-bottom: 20px;
+}
+.list-graphics li .count span {
+  display: block;
+  width: 100%;
   color: #666;
-  font-family: helvetica;
   font-size: 13px;
   font-weight: normal;
+  position: absolute;
+}
+.list-graphics li .chart {
+  position: absolute;
+  z-index: 0;
+  margin: auto;
 }
 
 li.img-graphic {

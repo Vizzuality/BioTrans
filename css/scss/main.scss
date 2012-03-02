@@ -107,11 +107,6 @@ h1 {
 
 }
 
-
-.box-right .green h3.title {
-    color:red!important;
-}
-
 h1 span.green {
     background: url(../img/icons.png) no-repeat 90px 21px;
     color: #669933;
@@ -422,7 +417,7 @@ a {
         background: transparent url(../img/bg-contributors.png) no-repeat top left;
         position: relative;
         top: -23px;
-        min-height: 850px;
+        //min-height: 850px;
         z-index: 100;
         margin-right: -10px;
     }
@@ -552,7 +547,7 @@ hr.absolute {
         display: block;
         font-family: 'Open Sans', sans-serif;
         font-size: 11px;
-        font-weight: 600;
+        font-weight: 700;
     }
 
 }
@@ -609,6 +604,9 @@ span.text {
 .box-center {
     text-align: center;
     padding-top: 30px;
+    &.results {
+        padding: 30px 0 20px 0;
+    }
 }
 
 hr {
@@ -665,6 +663,18 @@ footer hr {
 .translucent-box {
     background-color: rgba(0, 0, 0, 0.71);
     float: left;
+
+    &.me > div {
+        padding:20px;
+        width:900px;
+        img {
+            border-radius: 3px;
+            margin-right:10px;
+        }
+        .title { margin:8px 0 2px 0; display:block;}
+        .subtitle { font-weight:100; font-size:15px; color:rgba(255,255,255, .7);}
+    }
+
     img {
         float: left;
     }
@@ -834,12 +844,16 @@ footer hr {
     }
     &.advanced {
         margin-top: 20px;
+        img {
+            border-radius: 3px;
+        }
         li {
             border-bottom: 1px solid #E6E8E8;
-            padding: 16px 0;
+            padding: 20px 0 20px 0;
             width: 100%;
+
             span.numbers {
-                font-family: open sans;
+                font-family: 'Open Sans';
             }
             &:last-child {
                 border-bottom: 0px none;
@@ -848,10 +862,13 @@ footer hr {
         }
         div.right {
             text-align: right;
-            span: first-child {
+            span:first-child {
                 color: #666;
                 font-size: 19px;
                 font-weight: 600;
+            }
+            span:last-child {
+                color:#CCCCCC;
             }
 
         }
@@ -867,18 +884,44 @@ footer hr {
 }
 
 .list-graphics li {
-    color: #333;
-    font-size: 45px;
-    font-weight: 600;
     float: left;
-    text-align: center;
-    span {
-        color: #666;
-        font-family: helvetica;
-        font-size: 13px;
-        font-weight: normal;
+    position:relative;
+    width:150px;
+    height:135px;
+
+    margin-right:50px;
+    &:last-child {margin-right:0;}
+    .count {
+        text-align: center;
+        bottom:50px;
+        color: #333;
+        font-size: 45px;
+        font-weight: 600;
+        text-align:center;
+        position:absolute;
+        z-index:100;
+        strong { 
+            font-family: 'Open Sans';
+            font-weight:600;
+            display:block;
+            clear:both;
+            margin-bottom: 20px;
+        }
+        span {
+            display:block;
+            width:100%;
+            color: #666;
+            font-size: 13px;
+            font-weight: normal;
+            position:absolute;
+        }
     }
 
+    .chart {
+        position:absolute;
+        z-index:0;
+        margin:auto;
+    }
 }
 
 li {
@@ -1303,4 +1346,5 @@ span.switch {
     background: #83C046;
     margin: 35px 0 30px 40px;
 }
+
 
