@@ -12,6 +12,8 @@ $(document).ready(function() {
         $(this).stop().animate({top:"160px"}, { duration: 200, easing: "easeInOutExpo" });
     });
 
+
+    // Big switch
     $(".switch a").on("click", function(e) {
         e.preventDefault();
 
@@ -27,17 +29,31 @@ $(document).ready(function() {
         }); 
     });
 
+    // Small switch
     $("span.switch").on("click", function(e) {
         e.preventDefault();
 
         var $a = $(this);
-            if ($(this).hasClass("selected")) {
-                $(this).toggleClass("selected");
-                $(".collection-list li.completed").animate({opacity:.2}, { duration: 100});
-            } else {
-                $(this).toggleClass("selected");
-                $(".collection-list li.completed").animate({opacity:1}, { duration: 100});
-            }
+        if ($(this).hasClass("selected")) {
+            $(this).toggleClass("selected");
+            $(".collection-list li.completed").animate({opacity:.2}, { duration: 100});
+        } else {
+            $(this).toggleClass("selected");
+            $(".collection-list li.completed").animate({opacity:1}, { duration: 100});
+        }
+    });
+
+    var timeLifePage = 0;
+
+    $(".time-life li.previous a").on("click", function(e) {
+        e.preventDefault();
+
+        timeLifePage++;
+
+        $(".time-life li.page"+(timeLifePage - 1)+".previous, .time-life-graf li.page"+(timeLifePage -1)+".previous").fadeOut(150, function() {
+            $(this).remove();
+            $(".time-life li.page"+timeLifePage+".hidden, .time-life-graf li.page"+timeLifePage+".hidden").fadeIn(150);
+        });
     });
 
 });

@@ -887,11 +887,17 @@ li.img-graphic2 {
 .time-life-graf li:last-child {
   height: 40px;
 }
+.time-life-graf li:last-child div {
+  top: 4px;
+}
 .time-life-graf li:first-child img {
   position: relative;
   top: -5px;
 }
-.time-life-graf li:last-child div {
+.time-life-graf li.previous {
+  height: 40px;
+}
+.time-life-graf li.previous div {
   top: 4px;
 }
 .time-life-graf li div {
@@ -903,6 +909,9 @@ li.img-graphic2 {
 }
 .time-life-graf li div.small {
   top: 6px;
+}
+.time-life-graf li.hidden {
+  display: none;
 }
 
 .time-life li {
@@ -921,16 +930,22 @@ li.img-graphic2 {
 .time-life li:nth-child(2n+1) div {
   text-align: left;
 }
+.time-life li:first-child div {
+  top: 0;
+}
 .time-life li:last-child {
-  border-bottom: 0 none;
+  border-bottom: 0;
+}
+.time-life li.previous {
+  border-bottom: none;
   padding-left: 50%;
 }
-.time-life li:last-child div {
+.time-life li.previous div {
   text-align: left;
   top: 25px;
 }
-.time-life li:first-child div {
-  top: 0;
+.time-life li.hidden {
+  display: none;
 }
 .time-life span.text {
   font-size: 11px;

@@ -969,6 +969,7 @@ li {
     width: 76px;
     height: 100%;
     margin-left: 35%;
+
     li {
         height: 91px;
         background: transparent url(../img/timeline.png) repeat-y 41% 0;
@@ -978,14 +979,21 @@ li {
         }
         &:last-child {
             height: 40px;
+            div {
+                top: 4px;
+            }
         }
         &:first-child img {
             position: relative;
             top: -5px;
         }
-        &:last-child div {
-            top: 4px;
+        &.previous {
+            height: 40px;
+            div {
+                top: 4px;
+            }
         }
+
         div {
             height: 67px;
             width: 67px;
@@ -995,11 +1003,12 @@ li {
             &.small {
                 top: 6px;
             }
-
         }
 
+        &.hidden {
+            display:none;
+        }
     }
-
 }
 
 .time-life {
@@ -1018,20 +1027,28 @@ li {
             }
             padding-left: 50%;
         }
-        &:last-child {
-            border-bottom: 0 none;
-            padding-left: 50%;
-            div {
-                text-align: left;
-                top: 25px;
-            }
-
-        }
         &:first-child div {
             top: 0;
         }
 
+        &:last-child {
+            border-bottom:0;
+        }
+        &.previous {
+            border-bottom:none;
+            padding-left: 50%;
+
+            div {
+                text-align: left;
+                top: 25px;
+            }
+        }
+
+        &.hidden {
+            display:none;
+        }
     }
+
     span {
         &.text {
             font-size: 11px;
@@ -1043,9 +1060,7 @@ li {
             display: block;
             font-family: helvetica;
         }
-
     }
-
 }
 
 .list-forum li {
