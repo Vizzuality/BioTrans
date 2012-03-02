@@ -389,6 +389,7 @@ a {
     }
     &.divided-blue {
         background: white url(../img/bg-divided-blue.png) repeat-y;
+        padding-bottom:40px;
     }
     &.about {
         background: white url(../img/bg-about.jpg) no-repeat bottom left;
@@ -689,6 +690,7 @@ footer hr {
     img {
         float: left;
     }
+
     span {
         color: #FFF;
         &.title {
@@ -703,6 +705,9 @@ footer hr {
             padding-top: 0px;
         }
 
+    }
+    .percentage {
+        margin-top:10px;
     }
 
 }
@@ -1058,7 +1063,7 @@ li {
 }
 
 span.ico-comments {
-    background: url(../img/icons.png) no-repeat 2px -473px;
+    background: url(../img/icons.png) no-repeat 2px -475px;
     margin-left: -4px;
     padding-left: 25px;
 }
@@ -1361,5 +1366,8 @@ span.switch {
     background: #83C046;
     margin: 35px 0 30px 40px;
 }
+
+
+
 
 

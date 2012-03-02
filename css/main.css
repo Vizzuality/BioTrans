@@ -345,6 +345,7 @@ a.badge {
 }
 .box-general.divided-blue {
   background: white url(../img/bg-divided-blue.png) repeat-y;
+  padding-bottom: 40px;
 }
 .box-general.about {
   background: white url(../img/bg-about.jpg) no-repeat bottom left;
@@ -638,6 +639,9 @@ footer hr {
   font-size: 17px;
   font-weight: normal;
   padding-top: 0px;
+}
+.translucent-box .percentage {
+  margin-top: 10px;
 }
 
 .collection .translucent-box {
@@ -953,7 +957,7 @@ li.img-graphic2 {
 }
 
 span.ico-comments {
-  background: url(../img/icons.png) no-repeat 2px -473px;
+  background: url(../img/icons.png) no-repeat 2px -475px;
   margin-left: -4px;
   padding-left: 25px;
 }
