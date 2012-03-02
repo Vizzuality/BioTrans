@@ -324,15 +324,12 @@ a {
         font-family: helvetica;
         font-size: 15px;
         text-decoration: underline;
-        margin-top:10px;
-        display:block;
-
         &.noline {
             text-decoration: none;
         }
 
         &:hover {
-            color: #FFF!important;
+            color: #006688;
         }
 
     }
@@ -1126,6 +1123,10 @@ span.ico-comments {
         a {
             color: #83C046;
             font-size: 13px;
+            display:block; margin-top:10px;
+            &:hover {
+                color:#FFF;
+            }
             &:link {
                 color: #83C046;
                 font-size: 13px;

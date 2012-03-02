@@ -288,14 +288,12 @@ a.object {
   font-family: helvetica;
   font-size: 15px;
   text-decoration: underline;
-  margin-top: 10px;
-  display: block;
 }
 a.object.noline {
   text-decoration: none;
 }
 a.object:hover {
-  color: #FFF!important;
+  color: #006688;
 }
 a.legal {
   text-decoration: underline;
@@ -1016,6 +1014,11 @@ span.ico-comments {
 .collection-list .translucent-box a {
   color: #83C046;
   font-size: 13px;
+  display: block;
+  margin-top: 10px;
+}
+.collection-list .translucent-box a:hover {
+  color: #FFF;
 }
 .collection-list .translucent-box a:link {
   color: #83C046;
