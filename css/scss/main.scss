@@ -368,22 +368,20 @@ a {
 
 }
 
-/* Boxes */
-
 .link-navigation {
     margin-top: 25px;
 }
 
+/* Boxes */
 .box-general {
+
     background: #FFF;
     padding: 12px 19px;
-}
+    margin-top:1px;
 
-.laptop, .test {
-    padding: 12px 19px;
-}
-
-.box-general {
+    &.highlighted {
+        background: #F2F7F7;
+    }
     &.divided {
         background: white url(../img/bg-divided.png) repeat-y;
         padding: 20px 17px;
@@ -454,8 +452,12 @@ a {
     }
     &.laptop {
         background: #f2f7f7 url(../img/bg-laptop.jpg) no-repeat right 45px;
+        padding: 12px 19px;
     }
 
+    &.test {
+        padding: 12px 19px;
+    }
 }
 
 .species-selector {
@@ -517,7 +519,6 @@ hr.absolute {
     &.green .box-right h3, .box-right.green h3 {
         color: rgba(0, 0, 0, 0.45);
         text-shadow: 1px 1px rgba(255, 255, 255, 0.1);
-        color:red;
     }
 
     &.green .box-right a {
@@ -710,7 +711,22 @@ footer hr {
 }
 
 .box-badge {
-    padding: 20px;
+    padding: 76px 0px 46px 0;
+
+    text-align: center;
+
+
+    h3.title {
+        margin-bottom: 10px;
+    }
+    span {
+        font-family: helvetica;
+    }
+}
+
+.box-badge-footer {
+    padding: 30px;
+
     text-align: center;
 
     h3.title {
