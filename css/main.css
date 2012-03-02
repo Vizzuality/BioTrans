@@ -59,7 +59,7 @@ html, button, input, select, textarea {
 }
 
 body {
-  background: url("../img/bg.jpg") repeat-x;
+  background: #333333 url("../img/bg.jpg") repeat-x;
 }
 
 p {
@@ -363,6 +363,7 @@ a.badge {
 .box-general.home {
   background: white url(../img/bg-home.jpg) no-repeat top left;
   height: 500px;
+  width: 950px;
   margin-bottom: 41px;
   border: 5px solid rgba(0, 0, 0, 0.83);
   padding: 0;
@@ -1133,7 +1134,7 @@ a.button.next {
 }
 a.button.next span {
   background: url(../img/icons.png) no-repeat -210px -80px;
-  padding: 15px 70px 15px 40px;
+  padding: 15px 70px 16px 40px;
 }
 a.button.next:hover {
   background: url(../img/icons.png) no-repeat 2px -140px;
