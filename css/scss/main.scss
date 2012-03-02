@@ -125,11 +125,12 @@ h3 span.black {
     font-size: 25px;
     margin-top: 80px;
     text-shadow: 1px 1px 6px #000;
+    font-weight:100;
     span {
         color: #FFF;
         font-size: 91px;
         line-height: 80px;
-        font-weight: 600;
+        font-weight: 800;
         text-shadow: 1px 1px 6px #000;
     }
 
@@ -323,11 +324,15 @@ a {
         font-family: helvetica;
         font-size: 15px;
         text-decoration: underline;
+        margin-top:10px;
+        display:block;
+
         &.noline {
             text-decoration: none;
         }
+
         &:hover {
-            color: #006688;
+            color: #FFF!important;
         }
 
     }
@@ -485,7 +490,7 @@ hr.absolute {
 
 .box-general {
     &.relative {
-        top: -36px;
+        top: -30px;
         position: relative;
     }
     &.green {
@@ -520,6 +525,12 @@ hr.absolute {
         color: #FFF;
         border-bottom: 1px solid #FFF;
         font-family: helvetica;
+        &:hover {
+            color:#333;
+            border-color:#333;
+            color:rgba(0, 0, 0, 0.45);
+            border-color:rgba(0, 0, 0, 0.45);
+        }
     }
 
 }
