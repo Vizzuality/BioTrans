@@ -13,13 +13,10 @@
 
 	/*
 		TODO
-			- Link example in the skip tooltip
-			- Some examples tooltip (add ESC)
-			- Style select
-			- Problem with sSelect that adds a 0 even when you dont use the style
 			- Check tabs navigation | flow
 			--------------------------------------------------------------------------------
 			- Decide what to do when finish a record, leave some inputs as they were or what
+			- Decide what to do when finish a record, let user go back 
 			- Species autocomplete url
 			- Examples images controller
 			- Save controller
@@ -46,7 +43,7 @@
 						tail: 'right'
 					},
 					skip : {
-						content: 'If you can’t find the value, you can see <a class="examples" href="#see_examples">examples</a> that surely will help you',
+						content: 'If you can’t find the value, you can see <a class="example" href="#see_examples">examples</a> that surely will help you',
 						title: 'ARE YOU SURE?',
 						orange: 'SKIP FIELD',
 						white: 'CANCEL',
@@ -256,9 +253,10 @@
 			$el.find('ul.steps li a').bind({'click': function(ev) {Core._nextRegister(ev,parseInt($(ev.target).attr('href').replace('#goto_','')))} })
 
 			// See the example
+			$el.find('a.example').bind({'click': Core._showExampleTooltip });
 
 			// Skip the field
-			$el.find('ul.explanations li a.skip').bind({'click': Core._showSkipTooltip })
+			$el.find('ul.explanations li a.skip').bind({'click': Core._showSkipTooltip });
 		},
 
 
@@ -353,6 +351,9 @@
 			// - append skip tooltip
 			$bottom.append(Core._createSkipTooltip());
 
+			// - append example tooltip
+			$bottom.append(Core._createExampleTooltip());
+
 			// Add all elements to the transcriber
 			$transcriber.append($bottom)
 			$transcriber.append($top);
@@ -422,6 +423,8 @@
 
 
 
+
+
 		
 		/**
 		 * CREATE, MANAGE AND RESET EXPLANATION BOTTOM LIST
@@ -453,7 +456,7 @@
 								li += '<input type="text" value="" placeholder="' + input.placeholder + '" name="' + input.name + '" class="' + input.size + '" />';
 							} else {
 								// If type == select
-								li += '<span class="wrapper ' + input.size + '"><select name="' + input.name + '">';
+								li += '<span class="wrapper " style="width:' + ((input.size=='short')? 88 : 138 ) + 'px"><select name="' + input.name + '">';
 
 								// Disabled
 								li += '<option value="0" selected disabled>' + input.placeholder + '</option>';
@@ -512,7 +515,11 @@
 
 			$list.find('> li:eq(' + previous + ')').fadeOut(300,
 				function(ev) {
-					$list.find('> li:eq(' + (step) + ')').addClass('selected').fadeIn(300);
+					$list.find('> li:eq(' + (step) + ')').addClass('selected').fadeIn(300,
+						function(ev){
+							$(this).find('form input, form select').first().focus();
+						}
+					);
 				}
 			);
 		},
@@ -588,7 +595,7 @@
 			// of the tooltip
 			$tooltip.show(1,function(){
 				$('body').click(function(ev){
-					if ($(ev.target).closest('div.bottom > div.tooltip.skip').length==0) {
+					if ($(ev.target).closest('div.bottom > div.tooltip.skip').length==0 || $(ev.target).closest('a.example').length>0) {
 						Core._hideRecordTooltip($tooltip);
 					}
 				});
@@ -614,7 +621,79 @@
 
 
 
+		/**
+		 * Check record, if starts or finish, and check values
+		 */
+		_createExampleTooltip: function() {
+			// Tooltip
+			var $example = $('<div>').addClass('tooltip example center');
 
+			// Spin loader adding!
+			var imageLoader = new Spinner({lines: 10,length: 3,width: 4,radius: 8,color: '#333'}).spin();
+
+			// Add it to its parent
+			$example.append(imageLoader.el);
+
+			// More button
+			$example.append('<a class="black button small" href="#show_me_more">MORE</a>');
+
+			// Tail
+			$example.append('<span class="tail"></span>');
+
+
+			// LOCAL BINDINGS
+
+			// More
+			$example.find('a.cancel').click(
+				function(ev) {
+					Core._preventDefault(ev);
+					Core._showNextExample($example);
+				}
+			);
+
+			return $example;
+		},
+
+
+		/**
+		 * Show the record tooltip
+		 */
+		_showExampleTooltip: function(ev) {
+
+			Core._preventDefault(ev);
+
+			var $el = $(ev.target).closest('div.transcribing')
+				,	$example = $el.find('div.bottom > div.tooltip.example');
+
+			// Offset
+			$example.css({left: $el.find('ul.explanations li:eq(' + $el.data('step') + ') a.example').offset().left + 'px'})
+
+			// Local binding for clicking out
+			// of the tooltip
+			$example.show(1,function(){
+				$('body').click(function(ev){
+					if ($(ev.target).closest('div.bottom > div.tooltip.example').length==0) {
+						Core._hideRecordTooltip($example);
+					}
+				});
+				$('body').keydown(function(ev){
+					var keycode = ev.which;
+					if (keycode == 27) {
+						Core._hideRecordTooltip($example);
+					}
+				});
+			});
+		},
+
+
+		/**
+		 * Hide the record tooltip
+		 */
+		_hideExampleTooltip: function($example) {
+			$('body').unbind('click');
+			$('body').unbind('keydown');
+			$example.hide();
+		},
 
 
 
@@ -657,6 +736,7 @@
 
 				// Manage the step viewer
 				$el.find('div.bottom div.record a.choose_step').text(step + '/' + (Core.options.explanations.length - 1));
+
 				Core._manageStepViewer($el,step);
 			}
 		},
@@ -870,7 +950,7 @@
 					, $li = $list.find('li:eq(' + i + ')');
 
 				for (name in obj) {
-					if (obj[name] == '') {
+					if (obj[name] == '' || obj[name] == 0) {
 						pending++;
 						completed = false;
 					}
@@ -891,11 +971,14 @@
 				}
 			}
 
-			var $record_button = $el.find('div.bottom a.checkRecord');
+			var $record_button = $el.find('div.bottom a.checkRecord')
+				, $step_viewer = $el.find('div.bottom div.step_viewer')
 
 			if (pending>0) {
+				$step_viewer.show();
 				$record_button.removeClass('green').addClass('orange');
 			} else {
+				$step_viewer.hide();
 				$record_button.removeClass('orange').addClass('green');
 			}
 		},
@@ -969,7 +1052,7 @@
 					, completed = true;
 
 				for (name in obj) {
-					if (obj[name] == '') {
+					if (obj[name] == '' || obj[name] == 0 ) {
 						pending++;
 					}
 				}
@@ -994,7 +1077,7 @@
 					, completed = true;
 
 				for (name in obj) {
-					if (obj[name] == '') {
+					if (obj[name] == '' || obj[name] == 0) {
 						completed = false;
 						break;
 					}
@@ -1018,7 +1101,7 @@
 						, completed = true;
 
 						for (name in obj) {
-							if (obj[name] == '') {
+							if (obj[name] == '' || obj[name] == 0) {
 								completed = false;
 								break;
 							}
@@ -1050,11 +1133,10 @@
 					, name = $ele.attr('name')
 					, value = $ele.val();
 
-				if (value != '') {
+				if (($ele.is('input') && value != '') || ($ele.is('select') && value!=0)) {
 					values[previous-1][name] = value;
 				}
 			});
-
 			$el.data('values',values);
 		},
 

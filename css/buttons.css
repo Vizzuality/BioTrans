@@ -127,3 +127,39 @@ button.white.small:active,
 input.white.small:active {
   padding: 4px 0 3px;
 }
+
+a.black,
+button.black,
+input.black {
+  padding: 4px 13px 5px;
+  background: #333333;
+  border: 1px solid #CCCCCC;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+  font: bold 13px "Open Sans";
+  color: white;
+  line-height: normal;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+a.black:hover, a.black:active,
+button.black:hover,
+button.black:active,
+input.black:hover,
+input.black:active {
+  outline: none;
+  background: black;
+  color: white;
+}
+a.black:active,
+button.black:active,
+input.black:active {
+  padding: 5px 13px 4px;
+  background: black;
+  color: white;
+}

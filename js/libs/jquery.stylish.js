@@ -73,7 +73,7 @@
             var defaults = {
                 defaultText:    'Please select',
                 animationSpeed: 0, //set speed of dropdown
-                ddMaxHeight:    '', //set css max-height value of dropdown
+                ddMaxHeight:    '120', //set css max-height value of dropdown
                 containerClass: '' //additional classes for container div
             };
 
@@ -95,6 +95,8 @@
             //added by Justin Beasley
             $(this).data('ssOpts',options);
 
+            // Get parent width to set to the elements :)
+            defaults.width = $(this).parent().width();
 
             //build new list
             $containerDiv.insertAfter($input);
@@ -106,9 +108,8 @@
             $input.hide();
 
             // Set width dimensions
-            //$containerDiv.find('.selectedTxt').width(defaults.width);
-            //$containerDiv.find('.selectedTxt span').width(defaults.width - 56);
-            //$containerDiv.find('.SSContainerDivWrapper').width(defaults.width + 1);
+            $containerDiv.find('.selectedTxt').width(defaults.width - 18);
+            $containerDiv.find('.SSContainerDivWrapper').width(defaults.width);
 
             //added by Justin Beasley (used for lists initialized while hidden)
             $containerDivText.data('ssReRender',!$containerDivText.is(':visible'));
@@ -126,8 +127,7 @@
                         opts.defaultText = option;
                         currentIndex = prevIndex = i;
                     }
-
-                    $newUl.append($('<li><a href="JavaScript:void(0);">'+option+'</a></li>').data('key', key));
+                    $newUl.append($('<li style="' + (i==0? 'display:none' : '') + '"><a href="JavaScript:void(0);">'+option+'</a></li>').data('key', key));
 
                 });
                 //cache list items object
@@ -142,7 +142,7 @@
                     $optGroup.appendTo($newUl);
                     $optGroupList.appendTo($optGroup);
 
-                    $(this).children().each(function(i,ele){
+                    $(this).children().each(function(){
                         ++itemIndex;
                         var option = $(this).text();
                         var key = $(this).val();
@@ -153,7 +153,6 @@
                             opts.defaultText = option;
                             currentIndex = prevIndex = itemIndex;
                         }
-
                         $optGroupList.append($('<li><a href="JavaScript:void(0);">'+option+'</a></li>').data('key',key));
                     })
                 });
@@ -162,12 +161,17 @@
             }
 
             //get heights of new elements for use later
-            var newUlHeight = $newUl.height(),
-            containerHeight = $containerDiv.height(),
+
+            var _height = 15 * $newUl.find('li').size();
+            
+            //$newUl.height(_height);
+            //$containerDivWrapper.height(_height);
+
+
+            var newUlHeight = _height,
+            containerHeight = _height,
             newLiLength     = $newLi.length;
 
-
-            $newUl.lionbars();
 
             //check if a value is selected
             if (currentIndex != -1){
@@ -199,12 +203,13 @@
                 //     });
                 //     $input.onTop = true;
                 // } else {
+
                     $newUl.css({
-                        height: newUlHeight
+                        height: newUlHeight + 'px'
                     });
                     $containerDivWrapper.css({
-                        top:     (containerHeight - 2 )+'px',
-                        height: newUlHeight
+                        top:     containerHeight - 3 +'px',
+                        height: newUlHeight + 'px'
                     });
                     $input.onTop = false;
                 //}
@@ -231,13 +236,18 @@
             $containerDivText.bind('click.sSelect',function(event){
                 event.stopPropagation();
 
+
                 //added by Justin Beasley
                 if($(this).data('ssReRender')){
-                    newUlHeight = $newUl.height('').height();
-                    $containerDivWrapper.height('');
-                    containerHeight = $containerDiv.height();
-                    $(this).data('ssReRender',false);
-                    newUlPos();
+                	//var _height = 15 * $newUl.find('li').size();
+                  newUlHeight = $newUl.height('').height();
+                  //newUlHeight = _height;
+                  $containerDivWrapper.height('');
+                  containerHeight = $containerDiv.height();
+                  //containerHeight = _height;
+
+                  $(this).data('ssReRender',false);
+                  newUlPos();
                 }
 
                 //hide all menus apart from this one
@@ -257,6 +267,11 @@
                 //show/hide this menu
                 $containerDivWrapper.toggle();
 
+                // HACK for lionbars
+                if ($newUl.attr('vratio')==undefined) {
+									$newUl.lionbars();
+                }
+                
                 positionFix();
 
                 //scroll list to selected item
@@ -515,6 +530,11 @@
 
     };
 })(jQuery);
+
+
+
+
+
 
 
 // LION BARS v0.3
@@ -884,6 +904,7 @@
 			el.css({ "overflow" : 'hidden' });
 			
 			// check for vertical scrollbars
+
 			if (el.get(0).scrollHeight > el.get(0).clientHeight) {
 				addVScroll = true;
 				// setVScrollbarWidth(el);
