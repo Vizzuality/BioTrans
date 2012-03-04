@@ -12,16 +12,16 @@ $(document).ready(function() {
         $(this).stop().animate({top:"160px"}, { duration: 200, easing: "easeInOutExpo" });
     });
 
-
     // Big switch
     $(".switch a").on("click", function(e) {
         e.preventDefault();
 
         var $a = $(this);
-        $(".bkg").animate({right: 120 - $(this).position().left }, 100, function() {
+
+        $(".bkg").animate({left: $(this).position().left }, 100, function() {
             $(".switch").find("a").removeClass("selected");
             $a.addClass("selected");   
-            if ($(this).position().left == 0) {
+            if ($(this).position().left != 0) {
                 $(".collection-list li.mine").animate({opacity:.2}, { duration: 100});
             } else {
                 $(".collection-list li.mine").animate({opacity:1}, { duration: 100});
@@ -60,39 +60,3 @@ $(document).ready(function() {
 
 
 
-$(function() {
-
-  // Get the data
-  var temp_labels = [],
-      temp_data = [];
-
-  $("#temp-data tfoot th").each(function() {
-    temp_labels.push($(this).html());
-  });
-  $("#temp-data tbody td.pos").each(function() {
-    temp_data.push($(this).html());
-  });
-
-  // Hide the data
-  $("#temp-data").hide();
-
-  // - Temperature Graph - adds colour, fill, and a minimum value for the y axis
-  $("#temp_graph_holder").simplegraph(temp_data, temp_labels, {
-      penColor: "#0099CC",
-      fillColor: "#D6E4D0",
-      fillUnderLine: true,
-      lineWidth:4,
-      fillOpacity: .8,
-      minYAxisValue: 10,
-      drawPoints: true,
-      width:300,
-      height:200,
-      leftGutter:7,
-      labelColor: "#777", 
-      labelFont: "Arial", 
-      labelFontSize: "14px",
-      cpWidth:6,
-      addHover: false
-  });
-
-});

@@ -659,6 +659,10 @@ footer hr {
 
 }
 
+ul.logos {
+    li { float:left; margin-right: 38px; }
+}
+
 .box-logos {
     margin-top: 50px;
     padding-top: 40px;
@@ -1304,7 +1308,7 @@ div.switch {
         border-radius: 5px;
         background: #fff;
         position: absolute;
-        right: 0;
+        left: 0;
         top: 0;
         height: 30px;
         width: 120px;
