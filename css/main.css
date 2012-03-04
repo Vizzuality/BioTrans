@@ -381,14 +381,24 @@ a.badge {
   margin-right: -10px;
 }
 .box-general.divided-green {
-  background: transparent url(../img/bg-divided-green.png) no-repeat top left;
+  background: #fff;
   min-height: 400px;
-  margin-bottom: 3px;
-  margin-right: -10px;
-  padding-top: 40px;
+  padding-top: 21px;
   position: relative;
-  top: -22px;
   z-index: 100;
+}
+.box-general.divided-green .col1 {
+  position: absolute;
+  width: 330px;
+  top: -10px;
+  padding-top: 33px;
+  height: 420px;
+  background: red;
+  right: -30px;
+  border-left: 1px solid #333;
+  border-bottom: 1px solid #333;
+  background: url(../img/bg-green.png) no-repeat bottom;
+  box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.3);
 }
 .box-general.divided figure {
   margin-top: 40px;
