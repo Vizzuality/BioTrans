@@ -443,6 +443,8 @@ a {
             border-bottom:1px solid #333;
             background:url(../img/bg-green.png) no-repeat bottom;
             box-shadow: -5px 5px 10px rgba(0,0,0,.3);
+            -moz-box-shadow: -5px 5px 10px rgba(0,0,0,.3);
+            -webkit-box-shadow: -5px 5px 10px rgba(0,0,0,.3);
         }
     }
     &.divided {
@@ -475,18 +477,26 @@ a {
 .species-selector {
     margin: auto;
     overflow: hidden;
-    width: 363px;
+    width: 375px;
     a {
         display: block;
         float: left;
-        margin: 0 5px 0 5px;
+        margin: 7px;
+        height:111px;
         img {
             padding: 0;
             margin: 0;
         }
+        &:hover {
+            box-shadow: 0 0 7px 5px rgba(255,255,255,.4);
+            -moz-box-shadow: 0 0 7px 5px rgba(255,255,255,.4);
+            -webkit-box-shadow: 0 0 7px 5px rgba(255,255,255,.4);
 
+            -webkit-transition: all 0.3s linear;  
+            -moz-transition: all 0.3s linear;  
+            -o-transition: all 0.3s linear;  
+        }
     }
-
 }
 
 footer.relative {
@@ -1204,6 +1214,8 @@ a.button {
     background: #669933;
     border-radius: 3px;
     box-shadow: 0px 1px #000;
+    -moz-box-shadow: 0px 1px #000;
+    -webkit-box-shadow: 0px 1px #000;
     color: #FFF;
     font-size: 13px;
     font-weight: 600;
@@ -1261,6 +1273,8 @@ a.button {
     &.next {
         background: url(../img/icons.png) no-repeat 2px -20px;
         box-shadow: 0 0;
+        -webkit-box-shadow: 0 0;
+        -moz-box-shadow: 0 0;
         padding: 17px 10px;
         span {
             background: url(../img/icons.png) no-repeat -210px -80px;
