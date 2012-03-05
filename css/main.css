@@ -419,9 +419,6 @@ a.badge {
 .box-general.laptop.white {
   background: white url(../img/bg-laptop.png) no-repeat right 45px;
 }
-.box-general.test {
-  padding: 12px 19px;
-}
 
 .species-selector {
   margin: auto;

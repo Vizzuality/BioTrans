@@ -67,7 +67,7 @@ function DataSet(data, labels, settings) {
       jQuery.each(ds.labels, function(i, label) {
         var x = grid.x(i);
         var y = grid.y(i);
-         canvas.text(x + ds.settings.xAxisLabelOffset, ds.settings.height - parseInt(y) - ds.settings.pointRadius, label).attr(ds.settings.xAxisLabelStyle);
+        canvas.text(x + ds.settings.xAxisLabelOffset, ds.settings.height - parseInt(y) - ds.settings.pointRadius, label).attr(ds.settings.xAxisLabelStyle);
       });
     })(this);
   };

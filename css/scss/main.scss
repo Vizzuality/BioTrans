@@ -469,9 +469,6 @@ a {
         }
     }
 
-    &.test {
-        padding: 12px 19px;
-    }
 }
 
 .species-selector {
@@ -511,6 +508,7 @@ hr.absolute {
 }
 
 .box-general {
+
     &.relative {
         top: -30px;
         position: relative;
