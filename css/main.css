@@ -349,6 +349,9 @@ a.badge {
   background: white url(../img/bg-divided-blue.png) repeat-y;
   padding-bottom: 40px;
 }
+.box-general.divided-blue .list-contributors li {
+  margin-bottom: 18px;
+}
 .box-general.about {
   background: white url(../img/bg-about.jpg) no-repeat bottom left;
   height: 366px;
@@ -784,19 +787,14 @@ ul.logos li {
   margin-top: 20px;
 }
 
-.list-contributors {
-  margin-top: 25px;
-}
 .list-contributors img {
   float: left;
   margin-right: 10px;
   border-radius: 3px;
 }
 .list-contributors li {
-  padding-top: 10px;
-}
-.list-contributors li div {
-  padding-top: 10px;
+  padding-top: 0;
+  margin-bottom: 15px;
 }
 
 .list-forum li div {
