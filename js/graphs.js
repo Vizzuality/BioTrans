@@ -43,8 +43,8 @@ $("#temp_graph_holder").simplegraph(temp_data, temp_labels, {
     height:200,
     leftGutter:7,
     labelColor: "#777", 
-    labelFont: "Arial", 
-    labelFontSize: "14px",
+    labelFont: "Open Sans", 
+    labelFontSize: "11px",
     cpWidth:6,
     addHover: false
 });

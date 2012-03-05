@@ -98,6 +98,7 @@ h1.title {
   color: #FFF;
   font-size: 25px;
   font-weight: normal;
+  margin-top: 24px;
 }
 
 h1 span.green {
@@ -253,7 +254,8 @@ span.badge.noitalic {
 
 span.user {
   font-size: 13px;
-  margin-top: 45px;
+  margin-top: 48px;
+  margin-bottom: 31px;
 }
 span.user a {
   font-size: 13px;
@@ -330,7 +332,7 @@ a.badge {
 .box-general {
   background: #FFF;
   padding: 12px 19px;
-  margin-top: 1px;
+  border-bottom: 1px solid #000;
 }
 .box-general.highlighted {
   background: #F2F7F7;
@@ -418,6 +420,18 @@ a.badge {
 }
 .box-general.laptop.white {
   background: white url(../img/bg-laptop.png) no-repeat right 45px;
+}
+.box-general.laptop.laptop-home {
+  background-position: right 90px;
+}
+.box-general.laptop.laptop-home .status-list.inline li.mar-button {
+  margin-top: 45px;
+}
+.box-general.laptop.laptop-home li.logos {
+  margin-right: -4px;
+}
+.box-general.laptop .status-list.inline li.mar-button {
+  margin-top: 12px;
 }
 
 .species-selector {
@@ -620,6 +634,7 @@ ul.logos li {
   border-top: 1px solid rgba(204, 204, 204, 0.4);
 }
 .box-logos span.text {
+  font-weight: bold;
   padding-bottom: 20px;
 }
 .box-logos p {
@@ -901,7 +916,7 @@ li.img-graphic2 {
   left: 0;
   width: 76px;
   height: 100%;
-  margin-left: 35%;
+  margin-left: 200px;
 }
 .time-life-graf li {
   height: 91px;

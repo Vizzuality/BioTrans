@@ -103,6 +103,7 @@ h1 {
         color: #FFF;
         font-size: 25px;
         font-weight: normal;
+        margin-top:24px;
     }
 
 }
@@ -281,7 +282,8 @@ span.badge {
 
 span.user {
     font-size: 13px;
-    margin-top: 45px;
+    margin-top: 48px;
+    margin-bottom: 31px;
     a {
         font-size: 13px;
     }
@@ -374,7 +376,7 @@ a {
 
     background: #FFF;
     padding: 12px 19px;
-    margin-top:1px;
+    border-bottom: 1px solid #000;
 
     &.highlighted {
         background: #F2F7F7;
@@ -467,8 +469,19 @@ a {
         &.white {
             background: #FFF url(../img/bg-laptop.png) no-repeat right 45px;
         }
-    }
 
+        &.laptop-home {
+            background-position: right 90px;
+            .status-list.inline li.mar-button {
+                margin-top:45px;
+            }
+
+            li.logos { margin-right: -4px; }
+        }
+        .status-list.inline li.mar-button {
+            margin-top:12px;
+        }
+    }
 }
 
 .species-selector {
@@ -687,6 +700,7 @@ ul.logos {
     border-top: 1px solid #CCC;
     border-top: 1px solid rgba(204, 204, 204, 0.4);
     span.text {
+        font-weight:bold;
         padding-bottom: 20px;
     }
     p {
@@ -994,7 +1008,7 @@ li {
     left: 0;
     width: 76px;
     height: 100%;
-    margin-left: 35%;
+    margin-left: 200px;
 
     li {
         height: 91px;

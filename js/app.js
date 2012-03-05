@@ -6,12 +6,12 @@ $(document).ready(function() {
         test: 'test'
     });
 
-    $(".translucent-box").on("mouseenter", function() {
-        $(this).stop().animate({top:0}, { duration: 200, easing: "easeInOutExpo" });
+    $(".collection-list li").on("mouseenter", function() {
+        $(this).find(".translucent-box").stop().animate({top:0}, { duration: 200, easing: "easeInOutExpo" });
     });
 
-    $(".translucent-box").on("mouseleave", function() {
-        $(this).stop().animate({top:"160px"}, { duration: 200, easing: "easeInOutExpo" });
+    $(".collection-list li").on("mouseleave", function() {
+        $(this).find(".translucent-box").stop().animate({top:"160px"}, { duration: 200, easing: "easeInOutExpo" });
     });
 
     // Big switch (shows/hides your collections)
