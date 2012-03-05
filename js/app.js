@@ -1,3 +1,5 @@
+var showCompleted = false;
+
 $(document).ready(function() {
     // Check if transcribe element exists
     $('div.transcribing').transcriber({
@@ -12,7 +14,7 @@ $(document).ready(function() {
         $(this).stop().animate({top:"160px"}, { duration: 200, easing: "easeInOutExpo" });
     });
 
-    // Big switch
+    // Big switch (shows/hides your collections)
     $(".switch a").on("click", function(e) {
         e.preventDefault();
 
@@ -22,27 +24,34 @@ $(document).ready(function() {
             $(".switch").find("a").removeClass("selected");
             $a.addClass("selected");   
             if ($(this).position().left != 0) {
-                $(".collection-list li.mine").animate({opacity:.2}, { duration: 100});
+                if (showCompleted) {
+                    $(".collection-list li.completed:not(.mine)").animate({opacity:.2}, { duration: 100});
+                } else $(".collection-list li:not(.mine)").animate({opacity:.2}, { duration: 100});
             } else {
-                $(".collection-list li.mine").animate({opacity:1}, { duration: 100});
+                if (showCompleted) {
+                    $(".collection-list li.completed:not(.mine)").animate({opacity:1}, { duration: 100});
+                } else $(".collection-list li:not(.mine)").animate({opacity:1}, { duration: 100});
             }
+
         }); 
     });
 
-    // Small switch
+    // Small switch (shows completed collections)
     $("span.switch").on("click", function(e) {
         e.preventDefault();
 
         var $a = $(this);
+
         if ($(this).hasClass("selected")) {
-            $(this).toggleClass("selected");
             $(this).html($(this).attr('data-selected'));
+            showCompleted = true;
             $(".collection-list li:not(.completed)").animate({opacity:.2}, { duration: 100});
         } else {
-            $(this).toggleClass("selected");
+            showCompleted = false;
             $(this).html($(this).attr('data-show'));
             $(".collection-list li:not(.completed)").animate({opacity:1}, { duration: 100});
         }
+            $(this).toggleClass("selected");
     });
 
     var timeLifePage = 0;
