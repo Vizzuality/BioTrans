@@ -1264,6 +1264,15 @@ span.switch.selected {
 }
 
 .translucent-box .progress-bar {
-  background: #83C046;
   margin: 35px 0 30px 40px;
+  background: #fff;
+}
+.translucent-box .progress-bar .bar {
+  background: #83C046;
+}
+.translucent-box .progress-bar.completed .bar {
+  background: #0099CC;
+}
+.translucent-box .progress-bar.completed span.progress {
+  color: #0099CC;
 }
