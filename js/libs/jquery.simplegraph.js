@@ -63,13 +63,6 @@ function DataSet(data, labels, settings) {
   this.settings = settings;
 
   this.labelXAxis = function(grid, canvas) {
-    (function(ds) {
-      jQuery.each(ds.labels, function(i, label) {
-        var x = grid.x(i);
-        var y = grid.y(i);
-        canvas.text(x + ds.settings.xAxisLabelOffset, ds.settings.height - parseInt(y) - ds.settings.pointRadius, label).attr(ds.settings.xAxisLabelStyle);
-      });
-    })(this);
   };
 
   this.labelYAxis = function(grid, canvas) {
@@ -122,6 +115,7 @@ function DataSet(data, labels, settings) {
           
         if (dataSet.settings.drawPoints) {
           var dot = canvas.circle(x, y, dataSet.settings.pointRadius).attr({fill: dataSet.settings.pointColor, stroke: "#fff"});
+          canvas.text(x + 4, y - 10, label).attr(dataSet.settings.xAxisLabelStyle);
         }
         if (dataSet.settings.drawBars) {
           canvas.rect(x + dataSet.settings.barOffset, y, dataSet.settings.barWidth, (dataSet.settings.height - dataSet.settings.bottomGutter) - y).attr({fill: dataSet.settings.barColor, stroke: "none"});
