@@ -1290,9 +1290,7 @@ a.button {
         span.active {
             background: url(../img/icons.png) no-repeat -210px -320px;
         }
-
     }
-
 }
 
 div.switch {
@@ -1306,6 +1304,7 @@ div.switch {
     width: 240px;
     position: relative;
     background: #E5E5E5;
+
     a {
         color: #999;
         display: block;
@@ -1324,8 +1323,8 @@ div.switch {
             z-index: 100;
             background: none;
         }
-
     }
+
     .bkg {
         border-radius: 5px;
         background: #fff;
@@ -1336,7 +1335,6 @@ div.switch {
         width: 120px;
         z-index: 0;
     }
-
 }
 
 span.switch {
@@ -1351,7 +1349,6 @@ span.switch {
     &.selected {
         background-position: 32px -553px;
     }
-
 }
 
 /* Globals */
