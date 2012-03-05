@@ -36,10 +36,12 @@ $(document).ready(function() {
         var $a = $(this);
         if ($(this).hasClass("selected")) {
             $(this).toggleClass("selected");
-            $(".collection-list li.completed").animate({opacity:.2}, { duration: 100});
+            $(this).html($(this).attr('data-selected'));
+            $(".collection-list li:not(.completed)").animate({opacity:.2}, { duration: 100});
         } else {
             $(this).toggleClass("selected");
-            $(".collection-list li.completed").animate({opacity:1}, { duration: 100});
+            $(this).html($(this).attr('data-show'));
+            $(".collection-list li:not(.completed)").animate({opacity:1}, { duration: 100});
         }
     });
 
