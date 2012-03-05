@@ -840,6 +840,9 @@ ul.logos {
 
 .links-left {
     margin-left: 40px;
+    span:first-child {
+        margin-top:12px;
+    }
     span {
         margin-top: 20px;
     }
@@ -1039,6 +1042,7 @@ li {
         height: 90px;
         border-bottom: 1px solid #EBEBEB;
         div {
+            width:200px;
             text-align: right;
             float: left;
             top: 15px;
@@ -1046,6 +1050,8 @@ li {
         }
         &:nth-child(2n+1) {
             div {
+
+            width:250px;
                 text-align: left;
             }
             padding-left: 50%;

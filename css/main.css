@@ -762,6 +762,9 @@ ul.logos li {
 .links-left {
   margin-left: 40px;
 }
+.links-left span:first-child {
+  margin-top: 12px;
+}
 .links-left span {
   margin-top: 20px;
 }
@@ -943,6 +946,7 @@ li.img-graphic2 {
   border-bottom: 1px solid #EBEBEB;
 }
 .time-life li div {
+  width: 200px;
   text-align: right;
   float: left;
   top: 15px;
@@ -952,6 +956,7 @@ li.img-graphic2 {
   padding-left: 50%;
 }
 .time-life li:nth-child(2n+1) div {
+  width: 250px;
   text-align: left;
 }
 .time-life li:first-child div {
