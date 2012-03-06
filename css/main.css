@@ -398,7 +398,6 @@ a.badge {
   top: -10px;
   padding-top: 33px;
   height: 420px;
-  background: red;
   right: -30px;
   border-left: 1px solid #333;
   border-bottom: 1px solid #333;
@@ -912,9 +911,9 @@ li.img-graphic2 {
   position: absolute;
   top: 0;
   left: 0;
-  width: 76px;
+  width: 66px;
   height: 100%;
-  margin-left: 200px;
+  margin-left: 247px;
 }
 .time-life-graf li {
   height: 91px;
@@ -943,6 +942,7 @@ li.img-graphic2 {
 .time-life-graf li div {
   height: 67px;
   width: 67px;
+  left: -5px;
   text-align: center;
   position: relative;
   top: -5px;
@@ -959,17 +959,19 @@ li.img-graphic2 {
   border-bottom: 1px solid #EBEBEB;
 }
 .time-life li div {
-  width: 200px;
-  text-align: right;
-  float: left;
   top: 15px;
   position: relative;
+  width: 225px;
+  float: left;
+  text-align: right;
 }
 .time-life li:nth-child(2n+1) {
   padding-left: 50%;
 }
 .time-life li:nth-child(2n+1) div {
-  width: 250px;
+  left: 45px;
+  width: 240px;
+  position: relative;
   text-align: left;
 }
 .time-life li:first-child div {
@@ -983,6 +985,8 @@ li.img-graphic2 {
   padding-left: 50%;
 }
 .time-life li.previous div {
+  left: 50px;
+  position: relative;
   text-align: left;
   top: 25px;
 }

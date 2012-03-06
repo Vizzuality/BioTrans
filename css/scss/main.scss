@@ -443,7 +443,6 @@ a {
             top:-10px;
             padding-top:33px;
             height:420px;
-            background:red;
             right:-30px;
             border-left:1px solid #333;
             border-bottom:1px solid #333;
@@ -1007,9 +1006,9 @@ li {
     position: absolute;
     top: 0;
     left: 0;
-    width: 76px;
+    width: 66px;
     height: 100%;
-    margin-left: 200px;
+    margin-left: 247px;
 
     li {
         height: 91px;
@@ -1038,17 +1037,14 @@ li {
         div {
             height: 67px;
             width: 67px;
+            left:-5px;
             text-align: center;
             position: relative;
             top: -5px;
-            &.small {
-                top: 6px;
-            }
+            &.small { top: 6px; }
         }
 
-        &.hidden {
-            display:none;
-        }
+        &.hidden { display:none; }
     }
 }
 
@@ -1057,16 +1053,17 @@ li {
         height: 90px;
         border-bottom: 1px solid #EBEBEB;
         div {
-            width:200px;
-            text-align: right;
-            float: left;
             top: 15px;
             position: relative;
+            width:225px;
+            float: left;
+            text-align: right;
         }
         &:nth-child(2n+1) {
             div {
-
-            width:250px;
+                left:45px;
+                width:240px;
+                position:relative;
                 text-align: left;
             }
             padding-left: 50%;
@@ -1078,11 +1075,14 @@ li {
         &:last-child {
             border-bottom:0;
         }
+
         &.previous {
             border-bottom:none;
             padding-left: 50%;
 
             div {
+                left:50px;
+                position:relative;
                 text-align: left;
                 top: 25px;
             }
