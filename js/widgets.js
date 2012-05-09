@@ -1,4 +1,3 @@
-
 /**************************************************************************
  * TRANSCRIBING PLUGIN
  **************************************************************************/
@@ -667,27 +666,30 @@
       $example = $el.find('div.bottom > div.tooltip.example');
 
       // Offset
-      var
-        $link = $el.find('ul.explanations li:eq(' + $el.data('step') + ') a.example'),
-        left   = $link.offset().left - 306 + $link.width() / 2;
-        console.log($link, $link.offset().left, $link.width());
+      var $link = $el.find('ul.explanations li:eq(' + $el.data('step') + ')').find('a.example');
 
-      $example.css({ left: left + 'px' });
+      if ($link.length > 0) {
+        var left   = $link.offset().left - 306 + $link.width() / 2;
+        //console.log($link, $link.offset().left, $link.width());
 
-      // Local binding for clicking out of the tooltip
-      $example.show(1, function(){
-        $('body').click(function(ev){
-          if ($(ev.target).closest('div.bottom > div.tooltip.example').length === 0) {
-            Core._hideRecordTooltip($example);
-          }
+        $example.css({ left: left + 'px' });
+
+        // Local binding for clicking out of the tooltip
+        $example.show(1, function(){
+          $('body').click(function(ev){
+            if ($(ev.target).closest('div.bottom > div.tooltip.example').length === 0) {
+              Core._hideRecordTooltip($example);
+            }
+          });
+          $('body').keydown(function(ev){
+            var keycode = ev.which;
+            if (keycode == 27) {
+              Core._hideRecordTooltip($example);
+            }
+          });
         });
-        $('body').keydown(function(ev){
-          var keycode = ev.which;
-          if (keycode == 27) {
-            Core._hideRecordTooltip($example);
-          }
-        });
-      });
+      }
+
     },
 
 
