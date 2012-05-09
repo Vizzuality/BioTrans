@@ -317,19 +317,23 @@
       // Show footer
       $('footer').show();
 
+      // Scrolls to top
+      $('html, body').animate({scrollTop: 0, scrollLeft: 0}, 150);
+
       // Get image width and set its parent to margin auto
-      $el.width($img.width());
+      //$el.width($img.width());
 
       // Set transcriptor width
+      $el.find('div#transcriber').css({maxWidth:$(window).width() });
       $el.find('div#transcriber').width($img.width() - 2);
 
       $img.fadeIn(250);
 
+      $el.find(".scrollpane").css({width:$(window).width(), height: $(window).height() });
+      $el.find(".scrollpane").jScrollPane({showArrows: true});
+
       // Enable transcription
-      $el.find('div#transcriber').show().animate({
-        opacity:1,
-        marginTop: '-=35px'
-      }, 500);
+      $el.find('div#transcriber').show().animate({ opacity:1, marginTop: '-=35px' }, 500);
     },
 
 
@@ -371,9 +375,17 @@
       // Give it resize and move funcionalities
       var _width = $transcriber.parent().width();
 
+      $(window).resize(function() {
+
+      $el.find(".scrollpane").css({width:$(window).width(), height: $(window).height() });
+      $el.find(".scrollpane").jScrollPane({showArrows: true});
+
+
+      });
+
       $transcriber.
         resizable({ containment: 'parent', minHeight: 180, handles: 'se', minWidth: _width }).
-        draggable({ containment: "parent", axis: "y", handle: 'div.top, div.bottom', cancel: 'ul,div.record' });
+        draggable({ containment: 'parent', axis: "xy", handle: 'div.top, div.bottom', cancel: 'ul,div.record' });
 
       // Start variables (step, values, ...)
       $el.data('step', 0);
