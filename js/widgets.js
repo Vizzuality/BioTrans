@@ -23,15 +23,16 @@
 
 
   // constants
-  var TRUE = true, FALSE = true, NULL = null
-  , name = 'transcriber'
+  var
+  TRUE = true, FALSE = true, NULL = null,
+  name = 'transcriber',
   // Plugin parts
-  , Core, API, Helper
+  Core, API, Helper,
   // default options
-  , days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
-  , months = ["January","February","March","April","May","June","July","August","September","October","November","December"]
-  , speciesURL = ''
-  , defaultOptions = {
+  days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
+  months = ["January","February","March","April","May","June","July","August","September","October","November","December"],
+  speciesURL = '',
+  defaultOptions = {
     globalEvents : [],
     tooltips : {
       record: {
@@ -49,7 +50,6 @@
         tail: 'center'
       },
       example : {
-
       }
     },
     titles: [
@@ -243,22 +243,25 @@
 
     _bind: function($el) {
       // Start or finish record
-      $el.find('a.checkRecord').bind({'click': Core._checkRecord});
+      $el.find('a.checkRecord').on('click', Core._checkRecord);
 
-      // Submit form
-      $el.find('form').bind({'submit': Core._nextRegister});
+      $el.find('form').on('submit', Core._nextRegister);
 
       // Step list
-      $el.find('ul.steps li a').bind({'click': function(ev) {Core._nextRegister(ev,parseInt($(ev.target).attr('href').replace('#goto_','')))} })
+      $el.find('ul.steps li a').on('click', function(e) {
+
+        var nextStep = parseInt($(e.target).attr('href').replace('#goto_',''), 10);
+
+        Core._nextRegister(e, nextStep);
+
+      });
 
       // See the example
-      $el.find('a.example').bind({'click': Core._showExampleTooltip });
+      $el.find('a.example').on('click', Core._showExampleTooltip);
 
       // Skip the field
-      $el.find('ul.explanations li a.skip').bind({'click': Core._showSkipTooltip });
+      $el.find('ul.explanations li').find('a.skip').on('click', Core._showSkipTooltip);
     },
-
-
 
     /**
      * Stop propagation function
@@ -283,7 +286,7 @@
       $el.append(loader);
 
       // Bind load image
-      $el.find('img').bind({'load':Core._startTranscription});
+      $el.find('img').imagesLoaded(Core._startTranscription);
     },
 
 
@@ -303,7 +306,10 @@
      * Start the transcription after the image is loaded
      */
     _startTranscription: function(ev) {
-      var $el = $(ev.target).closest('div.transcribing');
+
+      var
+        $img = $(ev),
+        $el = $img.closest('div.transcribing');
 
       // Remove Loader
       Core._removeLoader($el);
@@ -312,16 +318,18 @@
       $('footer').show();
 
       // Get image width and set its parent to margin auto
-      $el.width($(ev.target).width());
+      $el.width($img.width());
 
       // Set transcriptor width
-      $el.find('div#transcriber').width($(ev.target).width() - 2);
+      $el.find('div#transcriber').width($img.width() - 2);
+
+      $img.fadeIn(250);
 
       // Enable transcription
       $el.find('div#transcriber').show().animate({
         opacity:1,
         marginTop: '-=35px'
-      },500);
+      }, 500);
     },
 
 
