@@ -3,9 +3,8 @@
 # http://beta.compass-style.org/help/tutorials/configuration-reference/
 # ----------------------------------------------------------------------
 http_path       = "/"
-project_path    = "."
 
-sass_dir        = "css/scss"
+sass_dir        = "scss"
 css_dir         = "css"
 images_dir      = "img"
 
@@ -19,4 +18,5 @@ line_comments   = false
 # compass compile -e production --force
 # other output styles are :nested, :expanded, :compact, or :compressed
 # output_style    = (environment == :production) ? :compressed : :expanded
-output_style    = :expanded
+output_style = :compressed
+
