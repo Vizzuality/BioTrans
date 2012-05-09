@@ -584,8 +584,8 @@
       var
         $el      = $(ev.target).closest('div.transcribing'),
         $tooltip = $el.find('div.bottom > div.tooltip.skip'),
-        $popup   = $el.find('ul.explanations li:eq(' + $el.data('step') + ') a.skip'),
-        left     = $popup.position().left + $popup.width() / 2 + 60;
+        $link    = $el.find('ul.explanations li:eq(' + $el.data('step') + ') a.skip'),
+        left     = $link.offset().left + $link.width() / 2 - 305;
 
       $tooltip.css({ left: left + 'px' });
 
@@ -668,8 +668,9 @@
 
       // Offset
       var
-        $popup = $el.find('ul.explanations li:eq(' + $el.data('step') + ') a.example'),
-        left   = $popup.position().left + $popup.width() / 2 + 60;
+        $link = $el.find('ul.explanations li:eq(' + $el.data('step') + ') a.example'),
+        left   = $link.offset().left - 306 + $link.width() / 2;
+        console.log($link, $link.offset().left, $link.width());
 
       $example.css({ left: left + 'px' });
 
