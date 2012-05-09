@@ -1,6 +1,7 @@
 var showCompleted = false;
 
-$(document).ready(function() {
+$(function() {
+
     // Check if transcribe element exists
     $('div.transcribing').transcriber({
         test: 'test'
@@ -22,7 +23,7 @@ $(document).ready(function() {
 
         $(".bkg").animate({left: $(this).position().left }, 100, function() {
             $(".switch").find("a").removeClass("selected");
-            $a.addClass("selected");   
+            $a.addClass("selected");
             if ($(this).position().left != 0) {
                 if (showCompleted) {
                     $(".collection-list li.completed:not(.mine)").animate({opacity:.2}, { duration: 100});
@@ -33,7 +34,7 @@ $(document).ready(function() {
                 } else $(".collection-list li:not(.mine)").animate({opacity:1}, { duration: 100});
             }
 
-        }); 
+        });
     });
 
     // Small switch (shows completed collections)
