@@ -67,7 +67,7 @@ div.transcribing {
   display:block;
   width:auto;
   padding:0;
-  /*margin:90px auto 0 auto;*/
+  margin-top:84px;
   overflow:hidden;
 
   .scrollpane {
@@ -83,8 +83,8 @@ div.transcribing {
     position:absolute;
     display:none;
     @include opacity(0);
-    top:90px;
-    left:0;
+    top:10px;
+    left:10px;
     display:block;
     height:205px;
     margin:35px 0 0 0;

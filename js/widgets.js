@@ -26,6 +26,7 @@
   var
   TRUE = true, FALSE = true, NULL = null,
   name = 'transcriber',
+  scrollpane,
   // Plugin parts
   Core, API, Helper,
   // default options
@@ -63,8 +64,7 @@
       'TRANSFER DATE',
       'ADDITIONAL INFORMATION'
     ],
-    explanations: [
-      {
+    explanations: [ {
       label: 'Drag & resize the viewer to the record you want to transcribe.'
     },
     {
@@ -78,7 +78,9 @@
       }
       ],
       step: 'Code',
-      ok: 'in'
+      ok: 'in',
+      x: 0,
+      y: 200
     },
     {
       label: '2 or 3 latin words in the first line, next to the margin.',
@@ -91,7 +93,9 @@
       }
       ],
       step: 'Species',
-      ok: 'in'
+      ok: 'in',
+      x: 0,
+      y: 400
     },
     {
       label: 'A place name, in the second line.',
@@ -104,7 +108,9 @@
       }
       ],
       step: 'Location',
-      ok: 'in'
+      ok: 'in',
+      x: 500,
+      y: 400
     },
     {
       label: 'A date in the third line.',
@@ -131,7 +137,9 @@
       }
       ],
       step: 'Collection date',
-      ok: 'out'
+      ok: 'out',
+      x: 1000,
+      y: 400
     },
     {
       label: 'A person name in the same line than the date.',
@@ -144,7 +152,9 @@
       }
       ],
       step: 'Collector',
-      ok: 'in'
+      ok: 'in',
+      x: 1000,
+      y: 1000
     },
     {
       label: 'A person name at the top right of the record.',
@@ -157,7 +167,9 @@
       }
       ],
       step: 'Transferer',
-      ok: 'in'
+      ok: 'in',
+      x: 1000,
+      y: 0
     },
     {
       label: 'A date under the transferrer.',
@@ -184,7 +196,9 @@
       }
       ],
       step: 'Transfer date',
-      ok: 'out'
+      ok: 'out',
+      x: 500,
+      y: 500
     },
     {
       label: 'Can you detect this information?.',
@@ -210,7 +224,9 @@
       }
       ],
       step: 'Other',
-      ok: 'out'
+      ok: 'out',
+      x: 1200,
+      y: 1200
     }
     ]
   };
@@ -324,13 +340,13 @@
       //$el.width($img.width());
 
       // Set transcriptor width
-      $el.find('div#transcriber').css({maxWidth:$(window).width() });
+      $el.find('div#transcriber').css({maxWidth:$(window).width() - 40 });
       $el.find('div#transcriber').width($img.width() - 2);
 
       $img.fadeIn(250);
 
       $el.find(".scrollpane").css({width:$(window).width(), height: $(window).height() });
-      $el.find(".scrollpane").jScrollPane({showArrows: true});
+      Core.scrollpane = $el.find(".scrollpane").jScrollPane({showArrows: true});
 
       // Enable transcription
       $el.find('div#transcriber').show().animate({ opacity:1, marginTop: '-=35px' }, 500);
@@ -376,11 +392,10 @@
       var _width = $transcriber.parent().width();
 
       $(window).resize(function() {
+        $el.find(".scrollpane").css({width:$(window).width(), height: $(window).height() });
+        Core.scrollpane = $el.find(".scrollpane").jScrollPane({showArrows: true});
 
-      $el.find(".scrollpane").css({width:$(window).width(), height: $(window).height() });
-      $el.find(".scrollpane").jScrollPane({showArrows: true});
-
-
+        $el.find('div#transcriber').css({maxWidth:$(window).width() - 40 });
       });
 
       $transcriber.
@@ -528,15 +543,13 @@
 
       if (step == previous) return false;
 
-      $list.find('> li:eq(' + previous + ')').fadeOut(300,
-                                                      function(ev) {
-                                                        $list.find('> li:eq(' + (step) + ')').addClass('selected').fadeIn(300,
-                                                                                                                          function(ev){
-                                                                                                                            $(this).find('form input, form select').first().focus();
-                                                                                                                          }
-                                                                                                                         );
-                                                      }
-                                                     );
+      $('html, body').animate({scrollTop: 0, scrollLeft: 0}, 150);
+
+      $list.find('> li:eq(' + previous + ')').fadeOut(300, function(ev) {
+        $list.find('> li:eq(' + (step) + ')').addClass('selected').fadeIn(300, function(ev){
+          $(this).find('form input, form select').first().focus();
+        });
+      });
     },
 
     /**
@@ -603,8 +616,10 @@
       var
         $el      = $(ev.target).closest('div.transcribing'),
         $tooltip = $el.find('div.bottom > div.tooltip.skip'),
+        tooltipWidth = $tooltip.width(),
         $link    = $el.find('ul.explanations li:eq(' + $el.data('step') + ') a.skip'),
-        left     = $link.offset().left + $link.width() / 2 - 305;
+        left     = $link.offset().left + $link.width() / 2 - tooltipWidth / 2 - 10;
+        //console.log(tooltipWidth);
 
       $tooltip.css({ left: left + 'px' });
 
@@ -683,13 +698,15 @@
 
       var
       $el = $(ev.target).closest('div.transcribing'),
-      $example = $el.find('div.bottom > div.tooltip.example');
+      $example = $el.find('div.bottom > div.tooltip.example'),
+      tooltipWidth = 200;
 
       // Offset
       var $link = $el.find('ul.explanations li:eq(' + $el.data('step') + ')').find('a.example');
 
       if ($link.length > 0) {
-        var left   = $link.offset().left - 306 + $link.width() / 2;
+        var left   = $link.offset().left - tooltipWidth/2 + $link.width() / 2;
+
         //console.log($link, $link.offset().left, $link.width());
 
         $example.css({ left: left + 'px' });
@@ -1050,6 +1067,10 @@
 
       $el.data('step',step);
 
+      var stepData = Core.options.explanations[step];
+      //console.log(step, stepData.step, stepData.x, stepData.y);
+      Core.scrollpane.data('jsp').scrollTo(stepData.x, stepData.y, true);
+
       Core._saveRegister($el,previous);
 
       // Manage explanations list
@@ -1220,8 +1241,8 @@
       // Move image
       // Where the transcripter is and height of it
       $el.find('img').animate({
-        marginTop: '-=' + (trans_h + trans_y - 10) + 'px'
-      },500);
+        marginTop: '-=' + (trans_h + trans_y - 10) + 'px',
+      }, 500);
     },
 
 
