@@ -57,6 +57,8 @@ $(function() {
 
   var timeLifePage = 0;
 
+  $(".time-life").find("li:nth-child(2n+1)").addClass("odd");
+
   $(".time-life li.previous a").on("click", function(e) {
     e.preventDefault();
 
@@ -65,7 +67,10 @@ $(function() {
     $(".time-life li.page"+(timeLifePage - 1)+".previous, .time-life-graf li.page"+(timeLifePage -1)+".previous").fadeOut(150, function() {
       $(this).remove();
       $(".time-life li.page"+timeLifePage+".hidden, .time-life-graf li.page"+timeLifePage+".hidden").fadeIn(150);
+      $(".time-life").find("li").removeClass("odd");
+      $(".time-life").find("li:nth-child(2n+1)").addClass("odd");
     });
   });
 
 });
+
