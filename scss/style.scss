@@ -4,7 +4,7 @@
 
 /* Better than clearfix */
 
-aside:after, div:after, form:after, header:after, nav:after, section:after, ul:after, li:after, article:after, caption:after, ol:after, footer:after {
+aside:after, div:after, form:after, .header:after, nav:after, section:after, ul:after, li:after, article:after, caption:after, ol:after, .footer:after {
   clear: both;
   content: '';
   display: block;
@@ -82,13 +82,15 @@ a {
 
 }
 
+a img { border: none; }
+
 ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-header {
+.header {
   padding: 27px 0;
 }
 
@@ -138,7 +140,7 @@ h3 span.black {
 }
 
 .home {
-  hgroup {
+  .hgroup {
     margin: 60px 0 82px 0;
   }
 
@@ -513,7 +515,7 @@ a {
   }
 }
 
-footer.relative {
+.footer.relative {
   top: -40px;
   position: relative;
 }
@@ -665,7 +667,7 @@ hr {
   width: 100%;
 }
 
-footer hr {
+.footer hr {
   border-top: 1px solid #343434;
 }
 
