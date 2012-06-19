@@ -1060,6 +1060,17 @@ li {
       float: left;
       text-align: right;
     }
+
+    &.odd {
+      div {
+        left:45px;
+        width:240px;
+        position:relative;
+        text-align: left;
+      }
+      padding-left: 50%;
+    }
+
     &:nth-child(2n+1) {
       div {
         left:45px;
@@ -1069,6 +1080,7 @@ li {
       }
       padding-left: 50%;
     }
+
     &:first-child div {
       top: 0;
     }

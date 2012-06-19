@@ -3,7 +3,11 @@ var showCompleted = false;
 $(function() {
 
   // Check if transcribe element exists
-  $('div.transcribing').transcriber({
+  $('div.transcribing.regular').transcriber({
+    test: 'test'
+  });
+
+  $('div.transcribing.sernac').transcriberSernac({
     test: 'test'
   });
 

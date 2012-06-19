@@ -7,12 +7,19 @@
 @import "plugins";
 
 // Colors
-$standard_grey: #999;
+$cGray: #999;
+$cSelectionBorder: #FF6600;
+$cBackground: #F4A875;
 
 // LAYOUT
 body {
-  background:url('../img/bg.jpg') repeat-x #333333;
   overflow:hidden;
+
+  background: #333333 url('../img/bg.jpg') repeat-x ;
+
+  &.sernac {
+    background:url('../img/bg-transcriber.png');
+  }
 
   .header {
     position:fixed;
@@ -33,7 +40,7 @@ body {
       &::after {position:absolute; top:0; left:0; height:80px; width:1px; content: ''; border-left: 1px solid black}
     }
     h1 {font:bold 17px "Open Sans"; color:white; font-weight:800;}
-    h2 {font:normal 13px "Open Sans"; color:$standard_grey}
+    h2 {font:normal 13px "Open Sans"; color:$cGray}
     h5 {display:inline-block; vertical-align:top; font:bold 37px "Open Sans"; color:white; font-weight:800; line-height:28px;}
     label {display:inline-block; vertical-align:top; width:74px; padding:2px 0 0 5px; font:bold 13px "Open Sans"; color:white; line-height:14px}
     span {display:inline-block; width:auto;}
@@ -193,7 +200,7 @@ div.transcribing {
           vertical-align:top;
           font:bold 11px "Helvetica",Arial;
           line-height:13px!important;
-          color:$standard_grey;
+          color:$cGray;
           border:1px solid black;
           text-transform:uppercase;
           @include border-radius(3px);
@@ -496,7 +503,7 @@ div.tooltip {
   margin:0;
   font:bold 11px "Helvetica",Arial;
   line-height:normal;
-  color:$standard_grey;
+  color:$cGray;
   border:1px solid black;
   text-transform:uppercase;
   @include background-image(linear-gradient(#ffffff, #e6e6e6));
