@@ -93,7 +93,6 @@ body.sernac div.transcribing {
 
 #selector {
   position:absolute;
-  background:red;
   display:none;
   z-index: 10010;
   background:url('../img/bg-transcriber.png');
@@ -144,10 +143,10 @@ div.transcribing {
   .box {
     $width: 520px;
     $height: 52px;
-    $pTop: 17px;
-    $pRight: 20px;
-    $pBottom: 20px;
-    $pLeft: 20px;
+    $pTop: 11px;
+    $pRight: 11px;
+    $pBottom: 11px;
+    $pLeft: 10px;
 
     position:absolute;
     width:$width;
@@ -169,6 +168,16 @@ div.transcribing {
     @include border-radius(8px);
     @include box-shadow(rgba(0,0,0,0.4) 0 0 5px 3px);
 
+
+    &.hint ul {
+      & > li {
+        position:absolute; top:0; left:0; display:none;
+        color: #fff;
+        font: 13px "Open Sans";
+        &:first-child {display:block}
+      }
+    }
+
     span {
       color:#fff;
       font: 13px "Open Sans";
@@ -177,7 +186,6 @@ div.transcribing {
     .button {
       float:right;
       position:relative;
-      top: -7px;
       cursor:pointer;
 
       span {
@@ -285,6 +293,7 @@ div.transcribing {
       display:none;
     }
 
+  }
 
     ul {
       position:relative;
@@ -356,7 +365,7 @@ div.transcribing {
       }
 
       // List classes
-      &.explanations,&.titles {
+      &.explanations, &.titles {
         & > li {
           position:absolute; top:0; left:0; display:none;
           &:first-child {display:block}
@@ -461,7 +470,6 @@ div.transcribing {
 
     } // ul
 
-  }
 
   div.loader {
     position:absolute;

@@ -403,7 +403,12 @@
       Core.$controls = $controls;
 
       $(".transcribing").append($controls);
-      $controls.find("span").html('Controls');
+      //$controls.find("span").html('Controls');
+
+      $controls.append(Core._createExplanations());
+
+      $controls.append('<a class="button orange"><span></span></a>');
+      $controls.find(".button span").html("Finish this record");
 
       var left = Math.max(0, (($(window).width()  - $controls.outerWidth()) / 2) + $(window).scrollLeft());
       var top = $("#selector").offset().top + Core.$selector.height() + 20;
@@ -413,12 +418,11 @@
 
     _addHint: function(x, y, w, h) {
       var $hint = $('<div>').attr('class', 'hint box');
-      $hint.append('<span />');
+      $hint.append('<ul />');
 
       Core.$hint = $hint;
 
       $(".transcribing").append($hint);
-      $hint.find("span").html('This is a test');
 
       var left = Math.max(0, (($(window).width()  - $hint.outerWidth()) / 2) + $(window).scrollLeft());
       var top = $("#selector").offset().top - $hint.height() - 50;
@@ -474,7 +478,6 @@
       Core.$selector.addClass("hollow");
       Core.$selector.fadeIn(250);
       Core.$selector.on("click", Core._showSelector);
-
     },
 
     _showSelector: function(ev) {
@@ -509,8 +512,11 @@
 
       $img.css({ top: -1*y, left: -1*x + $(".transcribing img").offset().left});
 
+
       Core.$selector.append($img);
       Core.$selector.fadeIn(250);
+
+      Core.$selector.off("click");
 
       Core._hideLegend();
       Core._addHint(x, y, w, h);
@@ -666,7 +672,7 @@
 
 
       // Add titles list
-      for (var i = 0, _length = Core.options.explanations.length; i < _length ; i++) {
+      for (var i = 1, _length = Core.options.explanations.length; i < _length ; i++) {
         var
           li = '<li ' + (i === 0 ? 'class="selected"' : '') + '>',
           obj = Core.options.explanations[i];
@@ -706,11 +712,13 @@
           li += '</form>';
         }
 
+        Core.$hint.find("ul").append("<li>" + obj.label + "</li>");
+
         // Add the label
-        li += '<p>' + obj.label;
+        li += '<p>' ;
         // Add help buttons
         if (obj.inputs) {
-          li += ' <a href="#example" class="example">See example</a> | <a href="#skip" class="skip">Skip this field</a><span class="tail"></span>';
+          li += ' <a href="#skip" class="skip">Skip this field</a><span class="tail"></span>';
         }
         li += '</p>';
 
