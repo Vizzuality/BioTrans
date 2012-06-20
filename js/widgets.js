@@ -346,7 +346,7 @@
       $img.fadeIn(250);
 
       $el.find(".scrollpane").css({width:$(window).width(), height: $(window).height() });
-      Core.scrollpane = $el.find(".scrollpane").jScrollPane({showArrows: true});
+      Core.scrollpane = $el.find(".scrollpane").jScrollPane({ showArrows: true });
 
       // Enable transcription
       $el.find('div#transcriber').show().animate({ opacity:1, marginTop: '-=35px' }, 500);
@@ -393,14 +393,14 @@
 
       $(window).resize(function() {
         $el.find(".scrollpane").css({width:$(window).width(), height: $(window).height() });
-        Core.scrollpane = $el.find(".scrollpane").jScrollPane({showArrows: true});
+        Core.scrollpane = $el.find(".scrollpane").jScrollPane({ showArrows: true });
 
         $el.find('div#transcriber').css({maxWidth:$(window).width() - 40 });
       });
 
       $transcriber.
         resizable({ containment: 'parent', minHeight: 180, handles: 'se', minWidth: _width }).
-        draggable({ containment: 'parent', axis: "xy", handle: 'div.top, div.bottom', cancel: 'ul,div.record' });
+        draggable({ containment: 'parent', axis: "xy", handle: 'div.top, div.bottom', cancel: 'ul, div.record' });
 
       // Start variables (step, values, ...)
       $el.data('step', 0);

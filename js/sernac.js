@@ -1,3 +1,4 @@
+
 /**************************************************************************
  * TRANSCRIBING SERNAC PLUGIN
  **************************************************************************/
@@ -252,7 +253,7 @@
         Core._createLoader($el);
 
         // Create transcriber
-        //Core._createTranscriber($el);
+        Core._addLegend();
 
         // Bind events
         Core._bind($el);
@@ -267,21 +268,39 @@
       var selection;
 
       $(document).mouseup(function(){
+
+        if ($(".backdrop").length > 0) {
+          return;
+        }
+
         var x = $(selection).offset().left;
         var y = $(selection).offset().top;
         var w = $(selection).width();
         var h = $(selection).height();
+
         selection.remove();
 
-        Core._addSelector(x, y, w, h);
+        if (w > 0 && h > 0) Core._addSelector(x, y, w, h);
       });
 
       var $img = $(document).find(".transcribing");
 
       $img.bind('dragstart', function(event) { event.preventDefault(); });
 
-      $img.mousedown(function(e){
-        var initialxpos = e.pageX,
+      $img.on("click", function(e){
+        e.preventDefault();
+      });
+
+      $img.on("mousedown", function(e){
+
+        $(".jScrollPane").addClass("drag");
+
+        if ($(".backdrop").length > 0) {
+          return;
+        }
+
+        var
+        initialxpos = e.pageX,
         initialypos = e.pageY,
 
         selectionId = "selection";
@@ -314,7 +333,6 @@
           }
           s = $.extend(s, style);
           s = $.extend({ visibility: "visible" }, s);
-          console.log(s, styleValue);
 
          selection.css(s);
 
@@ -373,49 +391,132 @@
     _removeLoader: function($el) {
       $el.find('div.loader').animate({
         opacity:0
-      },500,function(ev){
+      }, 500,function(ev){
         $(this).remove();
-      })
+      });
+    },
+
+    _addControls: function(x, y, w, h) {
+      var $controls = $('<div>').attr('class', 'controls box');
+      $controls.append('<span />');
+
+      Core.$controls = $controls;
+
+      $(".transcribing").append($controls);
+      $controls.find("span").html('Controls');
+
+      var left = Math.max(0, (($(window).width()  - $controls.outerWidth()) / 2) + $(window).scrollLeft());
+      var top = $("#selector").offset().top + Core.$selector.height() + 20;
+      $controls.css({ marginLeft: 0, left: left, top: top - 50, bottom: "none" });
+      $controls.animate({ opacity: 1, top: top }, 150);
+    },
+
+    _addHint: function(x, y, w, h) {
+      var $hint = $('<div>').attr('class', 'hint box');
+      $hint.append('<span />');
+
+      Core.$hint = $hint;
+
+      $(".transcribing").append($hint);
+      $hint.find("span").html('This is a test');
+
+      var left = Math.max(0, (($(window).width()  - $hint.outerWidth()) / 2) + $(window).scrollLeft());
+      var top = $("#selector").offset().top - $hint.height() - 50;
+      $hint.css({ marginLeft: 0, left: left, top: top + 50, bottom: "none" });
+      $hint.animate({ opacity: 1, top: top }, 150);
+    },
+
+    _hideLegend: function() {
+      Core.$legend.fadeOut(250);
+    },
+
+    _addLegend: function() {
+      var $legend = $('<div>').attr('class', 'box');
+      $legend.append('<span />');
+      $legend.append('<a class="button green"><span></span></a>');
+
+      Core.$legend = $legend;
+
+      $legend.find("span").html("Drag a square around the specimen label. See example.");
+      $legend.find(".button span").html("Start this record");
+      $legend.find(".button").on("click", Core._showSelector);
+
+      $(".transcribing").append($legend);
+      $legend.animate({opacity:1, bottom: 90}, 150);
     },
 
     /**
      * Start the transcription after the image is loaded
      */
     _addSelector: function(x, y, w, h) {
+
       if (Core.$selector) {
         Core.$selector.fadeOut(250, function() {
           $(this).remove();
         });
-
       }
-        var $selector = $('<div>').attr('id','selector');
-        Core.$selector = $selector;
 
-        console.log(x,y,w, h);
-        $(".transcribing").append($selector);
-        console.log($(".transcribing img"), $selector);
-        Core._showSelector(x, y, w, h);
-        $selector.resizable({ containment: 'parent', minHeight: 180 }).
-        draggable({ containment: 'parent' });
+      var $selector = $('<div>').attr('id','selector');
+      Core.$selector = $selector;
+
+      $(".transcribing").append($selector);
+      Core._showSelection(x, y, w, h);
     },
 
-    _showSelector: function(x, y, w, h) {
-      Core.$selector.css({left: x, top: y, width: w, height: h}, 150);
+    _showSelection: function(x, y, w, h) {
+
+      var width  = w;
+      var height = h;
+
+      Core.$selector.css({width: width, height: height});
+
+      Core.$selector.css({ left: x, top: y });
+      Core.$selector.addClass("hollow");
       Core.$selector.fadeIn(250);
+      Core.$selector.on("click", Core._showSelector);
+
     },
 
-    _moveSelector: function(ev) {
-      var
-      left = ev.pageX - Core.$selector.width() / 2,
-      top  = ev.pageY - 84 - Core.$selector.height() / 2;
+    _showSelector: function(ev) {
 
-      var dx = Math.abs(left - Core.$selector.offset().left);
-      var dy = Math.abs(top - Core.$selector.offset().top);
-      var d  = Math.sqrt(dx * dx + dy * dy);
-      var speed = 100 * 250/d;
+      var w = Core.$selector.width();
+      var h = Core.$selector.height();
+      var y = Core.$selector.offset().top;
+      var x = Core.$selector.offset().left;
 
-      Core.$selector.animate({top: top, left: left}, speed);
+      var width = w*2;
+      var height = h*2;
+
+      if (width < 480)  width = 480;
+      if (height < 350) height = 350;
+
+      if (width > 600)  width = 600;
+      if (height > 500) height = 500;
+
+      Core.$selector.css({width: width, height: height});
+      var top = Math.max(0, (($(window).height() - Core.$selector.outerHeight()) / 2) + $(window).scrollTop());
+      var left= Math.max(0, (($(window).width()  - Core.$selector.outerWidth()) / 2) + $(window).scrollLeft());
+      Core.$selector.css({ left: left, top: top });
+      Core.$selector.removeClass("hollow");
+
+      $("#selector img").each(function(i, e) {
+        $(e).remove();
+      });
+
+      var $img = $(".transcribing img").clone();
+
+      $("body").append("<div class='backdrop' />");
+
+      $img.css({ top: -1*y, left: -1*x + $(".transcribing img").offset().left});
+
+      Core.$selector.append($img);
+      Core.$selector.fadeIn(250);
+
+      Core._hideLegend();
+      Core._addHint(x, y, w, h);
+      Core._addControls(x, y, w, h);
     },
+
     /**
      * Start the transcription after the image is loaded
      */

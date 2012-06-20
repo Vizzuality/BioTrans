@@ -16,6 +16,10 @@ body {
   overflow:hidden;
   background: #333333 url('../img/bg.jpg') repeat-x ;
 
+  .jspContainer img { display:block; margin:auto; cursor: crosshair; }
+  .jspContainer.drag img { cursor: nwse-resize!important; }
+  .jspContainer.drag { cursor: nwse-resize!important; }
+
   &.sernac {
     background:url('../img/bg-transcriber.png');
   }
@@ -70,9 +74,11 @@ body {
 
 body.sernac div.transcribing {
 
+
   img {
     @include box-shadow(rgba(0,0,0,0.7) 0 0 15px 13px);
     margin-top: 80px;
+    margin: 80px auto 0 auto;
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -89,16 +95,32 @@ body.sernac div.transcribing {
   position:absolute;
   background:red;
   display:none;
-  z-index:100;
-  background:rgba(50,100,220,.15);
-  border:1px solid rgb(50,100,220);
+  z-index: 10010;
+  background:url('../img/bg-transcriber.png');
+  overflow:hidden;
+  @include box-shadow(rgba(0,0,0,0.4) 0 0 5px 3px);
+
+  &.hollow {
+    background:rgba(255,103,1, .15);
+    border:1px solid #FF6701;
+    @include box-shadow(none);
+    cursor: pointer;
+  }
+
+  img {
+    position:absolute;
+    zoom:2;
+    -moz-transform: scale(2);
+    -o-transform: scale(2);
+  }
 }
 
 #selection {
+  cursor: nwse-resize;
   position:absolute;
   visibility:hidden;
-  background:rgba(50,100,220,.15);
-  border:1px solid rgb(50,100,220);
+  background:rgba(255,103,1, .15);
+  border:1px solid #FF6701;
 }
 
 // TRANSCRIBER
@@ -119,21 +141,51 @@ div.transcribing {
 
   & > img { display:none; margin:auto; }
 
-  div#transcriber_helper {
+  .box {
     $width: 520px;
-    position:relative;
-    bottom: 20px;
-    left:50%;
-    display:block;
+    $height: 52px;
+    $pTop: 17px;
+    $pRight: 20px;
+    $pBottom: 20px;
+    $pLeft: 20px;
+
+    position:absolute;
     width:$width;
-    height:52px;
-    border:1px solid black;
-    z-index:1000;
+    height:$height;
+    bottom: 0;
+    left:50%;
     margin-left:-1*$width/2;
+    z-index:100000;
+
+    opacity:0;
+
     background: rgba(0, 0, 0, 0.7);
+
+    text-align:left;
+    border:1px solid black;
+    padding: $pTop $pRight $pBottom $pLeft;
+    height: $height - $pTop - $pBottom;
 
     @include border-radius(8px);
     @include box-shadow(rgba(0,0,0,0.4) 0 0 5px 3px);
+
+    span {
+      color:#fff;
+      font: 13px "Open Sans";
+    }
+
+    .button {
+      float:right;
+      position:relative;
+      top: -7px;
+      cursor:pointer;
+
+      span {
+        font: 11px "Open Sans";
+        font-weight:500;
+      }
+
+    }
   }
 
   div#transcriber {
@@ -701,7 +753,7 @@ div.tooltip {
 
 .jspContainer { overflow: hidden; position: relative; }
 .jspPane { position: absolute; }
-.jspVerticalBar { position: absolute; top: 0; right: 10px; width: 10px; height: 100%; }
+.jspVerticalBar { position: absolute; top: 80px; right: 10px; width: 10px; height: 100%; }
 .jspHorizontalBar { position: absolute; bottom: 10px; left: 0; width: 100%; height: 10px; }
 .jspVerticalBar *,
 .jspHorizontalBar * { margin: 0; padding: 0; }
@@ -719,4 +771,16 @@ div.tooltip {
 .jspCorner { float: left; height: 100%; }
 /* Yuk! CSS Hack for IE6 3 pixel bug :( */
 * html .jspCorner { margin: 0 -3px 0 0; }
+
+
+.backdrop {
+  background-color: #000000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  opacity: .5;
+}
 
