@@ -25,7 +25,8 @@
   // constants
   var
   TRUE = true, FALSE = true, NULL = null,
-  name = 'transcriber',
+  name = 'transcriberSernac',
+  className = 'transcriber',
   scrollpane,
   // Plugin parts
   Core, API, Helper,
@@ -245,11 +246,13 @@
       return this.each( function () {
         var $el = $(this);
 
+        Core.$el = $el;
+
         // Create loader
         Core._createLoader($el);
 
         // Create transcriber
-        Core._createTranscriber($el);
+        //Core._createTranscriber($el);
 
         // Bind events
         Core._bind($el);
@@ -260,6 +263,64 @@
     _bind: function($el) {
       // Start or finish record
       $el.find('a.checkRecord').on('click', Core._checkRecord);
+
+      var selection;
+
+      $(document).mouseup(function(){
+        var x = $(selection).offset().left;
+        var y = $(selection).offset().top;
+        var w = $(selection).width();
+        var h = $(selection).height();
+        selection.remove();
+
+        Core._addSelector(x, y, w, h);
+      });
+
+      var $img = $(document).find(".transcribing");
+
+      $img.bind('dragstart', function(event) { event.preventDefault(); });
+
+      $img.mousedown(function(e){
+        var initialxpos = e.pageX,
+        initialypos = e.pageY,
+
+        selectionId = "selection";
+
+        $el.append($(document.createElement("span")).attr("id", selectionId));
+
+        selection = $("#" + selectionId);
+
+        $img.mousemove(function(e){
+
+          var
+          cursorxpos = e.pageX,
+          cursorypos = e.pageY,
+          dw         = $(document).width(),
+          dh         = $(document).height(),
+          styleValue = "visibility:visible;";
+
+          var s = {};
+
+          if (cursorxpos > initialxpos) { // right
+            s = { right: "auto", left:  initialxpos , width: cursorxpos - initialxpos };
+          } else { // left
+            s = { left:"auto", width: initialxpos - cursorxpos, right: dw -initialxpos };
+          }
+
+          if (cursorypos > initialypos) { // bottom
+            style = { bottom: "auto", top: initialypos, height: (cursorypos - initialypos) };
+          } else { // top
+            style = { top: "auto", height: initialypos - cursorypos , bottom: dh - initialypos};
+          }
+          s = $.extend(s, style);
+          s = $.extend({ visibility: "visible" }, s);
+          console.log(s, styleValue);
+
+         selection.css(s);
+
+        });
+      });
+
 
       $el.find('form').on('submit', Core._nextRegister);
 
@@ -317,7 +378,44 @@
       })
     },
 
+    /**
+     * Start the transcription after the image is loaded
+     */
+    _addSelector: function(x, y, w, h) {
+      if (Core.$selector) {
+        Core.$selector.fadeOut(250, function() {
+          $(this).remove();
+        });
 
+      }
+        var $selector = $('<div>').attr('id','selector');
+        Core.$selector = $selector;
+
+        console.log(x,y,w, h);
+        $(".transcribing").append($selector);
+        console.log($(".transcribing img"), $selector);
+        Core._showSelector(x, y, w, h);
+        $selector.resizable({ containment: 'parent', minHeight: 180 }).
+        draggable({ containment: 'parent' });
+    },
+
+    _showSelector: function(x, y, w, h) {
+      Core.$selector.css({left: x, top: y, width: w, height: h}, 150);
+      Core.$selector.fadeIn(250);
+    },
+
+    _moveSelector: function(ev) {
+      var
+      left = ev.pageX - Core.$selector.width() / 2,
+      top  = ev.pageY - 84 - Core.$selector.height() / 2;
+
+      var dx = Math.abs(left - Core.$selector.offset().left);
+      var dy = Math.abs(top - Core.$selector.offset().top);
+      var d  = Math.sqrt(dx * dx + dy * dy);
+      var speed = 100 * 250/d;
+
+      Core.$selector.animate({top: top, left: left}, speed);
+    },
     /**
      * Start the transcription after the image is loaded
      */
