@@ -3,13 +3,13 @@ var showCompleted = false;
 $(function() {
 
   // Check if transcribe element exists
-  $('div.transcribing.regular').transcriber({
-    test: 'test'
-  });
+  if ($('div.transcribing.regular, div.transcribing.double').length > 0) {
+    $('div.transcribing').transcriber();
+  }
 
-  $('div.transcribing.sernac').transcriberSernac({
-    test: 'test'
-  });
+  if ($('div.transcribing.sernac').length > 0) {
+    $('div.transcribing').transcriberSernac();
+  }
 
   $(".collection-list li").on("mouseenter", function() {
     $(this).find(".translucent-box").stop().animate({top:0}, { duration: 200, easing: "easeInOutExpo" });

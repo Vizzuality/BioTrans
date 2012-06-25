@@ -71,9 +71,7 @@ body {
   user-select: none;
 }
 
-
 body.sernac div.transcribing {
-
 
   img {
     @include box-shadow(rgba(0,0,0,0.7) 0 0 15px 13px);
@@ -89,7 +87,31 @@ body.sernac div.transcribing {
     /* this will work for QtWebKit in future */
     -webkit-user-drag: none;
   }
+
+  li p {
+    background:none;
+  }
+
+  .hint ul.explanations {
+    top: 14px;
+    left: 0px;
+    li {
+      font-size:11px;
+    }
+  }
+
+  .hint ul.titles {
+    top: -7px;
+    left: -7px;
+    opacity:.8;
+    li {
+      font-size:11px;
+      background:none;
+      border:none;
+    }
+  }
 }
+
 
 #selector {
   position:absolute;
@@ -130,7 +152,6 @@ div.transcribing {
   padding:0;
   overflow:hidden;
   padding: 0 0 40px 0;
-  /*margin-top:80px;*/
   text-align:center;
   @extend .disable-highlight;
 
@@ -168,7 +189,6 @@ div.transcribing {
     @include border-radius(8px);
     @include box-shadow(rgba(0,0,0,0.4) 0 0 5px 3px);
 
-
     &.hint ul {
       & > li {
         position:absolute; top:0; left:0; display:none;
@@ -181,6 +201,7 @@ div.transcribing {
     span {
       color:#fff;
       font: 13px "Open Sans";
+      line-height:30px;
     }
 
     .button {
@@ -289,7 +310,7 @@ div.transcribing {
       width:14px;
       height:14px;
       background:url('../img/resize.png');
-      cursor:s-resize;
+      cursor:nwse-resize;
       display:none;
     }
 

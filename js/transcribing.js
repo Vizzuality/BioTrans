@@ -1,6 +1,5 @@
-
 /**************************************************************************
- * TRANSCRIBING SERNAC PLUGIN
+ * TRANSCRIBING PLUGIN
  **************************************************************************/
 (function($, window, undefined) {
 
@@ -22,145 +21,18 @@
      - Save controller
      */
 
-
   // constants
   var
   TRUE = true, FALSE = true, NULL = null,
-  name = 'transcriberSernac',
-  className = 'transcriber',
+  name = 'transcriber',
   scrollpane,
   // Plugin parts
   Core, API, Helper,
   // default options
-  days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31],
-  months = ["January","February","March","April","May","June","July","August","September","October","November","December"],
-  speciesURL = '',
-  defaultOptions = {
-    globalEvents : [],
-    tooltips : {
-      record: {
-        content: 'There are still <u>{{pending}} empty fields</u> for this record that should be completed before finishing.',
-        title: 'ARE YOU SURE?',
-        orange: 'FINISH',
-        white: 'CANCEL',
-        tail: 'right'
-      },
-      skip : {
-        content: 'If you can’t find the value, you can see <a class="example" href="#see_examples">examples</a> that surely will help you',
-        title: 'ARE YOU SURE?',
-        orange: 'SKIP FIELD',
-        white: 'CANCEL',
-        tail: 'center'
-      },
-      example : {
-      }
-    },
-    titles: [
-      'RECORD POSITION',
-      'RECORD CODE',
-      'GENUS & SPECIES',
-      'COLLECTION LOCATION',
-      'COLLECTION DATE ',
-      'COLLECTOR',
-      'TRANSFERRER',
-      'TRANSFER DATE',
-      'ADDITIONAL INFORMATION'
-    ],
-    explanations: [
-      {
-        label: 'It’s a 4 digit number located at the top right of the page.',
-        inputs: [ { type: 'text', placeholder: 'CODE', size: 'medium', name: 'record_code' } ],
-        step: 'Code',
-        ok: 'in'
-      },
-      {
-        label: '2 or 3 latin words in the first line, next to the margin.',
-        inputs: [ { type: 'text', placeholder: 'SPECIES', size: 'long', name: 'species' } ],
-        step: 'Species',
-        ok: 'in'
-      },
-      {
-      label: 'A place name, in the second line.',
-      inputs: [ { type: 'text', placeholder: 'LOCATION', size: 'long', name: 'location' } ],
-      step: 'Location',
-      ok: 'in'
-    },
-    {
-      label: 'A date in the third line.',
-      inputs: [
-        {
-        type: 'select',
-        placeholder: 'MONTH',
-        size: 'medium',
-        name: 'collection_month',
-        source: months
-      },
-      {
-        type: 'select',
-        placeholder: 'DAY',
-        size: 'short',
-        name: 'collection_day',
-        source: days
-      },
-      {
-        type: 'text',
-        placeholder: 'YEAR',
-        size: 'short',
-        name: 'collection_year'
-      }
-      ],
-      step: 'Collection date',
-      ok: 'out'
-    },
-    {
-      label: 'A person name in the same line than the date.',
-      inputs: [ { type: 'text', placeholder: 'COLLECTOR', size: 'long', name: 'collector' } ],
-      step: 'Collector',
-      ok: 'in'
-    },
-    {
-      label: 'A person name at the top right of the record.',
-      inputs: [ { type: 'text', placeholder: 'TRANSFERER', size: 'long', name: 'transferer' } ],
-      step: 'Transferer',
-      ok: 'in'
-    },
-    {
-      label: 'A date under the transferrer.',
-      inputs: [
-        { type: 'select', placeholder: 'MONTH', size: 'medium', name: 'transfer_month', source: months },
-        { type: 'select', placeholder: 'DAY', size: 'short', name: 'transfer_day', source: days },
-        { type: 'text', placeholder: 'YEAR', size: 'short', name: 'transfer_year' } ],
-      step: 'Transfer date',
-      ok: 'out'
-    },
-    {
-      label: 'Can you detect this information?.',
-      inputs: [
-        {
-        type: 'select',
-        placeholder: 'GENDER',
-        size: 'short',
-        name: 'gender',
-        source: ['male','female']
-      },
-      {
-        type: 'text',
-        placeholder: 'AGE',
-        size: 'short',
-        name: 'age'
-      },
-      {
-        type: 'text',
-        placeholder: 'REGISTER',
-        size: 'short',
-        name: 'register'
-      }
-      ],
-      step: 'Other',
-      ok: 'out'
-    }
-    ]
-  };
+
+  speciesURL = '';
+
+
 
 
   /***************************************************************************
@@ -172,21 +44,18 @@
 
     _init : function (options) {
       // take user options in consideration
-      Core.options = $.extend( true, defaultOptions, options );
+      Core.options = $.extend( true, transcriberData, options );
       return this.each( function () {
         var $el = $(this);
 
-        Core.$el = $el;
-
+        // Create loader
         Core._createLoader($el);
-        Core._addLegend();
+
+        // Create transcriber
+        Core._createTranscriber($el);
 
         // Bind events
         Core._bind($el);
-
-        // Start variables (step, values, ...)
-        Core.$el.data('step', 0);
-        Core.$el.data('values', {});
       });
     },
 
@@ -195,89 +64,19 @@
       // Start or finish record
       $el.find('a.checkRecord').on('click', Core._checkRecord);
 
+      $el.find('form').on('submit', Core._nextRegister);
+
+      // Step list
+      $el.find('ul.steps li a').on('click', function(e) {
+        var nextStep = parseInt($(e.target).attr('href').replace('#goto_',''), 10);
+        Core._nextRegister(e, nextStep);
+      });
+
       // See the example
       $el.find('a.example').on('click', Core._showExampleTooltip);
 
       // Skip the field
       $el.find('ul.explanations li').find('a.skip').on('click', Core._showSkipTooltip);
-
-      var selection;
-
-      $(document).mouseup(function(){
-
-        if ($(".backdrop").length > 0) {
-          return;
-        }
-
-        if ($(selection)) {
-          var x = $(selection).offset().left;
-          var y = $(selection).offset().top;
-          var w = $(selection).width();
-          var h = $(selection).height();
-
-          selection.remove();
-
-          if (w > 0 && h > 0) Core._addSelector(x, y, w, h);
-        }
-      });
-
-      var $transcribing = $(document).find(".transcribing");
-
-      $transcribing.bind('dragstart', function(event) { event.preventDefault(); });
-
-      $transcribing.on("click", function(e){
-        e.preventDefault();
-      });
-
-      $transcribing.on("mousedown", function(e){
-
-        $(".jScrollPane").addClass("drag");
-
-        if ($(".backdrop").length > 0) {
-          return;
-        }
-
-        var
-        initialxpos = e.pageX,
-        initialypos = e.pageY,
-
-        selectionId = "selection";
-
-        $el.append($(document.createElement("span")).attr("id", selectionId));
-
-        selection = $("#" + selectionId);
-
-        $transcribing.mousemove(function(e){
-
-          var
-          cursorxpos = e.pageX,
-          cursorypos = e.pageY,
-          dw         = $(document).width(),
-          dh         = $(document).height(),
-          styleValue = "visibility:visible;";
-
-          var s = {};
-
-          if (cursorxpos > initialxpos) { // right
-            s = { right: "auto", left:  initialxpos , width: cursorxpos - initialxpos };
-          } else { // left
-            s = { left:"auto", width: initialxpos - cursorxpos, right: dw -initialxpos };
-          }
-
-          if (cursorypos > initialypos) { // bottom
-            style = { bottom: "auto", top: initialypos, height: (cursorypos - initialypos) };
-          } else { // top
-            style = { top: "auto", height: initialypos - cursorypos , bottom: dh - initialypos};
-          }
-          s = $.extend(s, style);
-          s = $.extend({ visibility: "visible" }, s);
-
-         selection.css(s);
-
-        });
-      });
-
-
     },
 
     /**
@@ -313,153 +112,11 @@
     _removeLoader: function($el) {
       $el.find('div.loader').animate({
         opacity:0
-      }, 500,function(ev){
+      },500,function(ev){
         $(this).remove();
-      });
+      })
     },
 
-    _addControls: function(x, y, w, h) {
-      var $controls = $('<div>').attr('class', 'controls box');
-      $controls.append('<span />');
-
-      Core.$controls = $controls;
-
-      $(".transcribing").append($controls);
-
-      $controls.append(Core._createExplanations());
-      Core.$hint.append(Core._createTitles());
-
-      $controls.append('<a class="button finish orange"><span></span></a>');
-      $controls.find(".button span").html("Finish this record");
-
-      Core.$el.data('step', 0);
-
-      $controls.find('.button').on('click', Core._nextRegister);
-
-      var left = Math.max(0, (($(window).width()  - $controls.outerWidth()) / 2) + $(window).scrollLeft());
-      var top  = $("#selector").offset().top + Core.$selector.height() + 20;
-
-      $controls.css({ opacity:0, marginLeft: 0, left: left, top: top - 50, bottom: "none" });
-      $controls.animate({ opacity: 1, top: top }, 300);
-    },
-
-    _addHint: function(x, y, w, h) {
-      var $hint = $('<div>').attr('class', 'hint box');
-      $hint.append('<ul class="explanations" />');
-
-      Core.$hint = $hint;
-
-      $(".transcribing").append($hint);
-
-      var left = Math.max(0, (($(window).width()  - $hint.outerWidth()) / 2) + $(window).scrollLeft());
-      var top = $("#selector").offset().top - $hint.height() - 50;
-
-      $hint.css({ opacity: 0, marginLeft: 0, left: left, top: top + 50, bottom: "none" });
-      $hint.animate({ opacity: 1, top: top }, 300);
-    },
-
-    _hideLegend: function() {
-      Core.$legend.fadeOut(250);
-    },
-
-    _addLegend: function() {
-      var $legend = $('<div>').attr('class', 'box');
-
-      $legend.append('<span />');
-      $legend.append('<a class="button green"><span></span></a>');
-
-      Core.$legend = $legend;
-
-      $legend.find("span").html("Drag a square around the specimen label.");
-      $legend.find(".button span").html("Start this record");
-      $legend.find(".button.next").on("click", Core._showSelector);
-
-
-      $(".transcribing").append($legend);
-      $legend.animate({opacity:1, bottom: 90}, 150);
-    },
-
-    /**
-     * Start the transcription after the image is loaded
-     */
-    _addSelector: function(x, y, w, h) {
-
-      if (Core.$selector) {
-        Core.$selector.fadeOut(250, function() {
-          $(this).remove();
-        });
-      }
-
-      var $selector = $('<div>').attr('id','selector');
-
-      Core.$selector = $selector;
-
-      $(".transcribing").append($selector);
-      Core._showSelection(x, y, w, h);
-    },
-
-    _showSelection: function(x, y, w, h) {
-
-      var width  = w;
-      var height = h;
-
-      Core.$selector.css({width: width, height: height});
-
-      Core.$selector.css({ left: x, top: y });
-      Core.$selector.addClass("hollow");
-      Core.$selector.fadeIn(250);
-      Core.$selector.on("click", Core._showSelector);
-    },
-
-    _showSelector: function(ev) {
-
-      if (!Core.$selector || !Core.$selector.width()) { return; }
-
-      Core._checkRecord(ev);
-
-      var w = Core.$selector.width();
-      var h = Core.$selector.height();
-      var y = Core.$selector.offset().top;
-      var x = Core.$selector.offset().left;
-
-      var width = w*2;
-      var height = h*2;
-
-      if (width < 480)  width = 480;
-      if (height < 350) height = 350;
-
-      if (width > 600)  width = 600;
-      if (height > 500) height = 500;
-
-      Core.$selector.css({width: width, height: height});
-      var top = Math.max(0, (($(window).height() - Core.$selector.outerHeight()) / 2) + $(window).scrollTop());
-      var left= Math.max(0, (($(window).width()  - Core.$selector.outerWidth()) / 2) + $(window).scrollLeft());
-      Core.$selector.css({ left: left, top: top });
-      Core.$selector.removeClass("hollow");
-
-      $("#selector img").each(function(i, e) {
-        $(e).remove();
-      });
-
-      var $img = $(".transcribing img").clone();
-
-      $("body").append("<div class='backdrop' />");
-
-      $img.css({ top: -1*y, left: -1*x + $(".transcribing img").offset().left});
-
-      Core.$selector.append($img);
-      Core.$selector.hide();
-      Core.$selector.off("click");
-
-      Core.$selector.fadeIn(250, function() {
-
-        Core._hideLegend();
-        Core._addHint(x, y, w, h);
-        Core._addControls(x, y, w, h);
-
-      });
-
-    },
 
     /**
      * Start the transcription after the image is loaded
@@ -467,8 +124,8 @@
     _startTranscription: function(ev) {
 
       var
-        $img = $(ev),
-        $el = $img.closest('div.transcribing');
+      $img = $(ev),
+      $el = $img.closest('div.transcribing');
 
       // Remove Loader
       Core._removeLoader($el);
@@ -479,22 +136,76 @@
       // Scrolls to top
       $('html, body').animate({scrollTop: 0, scrollLeft: 0}, 150);
 
-      // Get image width and set its parent to margin auto
-      //$el.width($img.width());
+      var width = $(window).width() - 40;
+      var left = ($(document).width() / 2) - width/2;
 
       // Set transcriptor width
-      $el.find('div#transcriber').css({maxWidth:$(window).width() - 40 });
-      $el.find('div#transcriber').width($img.width() - 2);
+      $el.find('div#transcriber').css({ marginLeft: left, width: width - 20, maxWidth: width });
 
       $img.fadeIn(250);
 
       $el.find(".scrollpane").css({width:$(window).width(), height: $(window).height() });
-      Core.scrollpane = $el.find(".scrollpane").jScrollPane({showArrows: true});
+      Core.scrollpane = $el.find(".scrollpane").jScrollPane({ showArrows: true });
 
       // Enable transcription
       $el.find('div#transcriber').show().animate({ opacity:1, marginTop: '-=35px' }, 500);
     },
 
+
+
+    /**
+     * Create the transcriber, adding one by one the neccessary elements
+     */
+    _createTranscriber: function($el) {
+      var $transcriber = $('<div>').attr('id','transcriber').addClass('free')
+      , $top = $('<div>').addClass('top')
+      , $bottom = $('<div>').addClass('bottom');
+
+      // ADD THE DIFFERENT ELEMENTS
+      // - title top list
+      $top.append(Core._createTitles());
+
+      // - add hack for transcripter
+      $top.append('<span class="tail left"></span><span class="tail right"></span>');
+
+      // - explanations bottom list
+      $bottom.append(Core._createExplanations());
+
+      // - record steps bottom
+      $bottom.append(Core._createRecord());
+
+      // - append skip tooltip
+      $bottom.append(Core._createSkipTooltip());
+
+      // - append example tooltip
+      $bottom.append(Core._createExampleTooltip());
+
+      // Add all elements to the transcriber
+      $transcriber.append($bottom);
+      $transcriber.append($top);
+
+      // Add to the stage
+      $el.append($transcriber);
+
+      // Give it resize and move funcionalities
+      var _width   = $transcriber.parent().width();
+      var minWidth = 300;
+
+      $(window).resize(function() {
+        $el.find(".scrollpane").css({width:$(window).width(), height: $(window).height() });
+        Core.scrollpane = $el.find(".scrollpane").jScrollPane({ showArrows: true });
+
+        $el.find('div#transcriber').css({ maxWidth:$(window).width() - 40 });
+      });
+
+      $transcriber.
+        resizable({ containment: 'parent', minHeight: 180, handles: 'se', minWidth: minWidth }).
+        draggable({ containment: 'parent', axis: "xy", handle: 'div.top, div.bottom', cancel: 'ul, div.record' });
+
+      // Start variables (step, values, ...)
+      $el.data('step', 0);
+      $el.data('values',{});
+    },
     /**
      * CREATE, MANAGE AND RESET TITLE TOP LIST
      */
@@ -519,12 +230,11 @@
     /**
      * manage titles list
      */
-    _manageTitles: function($el, step, previous) {
-      var $list = $el.find('.hint > ul.titles');
+    _manageTitles: function($el,step,previous) {
+      var $list = $el.find('div.top > ul.titles');
 
       if (step == previous) return false;
 
-      console.log(previous, step, $previousStep);
       var $previousStep = $list.find('> li:eq(' + previous + ')');
       var $currentStep  = $list.find('> li:eq(' + step + ')');
 
@@ -532,7 +242,6 @@
         $currentStep.fadeIn(300);
       });
 
-      return false;
     },
 
 
@@ -563,8 +272,8 @@
       // Add titles list
       for (var i = 0, _length = Core.options.explanations.length; i < _length ; i++) {
         var
-          li = '<li ' + (i === 0 ? 'class="selected"' : '') + '>',
-          obj = Core.options.explanations[i];
+        li  = '<li ' + (i === 0 ? 'class="selected"' : '') + '>',
+        obj = Core.options.explanations[i];
 
         // If there is input|s
         if (obj.inputs) {
@@ -595,19 +304,17 @@
           }
 
           // Add submit button
-          li += '<input type="submit" value="ok" class="button green next small" />';
+          li += '<input type="submit" value="ok" class="button green small" />';
 
           // End form
           li += '</form>';
         }
 
-        Core.$hint.find("ul.explanations").append("<li>" + obj.label + "</li>");
-
         // Add the label
-        li += '<p>';
+        li += '<p>' + obj.label;
         // Add help buttons
         if (obj.inputs) {
-          li += ' <a href="#skip" class="skip">Skip this field</a>';
+          li += ' <a href="#example" class="example">See example</a> | <a href="#skip" class="skip">Skip this field</a><span class="tail"></span>';
         }
         li += '</p>';
 
@@ -639,17 +346,13 @@
 
       if (step == previous) return false;
 
-      var $previousStep = $list.find('> li:eq(' + previous + ')');
-      var $currentStep  = $list.find('> li:eq(' + step + ')');
+      $('html, body').animate({scrollTop: 0, scrollLeft: 0}, 150);
 
-      console.log($list, $currentStep);
-
-      $previousStep.fadeOut(300, function(ev) {
-        $currentStep.addClass('selected').fadeIn(300, function(ev) {
+      $list.find('> li:eq(' + previous + ')').fadeOut(300, function(ev) {
+        $list.find('> li:eq(' + (step) + ')').addClass('selected').fadeIn(300, function(ev){
           $(this).find('form input, form select').first().focus();
         });
       });
-
     },
 
     /**
@@ -658,7 +361,6 @@
     _resetExplanations: function($el,previous) {
       Core._manageExplanations($el,$el.data('step'),previous);
     },
-
 
     /**
      * Check record, if starts or finish, and check values
@@ -692,11 +394,13 @@
       );
 
       // Continue
-      $tooltip.find('a.continue').click( function(ev) {
+      $tooltip.find('a.continue').click(
+        function(ev) {
         Core._preventDefault(ev);
         Core._nextRegister($tooltip.closest('div.transcribing'));
         Core._hideSkipTooltip($tooltip);
-      });
+      }
+      );
 
       return $tooltip;
     },
@@ -710,11 +414,11 @@
       Core._preventDefault(ev);
 
       var
-        $el      = $(ev.target).closest('div.transcribing'),
-        $tooltip = $el.find('div.bottom > div.tooltip.skip'),
-        tooltipWidth = $tooltip.width(),
-        $link    = $el.find('ul.explanations li:eq(' + $el.data('step') + ') a.skip'),
-        left     = $link.offset().left + $link.width() / 2 - tooltipWidth / 2 - 10;
+      $el      = $(ev.target).closest('div.transcribing'),
+      $tooltip = $el.find('div.bottom > div.tooltip.skip'),
+      tooltipWidth = $tooltip.width(),
+      $link    = $el.find('ul.explanations li:eq(' + $el.data('step') + ') a.skip'),
+      left     = $link.offset().left + $link.width() / 2 - tooltipWidth / 2 - 10;
 
       $tooltip.css({ left: left + 'px' });
 
@@ -893,13 +597,17 @@
 
       Core._preventDefault(ev);
 
-      var
-      $el          = $(ev.target).closest('div.transcribing'),
-      step         = $el.data('step'),
-      $transcriber = $el.find('div#transcriber');
+      var $el = $(ev.target).closest('div.transcribing')
+      , step = $el.data('step')
+      , $transcriber = $el.find('div#transcriber');
 
 
       if (step === 0) {
+
+        // Disable drag and resize
+        $transcriber
+        .resizable({ disabled: true })
+        .draggable({ disabled: true });
 
         $transcriber.removeClass('free');
 
@@ -915,10 +623,11 @@
       } else {
 
         var pending = Core._pendingRegisters($el);
-
-        if (pending === 0) { // If has finished just save and go for the next
+        if (pending==0) {
+          // If has finished just save and go for the next
           Core._nextRecord($el);
-        } else { // If not, show the tooltip
+        } else {
+          // If not, show the tooltip
           Core._showRecordTooltip($el,pending,ev);
         }
       }
@@ -957,11 +666,13 @@
       );
 
       // Continue
-      $tooltip.find('a.continue').click(function(ev) {
+      $tooltip.find('a.continue').click(
+        function(ev) {
         Core._preventDefault(ev);
         Core._nextRecord($tooltip.closest('div.transcribing'));
         Core._hideRecordTooltip($tooltip);
-      });
+      }
+      );
 
       return $tooltip;
     },
@@ -1132,6 +843,7 @@
       return values;
     },
 
+
     /**
      * Go for the next register, checking all the elements in the
      * transcriber
@@ -1155,10 +867,14 @@
 
       var stepData = Core.options.explanations[step];
 
+      if (stepData.x || stepData.y) {
+        Core.scrollpane.data('jsp').scrollTo(stepData.x, stepData.y, true);
+      }
+
       Core._saveRegister($el,previous);
 
       // Manage explanations list
-      Core._manageExplanations($el, step, previous);
+      Core._manageExplanations($el,step,previous);
 
       // Manage titles list
       Core._manageTitles($el,step,previous);
@@ -1166,6 +882,8 @@
       // Manage record
       Core._manageRecord($el,step,previous);
     },
+
+
 
     /**
      * Get pending registers
@@ -1305,17 +1023,26 @@
      */
     _nextRecord: function($el) {
 
+      var trans_h = $el.find('div#transcriber').position().top
+      , trans_y = $el.find('div#transcriber > div.top').height();
+
       // Save values in the server
       Core._saveRecord($el);
 
-      var // Add new record saved to the header count
-      $counter = $('.header div.right h5'),
-      count    = $counter.text();
-
+      // Add new record saved to the header count
+      var $counter = $('.header div.right h5')
+      , count = $counter.text();
       $counter.text(parseInt(count) + 1);
+
 
       // Reset values and enable drag and resize again
       Core._resetTranscriber($el);
+
+      // Move image
+      // Where the transcripter is and height of it
+      $el.find('img').animate({
+        marginTop: '-=' + (trans_h + trans_y - 10) + 'px',
+      }, 500);
     },
 
 
@@ -1325,7 +1052,6 @@
     _saveRecord: function($el) {
       // Get the element values
       var values = $el.data('values');
-      console.log("values", values);
 
       // TODO: Add transcribed coordinates???
       console.log('Sending this values:',values);
