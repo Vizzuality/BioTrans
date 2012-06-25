@@ -40,7 +40,7 @@ var transcriberData = {
     step: 'Code',
     ok: 'in',
     x: 0,
-    y: 200
+    y: 0
   },
   {
     label: '2 or 3 latin words in the first line, next to the margin.',
@@ -50,7 +50,7 @@ var transcriberData = {
     step: 'Species',
     ok: 'in',
     x: 0,
-    y: 400
+    y: 0
   },
   {
     label: 'A place name, in the second line.',
@@ -59,8 +59,8 @@ var transcriberData = {
     ],
     step: 'Location',
     ok: 'in',
-    x: 500,
-    y: 400
+    x: 0,
+    y: 0
   },
   {
     label: 'A date in the third line.',
@@ -71,8 +71,8 @@ var transcriberData = {
     ],
     step: 'Collection date',
     ok: 'out',
-    x: 1000,
-    y: 400
+    x: 0,
+    y: 0
   },
   {
     label: 'A person name in the same line than the date.',
@@ -80,9 +80,7 @@ var transcriberData = {
       { type: 'text', placeholder: 'COLLECTOR', size: 'long', name: 'collector' }
     ],
     step: 'Collector',
-    ok: 'in',
-    x: 1000,
-    y: 1000
+    ok: 'in'
   },
   {
     label: 'A person name at the top right of the record.',
@@ -91,8 +89,7 @@ var transcriberData = {
     ],
     step: 'Transferer',
     ok: 'in',
-    x: 1000,
-    y: 0
+    x: 2000
   },
   {
     label: 'A date under the transferrer.',
@@ -102,9 +99,7 @@ var transcriberData = {
       { type: 'text', placeholder: 'YEAR', size: 'short', name: 'transfer_year' }
     ],
     step: 'Transfer date',
-    ok: 'out',
-    x: 500,
-    y: 500
+    ok: 'out'
   },
   {
     label: 'Can you detect this information?.',
@@ -114,9 +109,7 @@ var transcriberData = {
       { type: 'text', placeholder: 'REGISTER', size: 'short', name: 'register' }
     ],
     step: 'Other',
-    ok: 'out',
-    x: 1200,
-    y: 1200
+    ok: 'out'
   }
   ]
 };
