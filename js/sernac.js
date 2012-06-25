@@ -249,14 +249,15 @@
 
         Core.$el = $el;
 
-        // Create loader
         Core._createLoader($el);
-
-        // Create transcriber
         Core._addLegend();
 
         // Bind events
         Core._bind($el);
+
+        // Start variables (step, values, ...)
+        Core.$el.data('step', 0);
+        Core.$el.data('values', {});
       });
     },
 
@@ -264,6 +265,13 @@
     _bind: function($el) {
       // Start or finish record
       $el.find('a.checkRecord').on('click', Core._checkRecord);
+
+      // See the example
+      $el.find('a.example').on('click', Core._showExampleTooltip);
+
+      // Skip the field
+      $el.find('ul.explanations li').find('a.skip').on('click', Core._showSkipTooltip);
+
 
       var selection;
 
@@ -340,22 +348,6 @@
       });
 
 
-      $el.find('form').on('submit', Core._nextRegister);
-
-      // Step list
-      $el.find('ul.steps li a').on('click', function(e) {
-
-        var nextStep = parseInt($(e.target).attr('href').replace('#goto_',''), 10);
-
-        Core._nextRegister(e, nextStep);
-
-      });
-
-      // See the example
-      $el.find('a.example').on('click', Core._showExampleTooltip);
-
-      // Skip the field
-      $el.find('ul.explanations li').find('a.skip').on('click', Core._showSkipTooltip);
     },
 
     /**
@@ -403,17 +395,19 @@
       Core.$controls = $controls;
 
       $(".transcribing").append($controls);
-      //$controls.find("span").html('Controls');
 
       $controls.append(Core._createExplanations());
 
       $controls.append('<a class="button orange"><span></span></a>');
       $controls.find(".button span").html("Finish this record");
 
+      $controls.find('.button').on('click', Core._nextRegister);
+
       var left = Math.max(0, (($(window).width()  - $controls.outerWidth()) / 2) + $(window).scrollLeft());
-      var top = $("#selector").offset().top + Core.$selector.height() + 20;
-      $controls.css({ marginLeft: 0, left: left, top: top - 50, bottom: "none" });
-      $controls.animate({ opacity: 1, top: top }, 150);
+      var top  = $("#selector").offset().top + Core.$selector.height() + 20;
+
+      $controls.css({ opacity:0, marginLeft: 0, left: left, top: top - 50, bottom: "none" });
+      $controls.animate({ opacity: 1, top: top }, 300);
     },
 
     _addHint: function(x, y, w, h) {
@@ -426,8 +420,9 @@
 
       var left = Math.max(0, (($(window).width()  - $hint.outerWidth()) / 2) + $(window).scrollLeft());
       var top = $("#selector").offset().top - $hint.height() - 50;
-      $hint.css({ marginLeft: 0, left: left, top: top + 50, bottom: "none" });
-      $hint.animate({ opacity: 1, top: top }, 150);
+
+      $hint.css({ opacity: 0, marginLeft: 0, left: left, top: top + 50, bottom: "none" });
+      $hint.animate({ opacity: 1, top: top }, 300);
     },
 
     _hideLegend: function() {
@@ -436,6 +431,7 @@
 
     _addLegend: function() {
       var $legend = $('<div>').attr('class', 'box');
+
       $legend.append('<span />');
       $legend.append('<a class="button green"><span></span></a>');
 
@@ -461,6 +457,7 @@
       }
 
       var $selector = $('<div>').attr('id','selector');
+
       Core.$selector = $selector;
 
       $(".transcribing").append($selector);
@@ -512,15 +509,18 @@
 
       $img.css({ top: -1*y, left: -1*x + $(".transcribing img").offset().left});
 
-
       Core.$selector.append($img);
-      Core.$selector.fadeIn(250);
-
+      Core.$selector.hide();
       Core.$selector.off("click");
 
-      Core._hideLegend();
-      Core._addHint(x, y, w, h);
-      Core._addControls(x, y, w, h);
+      Core.$selector.fadeIn(250, function() {
+
+        Core._hideLegend();
+        Core._addHint(x, y, w, h);
+        Core._addControls(x, y, w, h);
+
+      });
+
     },
 
     /**
@@ -557,60 +557,6 @@
       $el.find('div#transcriber').show().animate({ opacity:1, marginTop: '-=35px' }, 500);
     },
 
-
-
-    /**
-     * Create the transcriber, adding one by one the neccessary elements
-     */
-    _createTranscriber: function($el) {
-      var $transcriber = $('<div>').attr('id','transcriber').addClass('free')
-      , $top = $('<div>').addClass('top')
-      , $bottom = $('<div>').addClass('bottom');
-
-      // ADD THE DIFFERENT ELEMENTS
-      // - title top list
-      $top.append(Core._createTitles());
-
-      // - add hack for transcripter
-      $top.append('<span class="tail left"></span><span class="tail right"></span>');
-
-      // - explanations bottom list
-      $bottom.append(Core._createExplanations());
-
-      // - record steps bottom
-      $bottom.append(Core._createRecord());
-
-      // - append skip tooltip
-      $bottom.append(Core._createSkipTooltip());
-
-      // - append example tooltip
-      $bottom.append(Core._createExampleTooltip());
-
-      // Add all elements to the transcriber
-      $transcriber.append($bottom);
-      $transcriber.append($top);
-
-      // Add to the stage
-      $el.append($transcriber);
-
-      // Give it resize and move funcionalities
-      var _width = $transcriber.parent().width();
-
-      $(window).resize(function() {
-        $el.find(".scrollpane").css({width:$(window).width(), height: $(window).height() });
-        Core.scrollpane = $el.find(".scrollpane").jScrollPane({showArrows: true});
-
-        $el.find('div#transcriber').css({maxWidth:$(window).width() - 40 });
-      });
-
-      $transcriber.
-        resizable({ containment: 'parent', minHeight: 180, handles: 'se', minWidth: _width }).
-        draggable({ containment: 'parent', axis: "xy", handle: 'div.top, div.bottom', cancel: 'ul,div.record' });
-
-      // Start variables (step, values, ...)
-      $el.data('step', 0);
-      $el.data('values',{});
-    },
     /**
      * CREATE, MANAGE AND RESET TITLE TOP LIST
      */
@@ -670,11 +616,11 @@
     _createExplanations: function() {
       var $list = $('<ul>').addClass('explanations');
 
-
       // Add titles list
       for (var i = 1, _length = Core.options.explanations.length; i < _length ; i++) {
+
         var
-          li = '<li ' + (i === 0 ? 'class="selected"' : '') + '>',
+          li  = '<li ' + (i === 0 ? 'class="selected"' : '') + '>',
           obj = Core.options.explanations[i];
 
         // If there is input|s
@@ -691,7 +637,7 @@
                 li += '<input type="text" value="" placeholder="' + input.placeholder + '" name="' + input.name + '" class="' + input.size + '" />';
               } else {
                 // If type == select
-                li += '<span class="wrapper " style="width:' + ((input.size=='short')? 88 : 138 ) + 'px"><select name="' + input.name + '">';
+                li += '<span class="wrapper " style="width:' + ((input.size=='short') ? 88 : 138 ) + 'px"><select name="' + input.name + '">';
 
                 // Disabled
                 li += '<option value="0" selected disabled>' + input.placeholder + '</option>';
@@ -735,9 +681,6 @@
       // Add location autocomplete
       $list.find('input[name="location"]').addresspicker();
 
-      // Add species autocomplete
-      //$list.find('input[name="species"]').autocomplete({source:Core.options.speciesURL});
-
       // Return top
       return $list;
     },
@@ -764,7 +707,6 @@
      */
     _resetExplanations: function($el,previous) {
       Core._manageExplanations($el,$el.data('step'),previous);
-
       // Reset values???
     },
 
@@ -826,7 +768,6 @@
         tooltipWidth = $tooltip.width(),
         $link    = $el.find('ul.explanations li:eq(' + $el.data('step') + ') a.skip'),
         left     = $link.offset().left + $link.width() / 2 - tooltipWidth / 2 - 10;
-        //console.log(tooltipWidth);
 
       $tooltip.css({ left: left + 'px' });
 
@@ -913,8 +854,6 @@
 
       if ($link.length > 0) {
         var left   = $link.offset().left - tooltipWidth/2 + $link.width() / 2;
-
-        //console.log($link, $link.offset().left, $link.width());
 
         $example.css({ left: left + 'px' });
 
@@ -1258,36 +1197,11 @@
      * Go for the next register, checking all the elements in the
      * transcriber
      */
-    _nextRegister: function(unde,to) {
-      var $el;
-
-      // It could be a event or the element
-      if (unde.target!=undefined) {
-        Core._preventDefault(unde);
-        $el = $(unde.target).closest('div.transcribing');
-      } else {
-        $el = unde;
-      }
-
-      var previous = $el.data('step')
-      , step = to || Core._checkRegister($el,previous);
-
-      $el.data('step',step);
-
-      var stepData = Core.options.explanations[step];
-      //console.log(step, stepData.step, stepData.x, stepData.y);
-      Core.scrollpane.data('jsp').scrollTo(stepData.x, stepData.y, true);
-
-      Core._saveRegister($el,previous);
-
-      // Manage explanations list
-      Core._manageExplanations($el,step,previous);
-
-      // Manage titles list
-      Core._manageTitles($el,step,previous);
-
-      // Manage record
-      Core._manageRecord($el,step,previous);
+    _nextRegister: function() {
+      var step = Core.$el.data('step');
+      console.log(step);
+      Core.$el.data("step", step++);
+      Core._checkRegister(Core.$el, step);
     },
 
 
