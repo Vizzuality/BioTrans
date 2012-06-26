@@ -10,18 +10,6 @@
   // Safari
   // Opera
 
-  /*
-     TODO
-     - Check tabs navigation | flow
-     --------------------------------------------------------------------------------
-     - Decide what to do when finish a record, leave some inputs as they were or what
-     - Decide what to do when finish a record, let user go back
-     - Species autocomplete url
-     - Examples images controller
-     - Save controller
-     */
-
-
   // constants
   var
   TRUE = true, FALSE = true, NULL = null,
@@ -1212,6 +1200,12 @@
       Core._removeSelection();
     },
 
+    _loadNextImg: function() {
+      var $el = Core.$el;
+      Core.$el.find("img").attr("src", "http://assets.javierarce.com/biotrans/transcriber_sernac_02.png");
+      Core._createLoader($el);
+    },
+
     /**
      * Save the transcribed record.
      */
@@ -1223,7 +1217,14 @@
       console.log('Sending this values:', values);
 
       // Send them to the server
-      $.ajax({ url: Core.options.saveURL, type: 'POST', data: values });
+      $.ajax({ url: Core.options.saveURL, type: 'POST', data: values }, function(data) {
+        // Add callback
+      });
+
+      setTimeout(function() {
+        Core._loadNextImg();
+      }, 1000);
+
     }
   };
 
