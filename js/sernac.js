@@ -124,8 +124,8 @@
         Core.$el = $el;
 
         Core._createLoader($el);
+
         Core.$el.append(Core._createSkipTooltip());
-        Core._addLegend();
 
         // Bind events
         Core._bind($el);
@@ -336,9 +336,8 @@
       $legend.find(".button span").html("Start this record");
       $legend.find(".button.next").on("click", Core._showSelector);
 
-
       $(".transcribing").append($legend);
-      $legend.animate({opacity:1, bottom: 90}, 150);
+      $legend.animate({opacity: 1, bottom: 90}, 150);
     },
 
     /**
@@ -452,6 +451,8 @@
 
       // Remove Loader
       Core._removeLoader($el);
+
+      Core._addLegend();
 
       // Show footer
       $('.footer').show();
@@ -1221,6 +1222,7 @@
         // Add callback
       });
 
+      // TODO: move the code inside the setTimeout to the callback of the ajax request
       setTimeout(function() {
         Core._loadNextImg();
       }, 1000);
