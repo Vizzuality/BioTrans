@@ -192,7 +192,7 @@
 
     _bind: function($el) {
       // Start or finish record
-      $el.find('a.checkRecord').on('click', Core._checkRecord);
+      $el.find('a.checkRecord').on('click', Core._showSelector);
 
       // See the example
       $el.find('a.example').on('click', Core._showExampleTooltip);
@@ -365,7 +365,7 @@
       var $legend = $('<div>').attr('class', 'box');
 
       $legend.append('<span />');
-      $legend.append('<a class="button green"><span></span></a>');
+      $legend.append('<a class="button green checkRecord"><span></span></a>');
 
       Core.$legend = $legend;
 
@@ -523,7 +523,6 @@
 
       if (step == previous) return false;
 
-      console.log(previous, step, $previousStep);
       var $previousStep = $list.find('> li:eq(' + previous + ')');
       var $currentStep  = $list.find('> li:eq(' + step + ')');
 
@@ -641,14 +640,13 @@
       var $previousStep = $list.find('> li:eq(' + previous + ')');
       var $currentStep  = $list.find('> li:eq(' + step + ')');
 
-      console.log($list, $currentStep);
+      $previousStep.removeClass('selected');
 
       $previousStep.fadeOut(300, function(ev) {
         $currentStep.addClass('selected').fadeIn(300, function(ev) {
           $(this).find('form input, form select').first().focus();
         });
       });
-
     },
 
     /**
@@ -832,29 +830,6 @@
     },
 
 
-
-
-    /**
-     * CREATE, MANAGE AND RESET RECORD BOTTOM CONTENT
-     */
-
-    /**
-     * first create the record content
-     */
-    _createRecord: function() {
-      var $record = $('<div>').addClass('record right');
-
-      $record.append('<div class="right"><a class="button green checkRecord" href="#start">START THIS RECORD</a></div>');
-
-      // Create step_viewer
-      $record.find('div.right').append(Core._createStepViewer());
-
-      // Create record tooltip
-      $record.find('div.right').append(Core._createRecordTooltip());
-
-      return $record;
-    },
-
     /**
      * Manage record
      */
@@ -896,6 +871,7 @@
       $el          = $(ev.target).closest('div.transcribing'),
       step         = $el.data('step'),
       $transcriber = $el.find('div#transcriber');
+      console.log(step);
 
 
       if (step === 0) {
@@ -904,9 +880,6 @@
 
         // Start $el values
         $el.data('values',Core._resetValues($el));
-
-        // Show step viewer
-        $el.find('div.step_viewer').fadeIn(300);
 
         // If step is 0, is starting
         Core._nextRegister($el);
@@ -921,48 +894,6 @@
           Core._showRecordTooltip($el,pending,ev);
         }
       }
-    },
-
-
-    /**
-     * Create record tooltip
-     */
-    _createRecordTooltip: function() {
-      // Tooltip
-      var $tooltip = $('<div>').addClass('tooltip ' + Core.options.tooltips.record.tail);
-
-      // Title
-      $tooltip.append('<h5>' + Core.options.tooltips.record.title + '</h5>');
-
-      // Content
-      $tooltip.append('<p>' + Core.options.tooltips.record.content + '</p>');
-
-      // Buttons
-      $tooltip.append('<a class="continue orange button small" href="#' + Core.options.tooltips.record.orange.toLowerCase().replace(/ /g,'_') + '">' + Core.options.tooltips.record.orange + '</a>');
-      $tooltip.append('<a class="cancel white button small" href="#' + Core.options.tooltips.record.white.toLowerCase().replace(/ /g,'_') + '">' + Core.options.tooltips.record.white + '</a>');
-
-      // Tail
-      $tooltip.append('<span class="tail"></span>');
-
-
-      // LOCAL BINDINGS
-
-      // Cancel
-      $tooltip.find('a.cancel').click(
-        function(ev) {
-        Core._preventDefault(ev);
-        Core._hideRecordTooltip($tooltip);
-      }
-      );
-
-      // Continue
-      $tooltip.find('a.continue').click(function(ev) {
-        Core._preventDefault(ev);
-        Core._nextRecord($tooltip.closest('div.transcribing'));
-        Core._hideRecordTooltip($tooltip);
-      });
-
-      return $tooltip;
     },
 
 
