@@ -178,6 +178,7 @@
         Core.$el = $el;
 
         Core._createLoader($el);
+        Core.$el.append(Core._createSkipTooltip());
         Core._addLegend();
 
         // Bind events
@@ -199,7 +200,8 @@
       $el.find('a.example').on('click', Core._showExampleTooltip);
 
       // Skip the field
-      $el.find('ul.explanations li').find('a.skip').on('click', Core._showSkipTooltip);
+      $(document).on('click', 'a.skip', Core._showSkipTooltip);
+
 
       var selection;
 
@@ -685,6 +687,8 @@
       // Tooltip
       var $tooltip = $('<div>').addClass('tooltip skip ' + Core.options.tooltips.skip.tail);
 
+      console.log($tooltip);
+
       // Title
       $tooltip.append('<h5>' + Core.options.tooltips.skip.title + '</h5>');
 
@@ -693,7 +697,7 @@
 
       // Buttons
       $tooltip.append('<a class="continue orange button small" href="#' + Core.options.tooltips.skip.orange.toLowerCase().replace(/ /g,'_') + '">' + Core.options.tooltips.skip.orange + '</a>');
-      $tooltip.append('<a class="cancel white button small" href="#' + Core.options.tooltips.skip.white.toLowerCase().replace(/ /g,'_') + '">' + Core.options.tooltips.skip.white + '</a>');
+      $tooltip.append('<a class="cancel white button small" href="#' + Core.options.tooltips.skip.white.toLowerCase().replace(/ /g,'_') + '">'     + Core.options.tooltips.skip.white + '</a>');
 
       // Tail
       $tooltip.append('<span class="tail"></span>');
@@ -728,13 +732,16 @@
       Core._preventDefault(ev);
 
       var
-        $el      = $(ev.target).closest('div.transcribing'),
-        $tooltip = $el.find('div.bottom > div.tooltip.skip'),
-        tooltipWidth = $tooltip.width(),
-        $link    = $el.find('ul.explanations li:eq(' + $el.data('step') + ') a.skip'),
-        left     = $link.offset().left + $link.width() / 2 - tooltipWidth / 2 - 10;
+      $el          = $(ev.target).closest('div.transcribing'),
+      $tooltip     = $el.find('div.tooltip.skip'),
+      tooltipWidth = $tooltip.width(),
+      $link        = $el.find('ul.fields li:eq(' + $el.data('step') + ') a.skip'),
+      left         = $link.offset().left + $link.width() / 2 - tooltipWidth / 2 - 10,
+      top          = $(".controls").position().top - $(".controls").height() - $tooltip.height() + 15;
 
-      $tooltip.css({ left: left + 'px' });
+      console.log($el, $tooltip, tooltipWidth, $link, left, top);
+
+      $tooltip.css({ top: top, left: left + 'px' });
 
       // Local binding for clicking out
       // of the tooltip

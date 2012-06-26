@@ -529,7 +529,7 @@ div.tooltip {
   padding:12px;
   background:white;
   @include border-radius(2px);
-  z-index:100;
+  z-index:200000;
   @include box-shadow(rgba(0,0,0,0.2) 0 0 3px 2px);
   letter-spacing:-4px;
 
