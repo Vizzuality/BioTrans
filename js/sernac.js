@@ -191,6 +191,7 @@
 
 
     _bind: function($el) {
+
       // Start or finish record
       $el.find('a.checkRecord').on('click', Core._showSelector);
 
@@ -333,7 +334,8 @@
 
       Core.$el.data('step', 0);
 
-      $controls.find('.button').on('click', Core._nextRegister);
+      // Binds ok button
+      $controls.find('.explanations li form .button').on('click', Core._nextRegister);
 
       var left = Math.max(0, (($(window).width()  - $controls.outerWidth()) / 2) + $(window).scrollLeft());
       var top  = $("#selector").offset().top + Core.$selector.height() + 20;
@@ -542,11 +544,6 @@
       Core._manageTitles($el,$el.data('step'),previous);
     },
 
-
-
-
-
-
     /**
      * CREATE, MANAGE AND RESET EXPLANATION BOTTOM LIST
      */
@@ -647,6 +644,7 @@
           $(this).find('form input, form select').first().focus();
         });
       });
+
     },
 
     /**
@@ -1070,7 +1068,7 @@
       var $el;
 
       // It could be a event or the element
-      if (unde.target!=undefined) {
+      if (unde.target != undefined) {
         Core._preventDefault(unde);
         $el = $(unde.target).closest('div.transcribing');
       } else {
