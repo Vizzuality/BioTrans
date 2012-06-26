@@ -858,17 +858,28 @@
         $el = unde;
       }
 
-      var previous = $el.data('step')
-      , step = to || Core._checkRegister($el,previous);
-
+      var
+      previous = $el.data('step'),
+      step = to || Core._checkRegister($el,previous);
 
       $el.data('step', step);
 
       var stepData = Core.options.explanations[step];
 
-      if (stepData.x || stepData.y) {
-        Core.scrollpane.data('jsp').scrollTo(stepData.x, stepData.y, true);
-      }
+      var x = stepData.x;
+      var y = stepData.y;
+
+      // Hacks to move to the original position
+      if (x == 0) { x = -1; }
+      if (y == 0) { y = -1; }
+
+      if (x != undefined && y != undefined) {
+        Core.scrollpane.data('jsp').scrollTo(x, y, true);
+      } else if (x != undefined) {
+        Core.scrollpane.data('jsp').scrollToX(x, true);
+      } else if (y != undefined) {
+        Core.scrollpane.data('jsp').scrollToY(y, true);
+        }
 
       Core._saveRegister($el,previous);
 

@@ -40,7 +40,7 @@ var transcriberData = {
     step: 'Code',
     ok: 'in',
     x: 0,
-    y: 0
+    y: 20
   },
   {
     label: '2 or 3 latin words in the first line, next to the margin.',
@@ -99,7 +99,8 @@ var transcriberData = {
       { type: 'text', placeholder: 'YEAR', size: 'short', name: 'transfer_year' }
     ],
     step: 'Transfer date',
-    ok: 'out'
+    ok: 'out',
+    x: 0
   },
   {
     label: 'Can you detect this information?.',
