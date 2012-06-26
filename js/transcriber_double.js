@@ -136,7 +136,7 @@
       // Scrolls to top
       $('html, body').animate({scrollTop: 0, scrollLeft: 0}, 150);
 
-      var width = $img.width() - 20;
+      var width = $(document).width() - 40;
 
       var left = $img.position().left;
 
@@ -151,8 +151,6 @@
       // Enable transcription
       $el.find('div#transcriber').show().animate({ opacity:1, marginTop: '-=35px' }, 500);
     },
-
-
 
     /**
      * Create the transcriber, adding one by one the neccessary elements
@@ -1054,11 +1052,14 @@
       // Reset values and enable drag and resize again
       Core._resetTranscriber($el);
 
-      // Move image
-      // Where the transcripter is and height of it
-      $el.find('img').animate({
-        marginTop: '-=' + (trans_h + trans_y - 10) + 'px',
-      }, 500);
+      var marginTop = (trans_h + trans_y - 10);
+
+      // Advance
+      $el.find('img').animate({ marginTop: '-=' + marginTop + 'px' }, 500, function() {
+        Core.scrollpane.data('jsp').scrollToX(0, true); // scroll to the left
+      });
+
+
     },
 
 

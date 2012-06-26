@@ -16,12 +16,13 @@ body {
   overflow:hidden;
   background: #333333 url('../img/bg.jpg') repeat-x ;
 
-  .jspContainer img { display:block; margin:auto; cursor: crosshair; }
+  .jspContainer img { display:block; margin:auto; }
   .jspContainer.drag img { cursor: nwse-resize!important; }
   .jspContainer.drag { cursor: nwse-resize!important; }
 
   &.sernac {
     background:url('../img/bg-transcriber.png');
+    .jspContainer img { display:block; margin:auto; cursor: crosshair; }
   }
 
   .header {
