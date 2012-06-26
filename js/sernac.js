@@ -303,6 +303,8 @@
       $controls.append('<a class="button finish orange"><span></span></a>');
       $controls.find(".button span").html("Finish this record");
 
+      $controls.append('<a href="#" class="steps">1/'+ (Core.options.explanations.length) +'</a>');
+
       Core.$el.data('step', 1);
 
       // Binds ok button
@@ -591,7 +593,7 @@
         li += '<p>';
         // Add help buttons
         if (obj.inputs) {
-          li += ' <a href="#skip" class="skip">Skip this field</a>';
+          li += ' <a href="#skip" class="skip">Skip this field</a> ';
         }
         li += '</p>';
 
@@ -628,7 +630,7 @@
 
       $previousStep.removeClass('selected');
 
-      var width = $currentStep.width() + 150;
+      var width = $currentStep.width() + 170;
       $el.find(".controls").animate({left: $(document).width()/2 - width/2 - 10, width:width}, 150);
 
       $previousStep.fadeOut(300, function(ev) {
@@ -765,7 +767,7 @@
       var $example = $('<div>').addClass('tooltip example center');
 
       // Spin loader adding!
-      var imageLoader = new Spinner({lines: 10,length: 3,width: 4,radius: 8,color: '#333'}).spin();
+      var imageLoader = new Spinner({lines: 10, length: 3, width: 4, radius: 8, color: '#333'}).spin();
 
       // Add it to its parent
       $example.append(imageLoader.el);
@@ -817,7 +819,7 @@
         $el.find('div.bottom div.record a.checkRecord').text('FINISH THE RECORD').attr('href','#finish'); // Decide if will be orange or green the step viewer
 
         // Manage the step viewer
-        $el.find('div.bottom div.record a.choose_step').text(step + '/' + (Core.options.explanations.length - 1));
+        $el.find('.steps').text(step + '/' + (Core.options.explanations.length));
 
         Core._manageStepViewer($el,step);
       }
@@ -829,7 +831,6 @@
     _resetRecord: function($el,previous) {
       Core._manageRecord($el, $el.data('step'), previous);
     },
-
 
     /**
      * Check record, if starts or finish, and check values
@@ -910,7 +911,7 @@
       var $stepviewer = $('<div>').addClass('step_viewer');
 
       // Select option
-      $stepviewer.append('<a class="choose_step" href="#choose_step">1/' + (Core.options.explanations.length - 1) + '</a>');
+      $stepviewer.append('<a class="steps" href="#choose_step">1/' + (Core.options.explanations.length - 1) + '</a>');
 
       // Step list
       var list = '<ul class="steps">';
@@ -929,7 +930,7 @@
       // LOCAL BINDINGS
 
       // Manage bind of the option
-      $stepviewer.find('a.choose_step').click(
+      $stepviewer.find('a.steps').click(
         function(ev) {
         Core._preventDefault(ev);
 

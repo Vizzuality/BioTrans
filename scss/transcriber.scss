@@ -199,6 +199,20 @@ div.transcribing {
       }
     }
 
+
+    a.steps {
+      float: right;
+      color: white;
+      top: 10px;
+      position: relative;
+      margin-right: 10px;
+      font: 12px "Helvetica",Arial;
+      line-height:13px;
+      color:white;
+      text-decoration:none;
+      text-transform:uppercase;
+    }
+
     span {
       color:#fff;
       font: 13px "Open Sans";
