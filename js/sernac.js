@@ -55,7 +55,6 @@
       }
     },
     titles: [
-      'RECORD POSITION',
       'RECORD CODE',
       'GENUS & SPECIES',
       'COLLECTION LOCATION',
@@ -65,95 +64,54 @@
       'TRANSFER DATE',
       'ADDITIONAL INFORMATION'
     ],
-    explanations: [
-      {
-        label: 'It’s a 4 digit number located at the top right of the page.',
-        inputs: [ { type: 'text', placeholder: 'CODE', size: 'medium', name: 'record_code' } ],
-        step: 'Code',
-        ok: 'in'
-      },
-      {
-        label: '2 or 3 latin words in the first line, next to the margin.',
-        inputs: [ { type: 'text', placeholder: 'SPECIES', size: 'long', name: 'species' } ],
-        step: 'Species',
-        ok: 'in'
-      },
-      {
+    explanations: [{
+      label: 'It’s a 4 digit number located at the top right of the page.',
+      inputs: [ { type: 'text', placeholder: 'CODE', size: 'medium', name: 'record_code' } ],
+      step: 'Code',
+      ok: 'in'
+    }, {
+      label: '2 or 3 latin words in the first line, next to the margin.',
+      inputs: [ { type: 'text', placeholder: 'SPECIES', size: 'long', name: 'species' } ],
+      step: 'Species',
+      ok: 'in'
+    }, {
       label: 'A place name, in the second line.',
       inputs: [ { type: 'text', placeholder: 'LOCATION', size: 'long', name: 'location' } ],
       step: 'Location',
       ok: 'in'
-    },
-    {
+    }, {
       label: 'A date in the third line.',
       inputs: [
-        {
-        type: 'select',
-        placeholder: 'MONTH',
-        size: 'medium',
-        name: 'collection_month',
-        source: months
-      },
-      {
-        type: 'select',
-        placeholder: 'DAY',
-        size: 'short',
-        name: 'collection_day',
-        source: days
-      },
-      {
-        type: 'text',
-        placeholder: 'YEAR',
-        size: 'short',
-        name: 'collection_year'
-      }
+        { type: 'select', placeholder: 'MONTH', size: 'medium', name: 'collection_month', source: months },
+        { type: 'select', placeholder: 'DAY', size: 'short', name: 'collection_day', source: days },
+        { type: 'text', placeholder: 'YEAR', size: 'short', name: 'collection_year' }
       ],
       step: 'Collection date',
       ok: 'out'
-    },
-    {
+    }, {
       label: 'A person name in the same line than the date.',
       inputs: [ { type: 'text', placeholder: 'COLLECTOR', size: 'long', name: 'collector' } ],
       step: 'Collector',
       ok: 'in'
-    },
-    {
+    }, {
       label: 'A person name at the top right of the record.',
       inputs: [ { type: 'text', placeholder: 'TRANSFERER', size: 'long', name: 'transferer' } ],
       step: 'Transferer',
       ok: 'in'
-    },
-    {
+    }, {
       label: 'A date under the transferrer.',
       inputs: [
         { type: 'select', placeholder: 'MONTH', size: 'medium', name: 'transfer_month', source: months },
         { type: 'select', placeholder: 'DAY', size: 'short', name: 'transfer_day', source: days },
         { type: 'text', placeholder: 'YEAR', size: 'short', name: 'transfer_year' } ],
-      step: 'Transfer date',
-      ok: 'out'
-    },
-    {
+        step: 'Transfer date',
+        ok: 'out'
+    }, {
       label: 'Can you detect this information?.',
       inputs: [
-        {
-        type: 'select',
-        placeholder: 'GENDER',
-        size: 'short',
-        name: 'gender',
-        source: ['male','female']
-      },
-      {
-        type: 'text',
-        placeholder: 'AGE',
-        size: 'short',
-        name: 'age'
-      },
-      {
-        type: 'text',
-        placeholder: 'REGISTER',
-        size: 'short',
-        name: 'register'
-      }
+        { type: 'select', placeholder: 'GENDER', size: 'short', name: 'gender', source: ['male','female'] },
+        { type: 'text', placeholder: 'AGE', size: 'short', name: 'age' },
+        { type: 'text', placeholder: 'REGISTER', size: 'short', name: 'register' }
       ],
       step: 'Other',
       ok: 'out'
@@ -198,8 +156,8 @@
 
       $(document).on('click', 'a.finish', Core._nextRecord);
 
-
       $(window).resize(function(){
+
         if (Core._resizePID) {
           clearTimeout(Core._resizePID);
         }
@@ -345,7 +303,7 @@
       $controls.append('<a class="button finish orange"><span></span></a>');
       $controls.find(".button span").html("Finish this record");
 
-      Core.$el.data('step', 0);
+      Core.$el.data('step', 1);
 
       // Binds ok button
       $controls.find('.fields li form .button').on('click', Core._nextRegister);
@@ -538,8 +496,8 @@
 
       if (step == previous) return false;
 
-      var $previousStep = $list.find('> li:eq(' + previous + ')');
-      var $currentStep  = $list.find('> li:eq(' + step + ')');
+      var $previousStep = $list.find('> li:eq(' + (previous - 1) + ')');
+      var $currentStep  = $list.find('> li:eq(' + (step - 1) + ')');
 
       $previousStep.fadeOut(300, function(ev) {
         $currentStep.fadeIn(300);
@@ -647,8 +605,8 @@
 
       if (step == previous) return false;
 
-      var $previousStep = $list.find('> li:eq(' + previous + ')');
-      var $currentStep  = $list.find('> li:eq(' + step + ')');
+      var $previousStep = $list.find('> li:eq(' + (previous - 1) + ')');
+      var $currentStep  = $list.find('> li:eq(' + (step - 1)+ ')');
 
       $previousStep.removeClass('selected');
 
@@ -670,8 +628,8 @@
 
       if (step == previous) return false;
 
-      var $previousStep = $list.find('> li:eq(' + previous + ')');
-      var $currentStep  = $list.find('> li:eq(' + step + ')');
+      var $previousStep = $list.find('> li:eq(' + (previous - 1) + ')');
+      var $currentStep  = $list.find('> li:eq(' + (step -1) + ')');
 
       $previousStep.removeClass('selected');
 
@@ -686,7 +644,7 @@
     /**
      * reset explanations list every time a record start
      */
-    _resetExplanations: function($el,previous) {
+    _resetExplanations: function($el, previous) {
       Core._manageExplanations($el,$el.data('step'),previous);
     },
 
@@ -697,8 +655,6 @@
     _createSkipTooltip: function() {
       // Tooltip
       var $tooltip = $('<div>').addClass('tooltip skip ' + Core.options.tooltips.skip.tail);
-
-      console.log($tooltip);
 
       // Title
       $tooltip.append('<h5>' + Core.options.tooltips.skip.title + '</h5>');
@@ -749,8 +705,6 @@
       $link        = $el.find('ul.fields li:eq(' + $el.data('step') + ') a.skip'),
       left         = $link.offset().left + $link.width() / 2 - tooltipWidth / 2 - 10,
       top          = $(".controls").offset().top - $(".controls").height() - $tooltip.height() + 15;
-
-      console.log($el, $tooltip, tooltipWidth, $link, left, top);
 
       $tooltip.css({ top: top, left: left + 'px' });
 
@@ -871,8 +825,6 @@
       $el          = $(ev.target).closest('div.transcribing'),
       step         = $el.data('step'),
       $transcriber = $el.find('div#transcriber');
-      console.log(step);
-
 
       if (step === 0) {
 
@@ -1018,7 +970,7 @@
         }
 
         // Selected?
-        if ( i == step-1 ) {
+        if ( i == step - 1 ) {
           $li.addClass('selected');
         } else {
           $li.removeClass('selected');
@@ -1057,7 +1009,6 @@
         values[i ] = {};
         for (var j = 0, __length = register.inputs.length; j < __length; j++) {
           values[i ][register.inputs[j].name] = '';
-          console.log(register.inputs[j].name);
         }
       }
 
@@ -1079,25 +1030,18 @@
         $el = unde;
       }
 
-      //console.log("Before", $el.data('values'));
-
       var
       previous = $el.data('step'),
       step     = to || Core._checkRegister($el, previous);
-
-      //console.log("After", $el.data('values'));
 
       $el.data('step',step);
 
       var stepData = Core.options.explanations[step];
 
-      Core._saveRegister($el,previous);
+      Core._saveRegister($el, previous);
 
-      // Manage explanations list
       Core._manageFields($el, step, previous);
       Core._manageExplanations($el, step, previous);
-
-      // Manage titles list
       Core._manageTitles($el,step,previous);
 
       // Manage record
@@ -1195,7 +1139,7 @@
 
       var // In the array will be previous
       values = $el.data('values'),
-      $form  = $el.find('ul.fields > li:eq(' + previous + ') form');
+      $form  = $el.find('ul.fields > li:eq(' + (previous - 1) + ') form');
 
       // Loop values
       $form.find('select, input[type="text"]').each(function(i, ele) {
@@ -1206,7 +1150,7 @@
         value = $ele.val();
 
         if (( $ele.is('input') && value != '' ) || ( $ele.is('select') && value != 0 )) {
-          values[previous ][name] = value;
+          values[previous - 1][name] = value;
         }
 
       });
@@ -1262,7 +1206,6 @@
       // Reset values and enable drag and resize again
       Core._resetTranscriber($el);
     },
-
 
     /**
      * Save the transcribed record.
