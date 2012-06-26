@@ -140,18 +140,15 @@
     _bind: function($el) {
 
       // Start or finish record
-      $el.find('a.checkRecord').on('click', Core._showSelector);
-
+      $(document).on('click', 'a.checkRecord', Core._showSelector);
       $(document).on('click', 'a.finish', Core._nextRecord);
 
-      $(window).resize(function(){
-
+      /*$(window).resize(function(){
         if (Core._resizePID) {
           clearTimeout(Core._resizePID);
         }
-
         Core._resizePID = setTimeout(function(){ Core._resize(); }, 100);
-      });
+      });*/
 
       // Skip the field
       $(document).on('click', 'a.skip', Core._showSkipTooltip);
@@ -165,7 +162,7 @@
           return;
         }
 
-        if ($(selection)) {
+        if ($(selection) != null) {
           var x = $(selection).offset().left;
           var y = $(selection).offset().top;
           var w = $(selection).width();
@@ -381,6 +378,11 @@
 
       var width  = w;
       var height = h;
+
+      Core.selection_x = x - Core.$el.find("img").offset().left;
+      Core.selection_y = y - $(".wrapper").height();
+      Core.selection_w = w;
+      Core.selection_h = h;
 
       Core.$selector.css({width: width, height: height});
 
@@ -1156,7 +1158,6 @@
 
         if (( $ele.is('input') && value != '' ) || ( $ele.is('select') && value != 0 )) {
           values[previous - 1][name] = value;
-          console.log(name, value);
         }
 
       });
@@ -1215,10 +1216,17 @@
       // Get the element values
       var values = $el.data('values');
 
-      console.log('Sending this values:', values);
+      var selection = { x: Core.selection_x, y: Core.selection_y, w: Core.selection_w, h: Core.selection_h };
+
+      var data =  {
+        values: values,
+        selection: selection
+      };
+
+      console.log('Sending this values:', data);
 
       // Send them to the server
-      $.ajax({ url: Core.options.saveURL, type: 'POST', data: values }, function(data) {
+      $.ajax({ url: Core.options.saveURL, type: 'POST', data: data }, function(data) {
         // Add callback
       });
 
