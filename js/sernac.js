@@ -196,8 +196,16 @@
       // Start or finish record
       $el.find('a.checkRecord').on('click', Core._showSelector);
 
-      // See the example
-      $el.find('a.example').on('click', Core._showExampleTooltip);
+      $(document).on('click', 'a.finish', Core._nextRecord);
+
+
+      $(window).resize(function(){
+        if (Core._resizePID) {
+          clearTimeout(Core._resizePID);
+        }
+
+        Core._resizePID = setTimeout(function(){ Core._resize(); }, 100);
+      });
 
       // Skip the field
       $(document).on('click', 'a.skip', Core._showSkipTooltip);
@@ -289,6 +297,9 @@
       ev.preventDefault();
     },
 
+    _resize: function() {
+      console.log(Core.$el.find("img"));
+    },
 
     /**
      * Create a loader for the image
@@ -448,7 +459,7 @@
 
       $("body").append("<div class='backdrop' />");
 
-      $img.css({ top: -1*y, left: -1*x + $(".transcribing img").offset().left});
+      $img.css({ top: -1*y, left: -1*x + $(".transcribing img").offset().left });
 
       Core.$selector.append($img);
       Core.$selector.hide();
@@ -737,7 +748,7 @@
       tooltipWidth = $tooltip.width(),
       $link        = $el.find('ul.fields li:eq(' + $el.data('step') + ') a.skip'),
       left         = $link.offset().left + $link.width() / 2 - tooltipWidth / 2 - 10,
-      top          = $(".controls").position().top - $(".controls").height() - $tooltip.height() + 15;
+      top          = $(".controls").offset().top - $(".controls").height() - $tooltip.height() + 15;
 
       console.log($el, $tooltip, tooltipWidth, $link, left, top);
 
@@ -810,45 +821,6 @@
 
 
     /**
-     * Show the record tooltip
-     */
-    _showExampleTooltip: function(ev) {
-
-      Core._preventDefault(ev);
-
-      var
-      $el = $(ev.target).closest('div.transcribing'),
-      $example = $el.find('div.bottom > div.tooltip.example'),
-      tooltipWidth = 200;
-
-      // Offset
-      var $link = $el.find('ul.explanations li:eq(' + $el.data('step') + ')').find('a.example');
-
-      if ($link.length > 0) {
-        var left   = $link.offset().left - tooltipWidth/2 + $link.width() / 2;
-
-        $example.css({ left: left + 'px' });
-
-        // Local binding for clicking out of the tooltip
-        $example.show(1, function(){
-          $('body').click(function(ev){
-            if ($(ev.target).closest('div.bottom > div.tooltip.example').length === 0) {
-              Core._hideRecordTooltip($example);
-            }
-          });
-          $('body').keydown(function(ev){
-            var keycode = ev.which;
-            if (keycode == 27) {
-              Core._hideRecordTooltip($example);
-            }
-          });
-        });
-      }
-
-    },
-
-
-    /**
      * Hide the record tooltip
      */
     _hideExampleTooltip: function($example) {
@@ -907,7 +879,7 @@
         $transcriber.removeClass('free');
 
         // Start $el values
-        $el.data('values',Core._resetValues($el));
+        $el.data('values', Core._resetValues($el));
 
         // If step is 0, is starting
         Core._nextRegister($el);
@@ -1024,18 +996,19 @@
      * Check step lists
      */
     _manageStepViewer: function($el,step) {
-      // Check list
-      var values = $el.data('values')
-      , pending = 0
-      , $list = $el.find('ul.steps');
+      var // Check list
+      values  = $el.data('values'),
+      pending = 0,
+      $list   = $el.find('ul.steps');
 
 
       // Until the end
       for (var i = 0; i < values.length; i++) {
 
-        var obj = values[i]
-        , completed = true
-        , $li = $list.find('li:eq(' + i + ')');
+        var
+        obj       = values[i],
+        completed = true,
+        $li       = $list.find('li:eq(' + i + ')');
 
         for (name in obj) {
           if (obj[name] == '' || obj[name] == 0) {
@@ -1045,7 +1018,7 @@
         }
 
         // Selected?
-        if (i==(step-1)) {
+        if ( i == step-1 ) {
           $li.addClass('selected');
         } else {
           $li.removeClass('selected');
@@ -1079,11 +1052,12 @@
     _resetValues: function($el) {
       var values = [];
 
-      for (var i = 1, _length = Core.options.explanations.length; i < _length; i++) {
+      for (var i = 0, _length = Core.options.explanations.length; i < _length; i++) {
         var register = Core.options.explanations[i];
-        values[i - 1] = {};
+        values[i ] = {};
         for (var j = 0, __length = register.inputs.length; j < __length; j++) {
-          values[i - 1][register.inputs[j].name] = '';
+          values[i ][register.inputs[j].name] = '';
+          console.log(register.inputs[j].name);
         }
       }
 
@@ -1105,9 +1079,13 @@
         $el = unde;
       }
 
-      var previous = $el.data('step')
-      , step = to || Core._checkRegister($el,previous);
+      //console.log("Before", $el.data('values'));
 
+      var
+      previous = $el.data('step'),
+      step     = to || Core._checkRegister($el, previous);
+
+      //console.log("After", $el.data('values'));
 
       $el.data('step',step);
 
@@ -1131,8 +1109,9 @@
      */
     _pendingRegisters: function($el) {
 
-      var values = $el.data('values')
-      , pending = 0;
+      var
+      values  = $el.data('values'),
+      pending = 0;
 
       // Until the end
       for (var i = 0; i < values.length; i++) {
@@ -1154,7 +1133,7 @@
     /**
      * Get the next step in the transcriber or finish it
      */
-    _checkRegister: function($el,previous) {
+    _checkRegister: function($el, previous) {
 
       var values = $el.data('values')
       , next_step = undefined;
@@ -1180,7 +1159,7 @@
       }
 
       // From the start if previous wasn't 0
-      if (next_step==undefined && previous!=0) {
+      if (next_step == undefined && previous!=0) {
         // From the beginning
         previous = 0;
 
@@ -1212,22 +1191,28 @@
     /**
      * Save the register if any change happened
      */
-    _saveRegister: function($el,previous) {
-      // In the array will be previous - 1
-      var values = $el.data('values')
-      , $form = $el.find('ul.explanations > li:eq(' + previous + ') form');
+    _saveRegister: function($el, previous) {
+
+      var // In the array will be previous
+      values = $el.data('values'),
+      $form  = $el.find('ul.fields > li:eq(' + previous + ') form');
 
       // Loop values
-      $form.find('select,input[type="text"]').each(function(i,ele){
-        var $ele = $(ele)
-        , name = $ele.attr('name')
-        , value = $ele.val();
+      $form.find('select, input[type="text"]').each(function(i, ele) {
 
-        if (($ele.is('input') && value != '') || ($ele.is('select') && value!=0)) {
-          values[previous-1][name] = value;
+        var
+        $ele  = $(ele),
+        name  = $ele.attr('name'),
+        value = $ele.val();
+
+        if (( $ele.is('input') && value != '' ) || ( $ele.is('select') && value != 0 )) {
+          values[previous ][name] = value;
         }
+
       });
-      $el.data('values',values);
+
+      $el.data('values', values);
+
     },
 
 
@@ -1262,7 +1247,8 @@
     /**
      * Move forward the transcriber to the next record if there are more.
      */
-    _nextRecord: function($el) {
+    _nextRecord: function() {
+      var $el = Core.$el;
 
       // Save values in the server
       Core._saveRecord($el);
@@ -1282,19 +1268,14 @@
      * Save the transcribed record.
      */
     _saveRecord: function($el) {
+
       // Get the element values
       var values = $el.data('values');
-      console.log("values", values);
 
-      // TODO: Add transcribed coordinates???
-      console.log('Sending this values:',values);
+      console.log('Sending this values:', values);
 
       // Send them to the server
-      $.ajax({
-        url: Core.options.saveURL,
-        type: 'POST',
-        data: values
-      });
+      $.ajax({ url: Core.options.saveURL, type: 'POST', data: values });
     }
   };
 
