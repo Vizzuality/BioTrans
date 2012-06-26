@@ -335,7 +335,7 @@
       Core.$el.data('step', 0);
 
       // Binds ok button
-      $controls.find('.explanations li form .button').on('click', Core._nextRegister);
+      $controls.find('.fields li form .button').on('click', Core._nextRegister);
 
       var left = Math.max(0, (($(window).width()  - $controls.outerWidth()) / 2) + $(window).scrollLeft());
       var top  = $("#selector").offset().top + Core.$selector.height() + 20;
@@ -552,7 +552,7 @@
      * first create the explanations
      */
     _createExplanations: function() {
-      var $list = $('<ul>').addClass('explanations');
+      var $list = $('<ul>').addClass('fields');
 
 
       // Add titles list
@@ -627,31 +627,47 @@
     },
 
     /**
-     * manage explanations every change or step
+     * manage fields every change or step
      */
-    _manageExplanations: function($el,step,previous) {
-      var $list = $el.find('.controls ul.explanations');
+    _manageFields: function($el,step,previous) {
+      var $list = $el.find('ul.fields');
 
       if (step == previous) return false;
 
-      var
-      $previousStep = $list.find('> li:eq(' + previous + ')'),
-      $currentStep  = $list.find('> li:eq(' + step + ')');
-      console.log($currentStep);
+      var $previousStep = $list.find('> li:eq(' + previous + ')');
+      var $currentStep  = $list.find('> li:eq(' + step + ')');
 
       $previousStep.removeClass('selected');
-      $currentStep.addClass('selected');
 
-      var width = 150  + $currentStep.width();
-      $(".controls").animate({ marginLeft: 0, left: ($(document).width() / 2 - width/2) - 10, width: width }, 250);
+      var width = $currentStep.width() + 150;
+      $el.find(".controls").animate({left: $(document).width()/2 - width/2 - 10, width:width}, 150);
 
       $previousStep.fadeOut(300, function(ev) {
-        $currentStep.fadeIn(300, function(ev) {
+        $currentStep.addClass('selected').fadeIn(300, function(ev) {
           $(this).find('form input, form select').first().focus();
         });
       });
 
-      return false;
+    },
+    /**
+     * manage explanations every change or step
+     */
+    _manageExplanations: function($el,step,previous) {
+      var $list = $el.find('ul.explanations');
+
+      if (step == previous) return false;
+
+      var $previousStep = $list.find('> li:eq(' + previous + ')');
+      var $currentStep  = $list.find('> li:eq(' + step + ')');
+
+      $previousStep.removeClass('selected');
+
+      $previousStep.fadeOut(300, function(ev) {
+        $currentStep.addClass('selected').fadeIn(300, function(ev) {
+          $(this).find('form input, form select').first().focus();
+        });
+      });
+
     },
 
     /**
@@ -1093,6 +1109,7 @@
       Core._saveRegister($el,previous);
 
       // Manage explanations list
+      Core._manageFields($el, step, previous);
       Core._manageExplanations($el, step, previous);
 
       // Manage titles list
