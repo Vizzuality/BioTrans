@@ -362,12 +362,30 @@
         });
       }
 
-      var $selector = $('<div>').attr('id','selector');
+      var $selector = $('<div>').attr('id', 'selector');
 
       Core.$selector = $selector;
 
       $(".transcribing").append($selector);
       Core._showSelection(x, y, w, h);
+    },
+
+    _removeSelection: function() {
+
+      Core.$hint.animate({ opacity: 0, top: Core.$hint.position().top + 20 }, 300, function() { $(this).remove(); });
+
+      Core.$controls.animate({ opacity: 0, top: Core.$controls.position().top - 20 }, 300, function() {
+
+        $(this).remove();
+
+        Core.$selector.fadeOut(250);
+
+        $(".backdrop").fadeOut(250, function() {
+          $(this).remove();
+        });
+      });
+
+
     },
 
     _showSelection: function(x, y, w, h) {
@@ -669,7 +687,6 @@
       // Tail
       $tooltip.append('<span class="tail"></span>');
 
-
       // LOCAL BINDINGS
 
       // Cancel
@@ -690,7 +707,6 @@
       return $tooltip;
     },
 
-
     /**
      * Show the record tooltip
      */
@@ -698,35 +714,36 @@
 
       Core._preventDefault(ev);
 
+
       var
       $el          = $(ev.target).closest('div.transcribing'),
       $tooltip     = $el.find('div.tooltip.skip'),
       tooltipWidth = $tooltip.width(),
-      $link        = $el.find('ul.fields li:eq(' + $el.data('step') + ') a.skip'),
-      left         = $link.offset().left + $link.width() / 2 - tooltipWidth / 2 - 10,
+      $link        = $el.find('ul.fields li:eq(' + ($el.data('step') - 1) + ') a.skip');
+
+      var left         = $link.offset().left + $link.width() / 2 - tooltipWidth / 2 - 10,
       top          = $(".controls").offset().top - $(".controls").height() - $tooltip.height() + 15;
 
-      $tooltip.css({ top: top, left: left + 'px' });
+      $tooltip.css({ top: top, left: left });
 
-      // Local binding for clicking out
-      // of the tooltip
+      // Local binding for clicking out of the tooltip
       $tooltip.show(1, function() {
-        $('body').click(function(ev) {
 
+        $('body').click(function(ev) {
           if ($(ev.target).closest('div.bottom > div.tooltip.skip').length === 0 || $(ev.target).closest('a.example').length > 0) {
             Core._hideRecordTooltip($tooltip);
           }
-
         });
+
         $('body').keydown(function(ev){
           var keycode = ev.which;
           if (keycode == 27) {
             Core._hideRecordTooltip($tooltip);
           }
         });
+
       });
     },
-
 
     /**
      * Hide the record tooltip
@@ -810,7 +827,7 @@
      * Reset record
      */
     _resetRecord: function($el,previous) {
-      Core._manageRecord($el,$el.data('step'),previous);
+      Core._manageRecord($el, $el.data('step'), previous);
     },
 
 
@@ -996,8 +1013,6 @@
       }
     },
 
-
-
     /**
      * Reset values of the transcriber
      */
@@ -1151,6 +1166,7 @@
 
         if (( $ele.is('input') && value != '' ) || ( $ele.is('select') && value != 0 )) {
           values[previous - 1][name] = value;
+          console.log(name, value);
         }
 
       });
@@ -1159,32 +1175,19 @@
 
     },
 
-
     /**
      * Reset the transcriber to start from the beginning
      */
     _resetTranscriber: function($el) {
-      // Reset step and drag&resize
+      // Reset step and drag & resize
       var previous = $el.data('step');
 
-      $el.data({step:0});
+      $el.data({ step: 0 });
+      $el.data('values', {});
 
-      var $transcriber = $el.find('div#transcriber');
-
-      $transcriber
-      .resizable({ disabled: false })
-      .draggable({ disabled: false });
-
-      $transcriber.addClass('free');
-
-      // Reset top list
-      Core._resetTitles($el,previous);
-
-      // Reset explanation list (bottom)
-      Core._resetExplanations($el,previous);
-
-      // Reset record
-      Core._resetRecord($el,previous);
+      Core._resetTitles($el, previous);       // Reset top list
+      Core._resetExplanations($el, previous); // Reset explanation list (bottom)
+      Core._resetRecord($el, previous);       // Reset record
     },
 
 
@@ -1205,6 +1208,7 @@
 
       // Reset values and enable drag and resize again
       Core._resetTranscriber($el);
+      Core._removeSelection();
     },
 
     /**
