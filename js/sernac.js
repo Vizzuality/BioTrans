@@ -630,21 +630,28 @@
      * manage explanations every change or step
      */
     _manageExplanations: function($el,step,previous) {
-      var $list = $el.find('ul.explanations');
+      var $list = $el.find('.controls ul.explanations');
 
       if (step == previous) return false;
 
-      var $previousStep = $list.find('> li:eq(' + previous + ')');
-      var $currentStep  = $list.find('> li:eq(' + step + ')');
+      var
+      $previousStep = $list.find('> li:eq(' + previous + ')'),
+      $currentStep  = $list.find('> li:eq(' + step + ')');
+      console.log($currentStep);
 
       $previousStep.removeClass('selected');
+      $currentStep.addClass('selected');
+
+      var width = 150  + $currentStep.width();
+      $(".controls").animate({ marginLeft: 0, left: ($(document).width() / 2 - width/2) - 10, width: width }, 250);
 
       $previousStep.fadeOut(300, function(ev) {
-        $currentStep.addClass('selected').fadeIn(300, function(ev) {
+        $currentStep.fadeIn(300, function(ev) {
           $(this).find('form input, form select').first().focus();
         });
       });
 
+      return false;
     },
 
     /**
