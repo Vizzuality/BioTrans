@@ -26,8 +26,18 @@ input.green {
     padding:7px 13px 6px;
     background:#6EB422;
   }
-}
 
+  &.disabled, &.disabled:active {
+    opacity:0.5;
+    padding:6px 13px 7px;
+    background:#669933;
+
+    &:hover {
+      background:#669933;
+    }
+
+  }
+}
 
 a.orange,
 button.orange,

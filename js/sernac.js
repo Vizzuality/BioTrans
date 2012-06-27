@@ -328,7 +328,7 @@
       var $legend = $('<div>').attr('class', 'box');
 
       $legend.append('<span />');
-      $legend.append('<a class="button green checkRecord"><span></span></a>');
+      $legend.append('<a class="button disabled green checkRecord"><span></span></a>');
 
       Core.$legend = $legend;
 
@@ -367,7 +367,10 @@
 
         $(this).remove();
 
-        Core.$selector.fadeOut(250);
+        Core.$selector.fadeOut(250, function() {
+          $(this).remove();
+          Core.$selector = null;
+        });
 
         $(".backdrop").fadeOut(250, function() {
           $(this).remove();
@@ -381,6 +384,8 @@
 
       var width  = w;
       var height = h;
+
+      Core.$legend.find(".disabled").removeClass("disabled");
 
       Core.selection_x = x - Core.$el.find("img").offset().left;
       Core.selection_y = y - $(".wrapper").height();
