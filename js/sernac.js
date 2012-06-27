@@ -123,6 +123,8 @@
 
         Core.$el = $el;
 
+        $(".transcribing").css({ height: $(document).height() });
+
         Core._createLoader($el);
 
         Core.$el.append(Core._createSkipTooltip());
@@ -248,9 +250,10 @@
      * Create a loader for the image
      */
     _createLoader: function($el) {
-      // Create loader
-      var loader = $('<div>').addClass('loader')
-      , spinner = new Spinner({color:'white'}).spin();
+
+      var // Create loader
+      loader  = $('<div>').addClass('loader'),
+      spinner = new Spinner({ color:'white' }).spin();
 
       // Add it to its parent
       loader.append(spinner.el);
