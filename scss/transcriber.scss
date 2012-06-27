@@ -124,9 +124,17 @@ body.sernac div.transcribing {
 
   &.hollow {
     background:rgba(255,103,1, .15);
+
     border:1px solid #FF6701;
     @include box-shadow(none);
     cursor: pointer;
+
+    @include transition-property(background-color);
+    @include transition-duration(500ms);
+
+    &:hover {
+      background:rgba(255,103,1, .30);
+    }
   }
 
   img {
