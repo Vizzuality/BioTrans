@@ -105,6 +105,8 @@ body.sernac div.transcribing {
     top: -7px;
     left: -7px;
     opacity:.8;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+
     li {
       font-size:11px;
       background:none;
@@ -113,6 +115,9 @@ body.sernac div.transcribing {
   }
 }
 
+.lt-ie7,
+.lt-ie8,
+.lt-ie9,
 .lt-ie10 {
   #selector img { zoom: 2; }
 }
@@ -199,6 +204,7 @@ div.transcribing {
 
     opacity:0;
 
+    background:url('../img/bg-button.png');
     background: rgba(0, 0, 0, 0.7);
 
     text-align:left;
@@ -843,7 +849,8 @@ div.tooltip {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 10000;
   opacity: .5;
-}
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
 
+  z-index: 10000;
+}
