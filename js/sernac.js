@@ -411,7 +411,7 @@
       var y = Core.$selector.offset().top;
       var x = Core.$selector.offset().left;
 
-      var width = w*2;
+      var width  = w*2;
       var height = h*2;
 
       if (width < 480)  width = 480;
@@ -423,6 +423,7 @@
       Core.$selector.css({width: width, height: height});
       var top = Math.max(0, (($(window).height() - Core.$selector.outerHeight()) / 2) + $(window).scrollTop());
       var left= Math.max(0, (($(window).width()  - Core.$selector.outerWidth()) / 2) + $(window).scrollLeft());
+
       Core.$selector.css({ left: left, top: top });
       Core.$selector.removeClass("hollow");
 
@@ -434,7 +435,7 @@
 
       $("body").append("<div class='backdrop' />");
 
-      $img.css({ top: -1*y, left: -1*x + $(".transcribing img").offset().left });
+      $img.css({ top: -1*Core.selection_y*2, left: -1*Core.selection_x*2 });
 
       Core.$selector.append($img);
       Core.$selector.hide();
