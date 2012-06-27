@@ -435,7 +435,11 @@
 
       $("body").append("<div class='backdrop' />");
 
-      $img.css({ top: -1*Core.selection_y*2, left: -1*Core.selection_x*2 });
+      if ($.browser.msie && $.browser.version == 8) {
+        $img.css({ top: -1*Core.selection_y, left: -1*Core.selection_x });
+      } else {
+        $img.css({ top: -1*Core.selection_y*2, left: -1*Core.selection_x*2 });
+      }
 
       Core.$selector.append($img);
       Core.$selector.hide();

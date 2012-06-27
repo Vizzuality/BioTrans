@@ -120,6 +120,26 @@ body.sernac div.transcribing {
 .lt-ie9,
 .lt-ie10 {
   #selector img { zoom: 2; }
+
+
+}
+
+.lt-ie9 {
+
+  #selection {
+    background:rgb(255,103,1);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+    &:hover {
+      background:rgb(255,103,1);
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+    }
+  }
+
+  #selector.hollow {
+    background:none;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  }
+
 }
 
 #selector {
@@ -134,9 +154,9 @@ body.sernac div.transcribing {
     background:rgba(255,103,1, .15);
 
     border:1px solid #FF6701;
-    @include box-shadow(none);
     cursor: pointer;
 
+    @include box-shadow(none);
     @include transition-property(background-color);
     @include transition-duration(500ms);
 
